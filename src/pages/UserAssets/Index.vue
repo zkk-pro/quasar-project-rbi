@@ -1,53 +1,36 @@
 <template>
-  <q-page>
+  <q-page class="q-pb-xl">
     <div class="header column justify-center items-center">
       <div class="header-text">总资产</div>
       <div class="header-number">199999.1234</div>
       <div class="header-btn row items-center ">
         <div
           v-ripple
-          class="btn withdraw-btn row justify-center items-center relative-position"
+          class="btn withdraw-btn row justify-center items-center relative-position cursor-pointer"
           to="/mining"
-          @click="showAddress = !showAddress"
+          @click=";[(showWithDraw = false), (showAddress = !showAddress)]"
         >
           充币
         </div>
         <div
           v-ripple
-          class="btn recharge-btn row justify-center items-center relative-position"
-          to="/mining"
+          class="btn recharge-btn row justify-center items-center relative-position cursor-pointer"
+          @click=";[(showAddress = false), (showWithDraw = !showWithDraw)]"
         >
           提币
         </div>
       </div>
     </div>
-    <div class="q-px-md" v-if="showAddress">
-      <span>RBI充币</span>
-      <div
-        class="column items-center q-mt-sm"
-        style="background: rgba(255, 255, 255, 0.05); margin-bottom: 40px"
-      >
-        <span class="q-pt-lg">我的RBI地址</span>
-        <div class="q-pt-md">{{ address }}</div>
-        <div class="q-mt-xl q-mb-md">
-          <q-btn
-            outline
-            color="primary"
-            label="复制地址"
-            class="q-mr-lg"
-            style="width:120px; height: 36px"
-            @click="copyAddress"
-          />
-          <q-btn
-            color="primary"
-            text-color="dark"
-            label="二维码"
-            style="width:120px; height: 36px"
-          />
-        </div>
-      </div>
-    </div>
-    <q-list separator style="background: rgba(255,255,255,0.05)">
+    <!-- 充币 -->
+    <RechargeAddress :address="address" qrcode="" v-if="showAddress" />
+    <!-- 提币 -->
+    <WithdrawForm
+      v-if="showWithDraw"
+      @cancel=";[(showWithDraw = false)]"
+      @confirm="withdrawConfirm"
+    />
+    <!-- 交易记录 -->
+    <q-list style="background: rgba(255,255,255,0.05)">
       <q-item-label
         header
         class="q-pt-none q-pb-md"
@@ -55,69 +38,49 @@
       >
         交易记录
       </q-item-label>
-      <!-- class="q-py-md" dense -->
-      <q-expansion-item v-for="item in '123'" :key="item" dark dense  group="group">
-        <template v-slot:header>
-          <q-item class="q-py-md row" style="flex:1">
-            <q-item-section>
-              <div>V2节点挖矿收益</div>
-              <div class="q-mt-md text-grey-8" style="font-size: 11px">
-                2020-05-06 14:22:12
+      <div v-for="item in '123'" :key="item">
+        <!-- 没有扩展项 -->
+        <!-- <EarningItem class="q-px-md" /> -->
+        <!-- 有扩展项 -->
+        <q-expansion-item dense group="group" expand-icon="img:statics/icons/arrow-up.png">
+          <template v-slot:header>
+            <EarningItem />
+          </template>
+          <q-card style="background: #1B1F41">
+            <q-card-section class="content" style="">
+              <div class="q-mb-xs">对方地址:</div>
+              <div class="q-mb-lg">
+                0x2c4192c55654ac6dcfd9f7bc2ea1869bdfdaa25e
               </div>
-            </q-item-section>
-            <q-item-section style="text-align: right">
-              <!-- + #14BE7D  - #FC4A1A -->
-              <span
-                :style="{ color: 123 > 0 ? '#14BE7D' : '#FC4A1A' }"
-                style="font-size: 15px"
-              >
-                {{ 123 > 0 ? '+' : '-' }}123
-              </span>
-            </q-item-section>
-          </q-item>
-        </template>
-        <q-card style="background: #1B1F41">
-          <q-card-section class="content" style="">
-            <div class="q-mb-xs">对方地址:</div>
-            <div class="q-mb-lg">
-              0x2c4192c55654ac6dcfd9f7bc2ea1869bdfdaa25e
-            </div>
-            <div class="q-mb-xs">交易ID:</div>
-            <div>
-              5cdf4409a0ffce35dfa653b23dfdaadef2a6774824633b0f691ea999bdd5cc27
-            </div>
-          </q-card-section>
-        </q-card>
-      </q-expansion-item>
+              <div class="q-mb-xs">交易ID:</div>
+              <div>
+                5cdf4409a0ffce35dfa653b23dfdaadef2a6774824633b0f691ea999bdd5cc27
+              </div>
+            </q-card-section>
+          </q-card>
+        </q-expansion-item>
+        <q-separator style="background: rgba(255,255,255,0.05)" />
+      </div>
     </q-list>
   </q-page>
 </template>
 
 <script>
+import RechargeAddress from 'components/RechargeAddress'
+import WithdrawForm from 'components/WithdrawForm'
+import EarningItem from 'components/EarningItem'
 export default {
   data() {
     return {
-      showAddress: false,
+      showAddress: false, // 显示充币
+      showWithDraw: false, // 显示提币表单
       address: '7197291729dhahhdehsss@BBbwallet'
     }
   },
+  components: { RechargeAddress, WithdrawForm, EarningItem },
   methods: {
-    async copyAddress() {
-      try {
-        await this.$copyText(this.address)
-        this.$q.notify({
-          icon: 'done',
-          textColor: 'green',
-          message: '地址复制成功'
-        })
-      } catch (error) {
-        console.log(error)
-        this.$q.notify({
-          icon: 'warning',
-          textColor: 'red',
-          message: '地址复制失败'
-        })
-      }
+    withdrawConfirm(data) {
+      console.log(data)
     }
   }
 }
@@ -127,6 +90,12 @@ export default {
 // 上下箭头的padding
 .q-item__section--side {
   padding: 0;
+  img {
+    width: 14px;
+    height: 9px;
+    margin-right: -9px;
+    margin-left: 7px;
+  }
 }
 </style>
 

@@ -19,6 +19,7 @@
             color="blue-grey-8"
             text-color="blue-grey-8"
             outline
+            @click=";[(confirmClick = false), $emit('cancel')]"
             v-close-popup
             style="margin-right: 20px"
           />
@@ -27,7 +28,6 @@
             label="确定"
             color="primary"
             text-color="blue-grey-8"
-            v-close-popup
             @click="confirm"
           />
         </div>
@@ -39,7 +39,8 @@
 <script>
 export default {
   props: {
-    title: String
+    title: String,
+    confirmHold: Boolean
   },
   data() {
     return {
@@ -59,12 +60,24 @@ export default {
     },
     // 确认按钮
     confirm() {
-      this.confirmClick = true
-      this.close()
+      console.log(this.confirmHold)
+      if (this.confirmHold) {
+        this.$emit('confirm')
+      } else {
+        this.confirmClick = true
+        this.close()
+      }
     },
     // 弹框隐藏事件
     onDialogHide() {
       this.confirmClick && this.$emit('confirm')
+    }
+  },
+  watch: {
+    confirmHold(val) {
+      if (!this.confirmHold) {
+        this.confirm()
+      }
     }
   }
 }

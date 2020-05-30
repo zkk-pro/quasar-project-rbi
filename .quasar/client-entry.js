@@ -41,6 +41,8 @@ import qboot_Bootaxios from 'boot/axios'
 
 import qboot_Bootclipboard from 'boot/clipboard'
 
+import qboot_Bootsafe from 'boot/safe'
+
 
 
 
@@ -71,7 +73,7 @@ async function start () {
   }
 
   const urlPath = window.location.href.replace(window.location.origin, '')
-  const bootFiles = [qboot_Booti18n,qboot_Bootaxios,qboot_Bootclipboard]
+  const bootFiles = [qboot_Booti18n,qboot_Bootaxios,qboot_Bootclipboard,qboot_Bootsafe]
 
   for (let i = 0; routeUnchanged === true && i < bootFiles.length; i++) {
     if (typeof bootFiles[i] !== 'function') {

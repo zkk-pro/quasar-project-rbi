@@ -31,7 +31,8 @@ const routes = [
           }
         ]
       },
-      { path: 'assets', component: () => import('pages/UserAssets') }
+      { path: 'assets', component: () => import('pages/UserAssets') },
+      { path: 'earning-detail', component: () => import('pages/EarningDetail') }
     ]
   }
 ]

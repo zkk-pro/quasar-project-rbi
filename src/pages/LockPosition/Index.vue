@@ -33,7 +33,6 @@
             filled
             dense
             :style="nodeInputStyle"
-            input-class="node-input"
             label-color="white"
             :input-style="{ color: '#fff' }"
             placeholder="输入需要锁定的RBI数量"
@@ -87,13 +86,9 @@ import Breadcrumb from 'components/Breadcrumb'
 import Dialog from 'components/Dialog'
 import SafeValidate from 'components/SafeValidate'
 export default {
+  inject: ['nodeInputStyle'],
   data() {
     return {
-      nodeInputStyle: {
-        backgroundColor: 'rgba(255,255,255,.2)',
-        borderRadius: '4px',
-        color: '#fff'
-      },
       showConfirm: false,
       currentNode: 2 // 当前选择的节点
     }

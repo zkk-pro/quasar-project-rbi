@@ -48,6 +48,7 @@
 
 <script>
 export default {
+  name: 'SafeValidate',
   props: {
     // 验证类型：google、phone、email
     validType: {
