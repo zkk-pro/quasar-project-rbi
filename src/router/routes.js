@@ -31,7 +31,30 @@ const routes = [
           }
         ]
       },
-      { path: 'assets', component: () => import('pages/UserAssets') }
+      { path: 'assets', component: () => import('pages/UserAssets') },
+      {
+        path: 'message',
+        meta: { title: '公告列表' },
+        component: () => import('pages/Message'),
+        children: [
+          {
+            path: '/',
+            meta: { title: '订单详情' },
+            component: () => import('pages/MessageList')
+          },
+          {
+            path: 'message-detail',
+            meta: { title: '订单详情' },
+            component: () => import('pages/MessageDetail')
+          }
+        ]
+      }
+      // ,
+      // {
+      //   path: '/message-detail',
+      //   meta: { title: '公告詳情' },
+      //   component: () => import('pages/MessageDetail')
+      // }
     ]
   }
 ]
