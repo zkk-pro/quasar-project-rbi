@@ -178,12 +178,14 @@ export default {
       console.log(this.inputPINValue)
     },
     confirm() {
-      this.$refs.inputPINDialog.open()
-      this.inputPINFocus()
+      this.$refs.unsetPINDialog.open()
+      // this.$refs.inputPINDialog.open()
+      // this.inputPINFocus()
     },
     // 没有设置 PIN confirm 事件
     unsetPINDialogHandle() {
       console.log('设置密码点击确认')
+      // this.$refs.unsetPINDialog.open()
       // this.$refs.SafeValidate.open()
       this.$refs.setPINDialog.open()
     },

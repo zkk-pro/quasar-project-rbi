@@ -32,7 +32,12 @@ const routes = [
         ]
       },
       { path: 'assets', component: () => import('pages/UserAssets') },
-      { path: 'earning-detail', component: () => import('pages/EarningDetail') }
+      {
+        path: 'earning-detail',
+        component: () => import('pages/EarningDetail')
+      },
+      { path: 'message-list', component: () => import('pages/MessageList') },
+      { path: 'message-detail', component: () => import('pages/MessageDetail') }
     ]
   }
 ]
