@@ -11,14 +11,14 @@
           <q-icon name="img:statics/icons/output-icon.png"></q-icon>
           <span class="output-text">今日产出量</span>
         </div>
-        <Number :number="123.1" />
+        <Number :number="todayTotal" />
       </div>
       <div class="column items-center" style="flex: 1">
         <div class="row items-cneter" style="margin-bottom: 15px">
           <q-icon name="img:statics/icons/output-icon.png"></q-icon>
           <span class="output-text">总产出量</span>
         </div>
-        <Number :number="123.1" />
+        <Number :number="total" />
       </div>
     </div>
     <node-lock-item
@@ -40,7 +40,9 @@ import { getNodeList } from 'src/api/apiList'
 export default {
   data() {
     return {
-      nodeList: []
+      nodeList: [],
+      todayTotal: 0,
+      total: 0
     }
   },
   components: { Number, NodeLockItem },
@@ -48,6 +50,8 @@ export default {
     async getNodeList() {
       const { data } = await getNodeList()
       this.nodeList = data.list
+      this.todayTotal = data.todayOutput
+      this.total = data.totalOutput
     }
   },
   created() {
