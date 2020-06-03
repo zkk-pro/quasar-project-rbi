@@ -14,7 +14,7 @@ export function login(params) {
 }
 // 挖矿订单
 export function orderList(params) {
-  return http.get('usernode/order/list', { params })
+  return http.get('userNode/order/list', { params })
 }
 // pos 挖矿 列表
 export function getNodeList() {
@@ -22,5 +22,5 @@ export function getNodeList() {
 }
 // 用户信息
 export function getUserInfo() {
-  return http.get('userinfo/index')
+  return http.get('userInfo/index')
 }

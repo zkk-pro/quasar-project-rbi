@@ -22,7 +22,6 @@
       </div>
     </div>
     <node-lock-item
-
       style="margin-top:15px"
       v-for="item in nodeList"
       :key="item.id"
