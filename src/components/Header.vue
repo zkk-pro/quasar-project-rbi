@@ -36,11 +36,16 @@
 
         <!-- 个人中心icon 菜单栏 -->
         <Menu :menuData="accountMenu" target=".account">
-          <template v-slot:triangleIcon>
+          <template v-slot:triangleIcon v-if="$store.getters.token">
             <i class="triangle"></i>
           </template>
-          <template>
-            <q-item clickable v-close-popup class="row items-center">
+          <template v-if="$store.getters.token">
+            <q-item
+              clickable
+              v-close-popup
+              class="row items-center"
+              @click="logout"
+            >
               <q-icon :name="'img:statics/icons/menu-exit.png'"></q-icon>
               <span class="q-ml-sm text-dark">退出</span>
             </q-item>
@@ -64,11 +69,24 @@ export default {
       accountMenu: [
         { text: '挖矿订单', icon: 'menu-order', path: '/mining-order' },
         { text: '收益明细', icon: 'menu-earning', path: '/earning-detail' },
-        { text: '个人中心', icon: 'menu-user', path: '/user-center' }
+        { text: '个人中心', icon: 'menu-user', path: '/user-info' }
       ]
     }
   },
-  components: { Menu }
+  components: { Menu },
+  methods: {
+    logout() {
+      this.$store.dispatch('Logout')
+      this.$q.notify({
+        message: '退出成功',
+        icon: 'done',
+        textColor: 'green'
+      })
+      setTimeout(() => {
+        location.reload()
+      }, 1500)
+    }
+  }
 }
 </script>
 

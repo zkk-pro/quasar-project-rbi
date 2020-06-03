@@ -1,13 +1,12 @@
 <template>
-  <div class="node-v  row items-center" :class="'node-v-' + node">V1节点</div>
+  <div class="node-v  row items-center" :class="'node-v-' + node">V{{node}}节点</div>
 </template>
 
 <script>
 export default {
   props: {
     node: {
-      type: String,
-      required: true
+      type: String
     }
   }
 }

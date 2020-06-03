@@ -1,4 +1,4 @@
-// 安全验证组件
+// 全局组件
 import Vue from 'vue'
 import SafeValidate from 'components/SafeValidate'
 

@@ -1,7 +1,7 @@
 <template>
   <div class="node" @click="$emit('nodeClick')">
     <div class="node-name relative-position">
-      <node-icon node="1" />
+      <node-icon :node="nodeData.name" />
       <div class="date q-mt-sm" v-if="!showBtn">2020-05-10 11:11</div>
       <div
         v-if="!showBtn"
@@ -13,20 +13,19 @@
     </div>
 
     <div class="node-info column items-center" style="flex:1">
-      <!-- <div class="rbi-number"><strong>100</strong>RBI</div> -->
-      <Number :number="123.01" big-size="30px" small-size="13px" />
-      <div class="rbi-yield">瓜分POS挖矿收益的45%</div>
+      <Number :number="nodeData.num" big-size="30px" small-size="13px" />
+      <div class="rbi-yield">瓜分POS挖矿收益的{{ nodeData.rate * 100 }}%</div>
       <q-btn
         v-if="showBtn"
         rounded
         label="去锁仓>"
         color="dark"
         text-color="cyan-12"
-        :disable="disabled"
-        :outline="!disabled"
         to="/lock-position"
         style="width: 160px;height:40px"
       />
+      <!-- :disable="!!nodeData.status"
+        :outline="!nodeData.status" -->
     </div>
   </div>
 </template>
@@ -37,7 +36,8 @@ import Number from 'components/Number'
 
 export default {
   props: {
-    showBtn: Boolean
+    showBtn: Boolean,
+    nodeData: Object
   },
   data() {
     return {
@@ -45,7 +45,8 @@ export default {
       status: 1
     }
   },
-  components: { NodeIcon, Number }
+  components: { NodeIcon, Number },
+  created() {}
 }
 </script>
 

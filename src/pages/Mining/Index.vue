@@ -16,21 +16,43 @@
       <div class="column items-center" style="flex: 1">
         <div class="row items-cneter" style="margin-bottom: 15px">
           <q-icon name="img:statics/icons/output-icon.png"></q-icon>
-          <span class="output-text">今日产出量</span>
+          <span class="output-text">总产出量</span>
         </div>
         <Number :number="123.1" />
       </div>
     </div>
-    <node-lock-item style="margin-top:15px" v-for="item in '123'" :key="item" show-btn />
+    <node-lock-item
+
+      style="margin-top:15px"
+      v-for="item in nodeList"
+      :key="item.id"
+      :nodeData="item"
+      show-btn
+    />
   </q-page>
 </template>
 
 <script>
 import Number from 'components/Number'
 import NodeLockItem from 'components/NodeLockItem'
+import { getNodeList } from 'src/api/apiList'
 
 export default {
-  components: { Number, NodeLockItem }
+  data() {
+    return {
+      nodeList: []
+    }
+  },
+  components: { Number, NodeLockItem },
+  methods: {
+    async getNodeList() {
+      const { data } = await getNodeList()
+      this.nodeList = data.list
+    }
+  },
+  created() {
+    this.getNodeList()
+  }
 }
 </script>
 

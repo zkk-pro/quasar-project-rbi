@@ -37,11 +37,9 @@ import createApp from './app.js'
 
 import qboot_Booti18n from 'boot/i18n'
 
-import qboot_Bootaxios from 'boot/axios'
-
 import qboot_Bootclipboard from 'boot/clipboard'
 
-import qboot_Bootsafe from 'boot/safe'
+import qboot_BootglobalComponent from 'boot/globalComponent'
 
 
 
@@ -73,7 +71,7 @@ async function start () {
   }
 
   const urlPath = window.location.href.replace(window.location.origin, '')
-  const bootFiles = [qboot_Booti18n,qboot_Bootaxios,qboot_Bootclipboard,qboot_Bootsafe]
+  const bootFiles = [qboot_Booti18n,qboot_Bootclipboard,qboot_BootglobalComponent]
 
   for (let i = 0; routeUnchanged === true && i < bootFiles.length; i++) {
     if (typeof bootFiles[i] !== 'function') {

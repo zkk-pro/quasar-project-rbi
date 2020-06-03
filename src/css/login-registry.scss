@@ -1,0 +1,63 @@
+// 登录注册样式
+
+// 覆盖组件样式
+/deep/ .q-field__label {
+  font-size: 14px;
+  color: #666 !important;
+}
+/deep/ .q-field__control {
+  &::before {
+    border-color: #666;
+    opacity: 0.4;
+  }
+}
+// --END--
+
+.q-page {
+  background: url('~assets/images/sign-bg.png');
+  background-size: 100% 100%;
+  padding-top: 60px;
+}
+.title {
+  font-size: 30px;
+  font-weight: 800;
+  position: relative;
+  z-index: 10;
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 60px;
+    height: 8px;
+    background: #106C8A;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    z-index: -1;
+  }
+}
+
+.pwd-invisible {
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url('~assets/images/pwd-invisible.png');
+    background-size: 100% 100%;
+  }
+}
+.pwd-visible {
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url('~assets/images/pwd-visible.png');
+    background-size: 100% 100%;
+  }
+}
+.btn-style {
+  height: 46px;
+  font-weight: bold;
+  font-size: 16px;
+}

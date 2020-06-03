@@ -9,7 +9,7 @@
 export default {
   props: {
     number: {
-      type: Number,
+      type: [Number, String],
       required: true
     },
     bigSize: {

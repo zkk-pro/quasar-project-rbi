@@ -37,7 +37,20 @@ const routes = [
         component: () => import('pages/EarningDetail')
       },
       { path: 'message-list', component: () => import('pages/MessageList') },
-      { path: 'message-detail', component: () => import('pages/MessageDetail') }
+      {
+        path: 'message-detail',
+        component: () => import('pages/MessageDetail')
+      },
+      { path: 'login', component: () => import('pages/Login') },
+      { path: 'registry', component: () => import('pages/Registry') },
+      { path: 'user-info', component: () => import('pages/UserInfo') },
+      {
+        path: 'f-g-validator',
+        component: () => import('pages/GoogleValidatorFirst')
+      },
+      { path: 'g-validator', component: () => import('pages/GoogleValidator') },
+      { path: 'modify-pin', component: () => import('pages/ModifyPIN') },
+      { path: 'modify-pwd', component: () => import('pages/ModifyPwd') }
     ]
   }
 ]

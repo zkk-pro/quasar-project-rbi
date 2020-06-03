@@ -1,11 +1,5 @@
 <template>
   <q-page>
-    <q-btn
-      color="text-white"
-      label="显示弹框"
-      @click="$refs.safeDialog.open()"
-    />
-    <safe-validate ref="safeDialog" validType="email" />
     <q-carousel
       height="210px"
       v-model="currentImg"
@@ -53,7 +47,6 @@
         </q-carousel-slide>
       </q-carousel>
       <router-link to="/message-list" class="notice-more">查看更多>></router-link>
-      <!-- <div class="notice-more" @click="messageList">查看更多>></div> -->
     </div>
 
     <div class="intro q-mt-lg column justify-center items-center q-px-md">
@@ -119,8 +112,8 @@
         <div class="intro-title">
           空投合作交易所N9EX.COM
         </div>
-        <div class="intro-list q-ml-xs q-my-md">
-          1.注册交易空投1000RBI
+        <div class="intro-list q-ml-xs q-my-md one-icon">
+          注册交易空投1000RBI
         </div>
         <div class="intro-content q-my-md q-ml-lg">
           <p class="q-mb-sm">
@@ -132,8 +125,8 @@
           </p>
         </div>
         <img src="~assets/images/sheet1.png" alt="" width="100%" />
-        <div class="intro-list q-ml-xs q-my-md">
-          2.邀请返佣
+        <div class="intro-list q-ml-xs q-my-md two-icon">
+          邀请返佣
         </div>
         <div class="intro-content q-my-md q-ml-lg">
           <p class="q-mb-sm">
@@ -233,7 +226,6 @@
 </template>
 
 <script>
-import SafeValidate from 'components/SafeValidate'
 import Footer from 'components/Footer'
 
 export default {
@@ -245,7 +237,7 @@ export default {
       currentText: 1
     }
   },
-  components: { SafeValidate, Footer },
+  components: { Footer },
   methods: {
     messageList() {
       // this.$router.push({ path: '/pages/message-list' })

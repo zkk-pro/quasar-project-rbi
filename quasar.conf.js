@@ -7,12 +7,12 @@
 // https://quasar.dev/quasar-cli/quasar-conf-js
 /* eslint-env node */
 
-module.exports = function(/* ctx */) {
+module.exports = function(ctx) {
   return {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/cli-documentation/boot-files
-    boot: ['i18n', 'axios', 'clipboard', 'safe'],
+    boot: ['i18n', 'clipboard', 'globalComponent'],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
     css: ['app.scss'],
@@ -78,6 +78,13 @@ module.exports = function(/* ctx */) {
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
       vueRouterMode: 'hash', // available values: 'hash', 'history'
+      publicPath: './',
+      env: ctx.dev
+        // ? { API: JSON.stringify('http://192.168.1.197:7410/api/h5/') }
+        ? { API: JSON.stringify('/api') }
+        : {
+          API: JSON.stringify('prod')
+        },
 
       // rtl: false, // https://quasar.dev/options/rtl-support
       // preloadChunks: true,
@@ -101,6 +108,15 @@ module.exports = function(/* ctx */) {
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
+      proxy: {
+        '/api': {
+          target: 'http://192.168.1.197:7410/api/h5/',
+          changeOrigin: true,
+          pathRewrite: {
+            '^/api': ''
+          }
+        }
+      },
       https: false,
       port: 8080,
       open: true // opens browser window automatically

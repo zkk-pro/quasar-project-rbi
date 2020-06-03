@@ -12,14 +12,52 @@ body {
   font-weight: 400;
 }
 
-a, a:link, a:visited, a:hover, a:active, a:focus {
+a,
+a:link,
+a:visited,
+a:hover,
+a:active,
+a:focus {
   text-decoration: none;
   color: inherit;
 }
 
-.mt10{
+.mt10 {
   margin-top: 10px;
 }
-.mt20{
+.mt20 {
   margin-top: 20px;
+}
+
+.number-icon {
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 14px;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+}
+
+.one-icon {
+  &::before {
+    @extend .number-icon;
+    background: url(~assets/images/one-icon.png);
+    background-size: 100% 100%;
+  }
+}
+.two-icon {
+  &::before {
+    @extend .number-icon;
+    background: url(~assets/images/two-icon.png);
+    background-size: 100% 100%;
+  }
+}
+.three-icon {
+  &::before {
+    @extend .number-icon;
+    background: url(~assets/images/three-icon.png);
+    background-size: 100% 100%;
+  }
 }

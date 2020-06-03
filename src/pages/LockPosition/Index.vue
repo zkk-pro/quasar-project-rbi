@@ -13,50 +13,56 @@
         >
         <q-card-section class="q-py-none row" style="font-size:14px;">
           <q-btn
-            v-for="item in '123456'"
-            :key="item"
+            v-for="item in nodeList"
+            :key="item.id"
             unelevated
-            :outline="item != currentNode"
-            label="V1 节点"
-            :color="item == currentNode ? 'primary' : ''"
-            :text-color="item == currentNode ? 'dark' : 'primary'"
+            :outline="item.id != currentNodeId"
+            :label="`V${item.name} 节点`"
+            :color="item.id == currentNodeId ? 'primary' : ''"
+            :text-color="item.id == currentNodeId ? 'dark' : 'primary'"
             class="q-mr-xs q-mb-xs col-xs-4"
             style="font-size:12px; width:100px; height:40px;"
-            @click="selectNode(item)"
+            @click="selectNode(item.id)"
           />
         </q-card-section>
         <q-card-section class="section-title q-pt-lg q-pb-sm"
-          >锁仓节点</q-card-section
+          >锁仓数量</q-card-section
         >
         <q-card-section class="section-title q-pt-none q-pb-sm">
-          <q-input
-            filled
+          <q-field
+            stack-label
             dense
-            :style="nodeInputStyle"
-            label-color="white"
-            :input-style="{ color: '#fff' }"
-            placeholder="输入需要锁定的RBI数量"
+            filled
+            style="background: rgba(255,255,255,0.2); border-radius: 4px"
           >
-            <template v-slot:append>
-              <span style="color:#fff; font-size:14px">RBI</span>
+            <template v-slot:control>
+              <div class="text-white">{{ currentNode.num }}</div>
             </template>
-          </q-input>
+            <template v-slot:after>
+              <div class="text-white q-px-sm" style="font-size: 14px">RBI</div>
+            </template>
+          </q-field>
         </q-card-section>
         <q-card-section
           class="q-py-xs"
           style="font-size: 12px; color: rgba(255, 255, 255, .6)"
-          >可用：1000.12345678 RBI</q-card-section
+          >可用：{{ canUseRBI }} RBI</q-card-section
         >
         <q-card-section class="q-pt-lg q-pb-xs">
           <div class="earning-info column justify-center items-center">
-            <div class="yield"><strong>40</strong>%</div>
+            <div class="yield">
+              <strong>{{ currentNode.rate * 100 }}</strong
+              >%
+            </div>
             <div class="earning-text">瓜分POS挖矿收益</div>
           </div>
         </q-card-section>
         <q-card-section
           class="q-py-xs"
           style="font-size: 12px; color: rgba(255, 255, 255, .6)"
-          >预计2020-05-15开始计算收益</q-card-section
+          >预计{{
+            currentNode.interestTimeBegin | formatDate
+          }}开始计算收益</q-card-section
         >
         <q-card-section class="q-pt-lg">
           <q-btn
@@ -73,31 +79,45 @@
 
     <Dialog ref="confirmDialog" title="确定挖矿" @confirm="confirmHandle">
       <div class="lock-num row justify-center items-end">
-        <strong>100</strong>RBI
+        <strong>{{ currentNode.num }}</strong
+        >RBI
       </div>
     </Dialog>
 
-    <safe-validate ref="safeDialog" validType="google" />
+    <SafeValidate ref="safeDialog" validType="google" />
   </q-page>
 </template>
 
 <script>
 import Breadcrumb from 'components/Breadcrumb'
 import Dialog from 'components/Dialog'
-import SafeValidate from 'components/SafeValidate'
+import { date } from 'quasar'
+import { getNodeList, getUserInfo } from 'src/api/apiList'
 export default {
   inject: ['nodeInputStyle'],
   data() {
     return {
       showConfirm: false,
-      currentNode: 2 // 当前选择的节点
+      currentNodeId: 2, // 当前选择的节点
+      nodeList: [], // 节点列
+      canUseRBI: 0 // 可用RBI
     }
   },
-  components: { Breadcrumb, Dialog, SafeValidate },
+  components: { Breadcrumb, Dialog },
+  computed: {
+    currentNode() {
+      return this.nodeList.find(item => item.id === this.currentNodeId) || {}
+    }
+  },
+  filters: {
+    formatDate(d) {
+      return date.formatDate(d, 'YYYY-MM-DD')
+    }
+  },
   methods: {
     // 节点选择
     selectNode(item) {
-      this.currentNode = item
+      this.currentNodeId = item
     },
     // 确定按钮
     confirm() {
@@ -106,7 +126,21 @@ export default {
     // 确定弹框确定事件
     confirmHandle() {
       this.$refs.safeDialog.open()
+    },
+    // 获取节点列表
+    async getNodeList() {
+      const { data } = await getNodeList()
+      this.nodeList = data.list
+      this.currentNodeId = data.list[0].id
+    },
+    async getUserInfo() {
+      const { data } = await getUserInfo()
+      this.canUseRBI = data.balandeRBI
     }
+  },
+  created() {
+    this.getUserInfo()
+    this.getNodeList()
   }
 }
 </script>
