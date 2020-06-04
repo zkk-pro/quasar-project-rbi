@@ -19,6 +19,7 @@ export default {
   // 退出
   Logout({ commit }) {
     Cookies.remove('token')
+    Cookies.remove('userinfo')
     commit('logout')
   },
   // 更新用户信息
@@ -28,7 +29,7 @@ export default {
         .then(res => {
           commit('updateUserInfo', res.data)
           Cookies.set('userinfo', res.data)
-          resolve()
+          resolve(res)
         })
         .catch(err => {
           reject(err)

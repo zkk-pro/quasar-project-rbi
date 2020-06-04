@@ -1,14 +1,16 @@
 <template>
-  <div class="node" @click="$emit('nodeClick')">
+  <div class="node" @click="$emit('nodeClick', nodeData)">
     <div class="node-name relative-position">
       <node-icon :node="nodeData.name" />
-      <div class="date q-mt-sm" v-if="!showBtn">2020-05-10 11:11</div>
+      <div class="date q-mt-sm" v-if="!showBtn">
+        {{ nodeData.createTime | formatDate }}
+      </div>
       <div
         v-if="!showBtn"
         class="status absolute-right"
-        :style="{ color: status ? '#00E6FF' : '#999' }"
+        :style="{ color: nodeData.status === 1 ? '#00E6FF' : '#999' }"
       >
-        持有中
+        {{ nodeData.status | transStatus }}
       </div>
     </div>
 
@@ -23,9 +25,9 @@
         text-color="cyan-12"
         to="/lock-position"
         style="width: 160px;height:40px"
+        :disable="!!nodeData.status"
+        :outline="!nodeData.status"
       />
-      <!-- :disable="!!nodeData.status"
-        :outline="!nodeData.status" -->
     </div>
   </div>
 </template>
@@ -33,6 +35,7 @@
 <script>
 import NodeIcon from 'components/NodeIcon'
 import Number from 'components/Number'
+import { date } from 'quasar'
 
 export default {
   props: {
@@ -46,7 +49,20 @@ export default {
     }
   },
   components: { NodeIcon, Number },
-  created() {}
+  filters: {
+    formatDate(d) {
+      return date.formatDate(d, 'YYYY-MM-DD HH:mm')
+    },
+    transStatus(status) {
+      if (status === 0) {
+        return '已结束'
+      } else if (status === 1) {
+        return '持有中'
+      } else if (status === 2) {
+        return '已解锁'
+      }
+    }
+  }
 }
 </script>
 

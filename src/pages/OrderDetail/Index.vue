@@ -3,16 +3,28 @@
     <div class="header relative-position">
       <div class="earning-total">
         <div class="q-mb-sm" style="font-size: 12px;">累积收益</div>
-        <Number :number="123.01" big-size="36px" small-size="30px" />
+        <Number
+          :number="orderDetail.interestNumTodal || ''"
+          big-size="36px"
+          small-size="30px"
+        />
       </div>
       <div class="row" style="margin-top: 35px">
         <div style="flex:1">
           <div class="q-mb-sm" style="font-size: 12px;">今日收益</div>
-          <Number :number="123.01" big-size="30px" small-size="18px" />
+          <Number
+            :number="orderDetail.interestNumToday || ''"
+            big-size="30px"
+            small-size="18px"
+          />
         </div>
         <div style="flex:1">
           <div class="q-mb-sm" style="font-size: 12px;">锁仓RBI</div>
-          <Number :number="123.01" big-size="30px" small-size="18px" />
+          <Number
+            :number="orderDetail.num || ''"
+            big-size="30px"
+            small-size="18px"
+          />
         </div>
       </div>
       <div class="header-btn row items-center">
@@ -27,75 +39,125 @@
           v-ripple
           class="btn mining-btn row justify-center items-center relative-position"
           to="/mining"
-          >挖矿</router-link
         >
+          挖矿
+        </router-link>
       </div>
     </div>
     <q-list bordered style="margin-top: 55px">
       <q-item clickable>
         <q-item-section>锁仓节点</q-item-section>
         <q-item-section class="text-grey-7" style="text-align:right"
-          >V2节点</q-item-section
+          >V{{ orderDetail.name }}节点</q-item-section
         >
       </q-item>
       <q-item clickable>
         <q-item-section>锁仓日期</q-item-section>
-        <q-item-section class="text-grey-7" style="text-align:right"
-          >2020-05-05 11:11</q-item-section
-        >
+        <q-item-section class="text-grey-7" style="text-align:right">
+          {{ orderDetail.createTime | formatDate(true) }}
+        </q-item-section>
       </q-item>
       <q-item clickable>
         <q-item-section>锁仓收益率</q-item-section>
-        <q-item-section class="text-grey-7" style="text-align:right"
-          >POS挖矿收益的80%</q-item-section
-        >
+        <q-item-section class="text-grey-7" style="text-align:right">
+          POS挖矿收益的{{ orderDetail.rate && orderDetail.rate * 100 }}%
+        </q-item-section>
       </q-item>
       <q-item clickable>
         <q-item-section>起息日</q-item-section>
-        <q-item-section class="text-grey-7" style="text-align:right"
-          >2020-05-06</q-item-section
-        >
+        <q-item-section class="text-grey-7" style="text-align:right">
+          {{ orderDetail.interestBeginTime | formatDate }}
+        </q-item-section>
       </q-item>
-      <q-item clickable>
+      <q-item clickable v-if="orderDetail.interestEndTime">
         <q-item-section>解锁日期</q-item-section>
-        <q-item-section class="text-grey-7" style="text-align:right"
-          >2020-05-05 11:11</q-item-section
-        >
+        <q-item-section class="text-grey-7" style="text-align:right">
+          {{ orderDetail.interestEndTime | formatDate(true) }}
+        </q-item-section>
       </q-item>
       <q-item clickable>
         <q-item-section>持有天数</q-item-section>
-        <q-item-section class="text-grey-7" style="text-align:right"
-          >10 天</q-item-section
-        >
+        <q-item-section class="text-grey-7" style="text-align:right">
+          {{ orderDetail.interestTimes }} 天
+        </q-item-section>
       </q-item>
       <q-item clickable>
         <q-item-section>状态</q-item-section>
-        <q-item-section class="text-grey-7" style="text-align:right"
-          >已结束</q-item-section
-        >
+        <q-item-section class="text-grey-7" style="text-align:right">
+          {{ orderDetail.status | transStatus }}
+        </q-item-section>
       </q-item>
     </q-list>
-    <SafeValidate ref="safe" validType="google" />
+    <SafeValidate
+      :show.sync="safeShow"
+      :validType="$store.getters.userinfo.securityLevel"
+      @safeConfirm="onSafeConfirm"
+    />
   </div>
 </template>
 
 <script>
 import Number from 'components/Number'
 import SafeValidate from 'components/SafeValidate'
+import { getOrderDetail, unlockAsk, unlock } from 'src/api/apiList'
+import { date } from 'quasar'
+
 export default {
+  data() {
+    return {
+      id: 0,
+      safeShow: false, // 安全验证弹框
+      orderDetail: {} // 订单详情数据
+    }
+  },
   components: { Number, SafeValidate },
+  filters: {
+    formatDate(d, hasHM = false) {
+      if (hasHM) {
+        return date.formatDate(d, 'YYYY-MM-DD HH:mm')
+      } else {
+        return date.formatDate(d, 'YYYY-MM-DD')
+      }
+    },
+    transStatus(status) {
+      if (status === 0) {
+        return '已结束'
+      } else if (status === 1) {
+        return '持有中'
+      } else if (status === 2) {
+        return '已解锁'
+      }
+    }
+  },
   methods: {
-    unlockHandle() {
-      // 不能解锁
-      // this.$q.notify({ message: '锁仓24小时内不可以进行解锁 !' })
-      // 可以解锁
-      // this.$refs.safe.open()
-      // 成功
-      this.$router.push({ name: 'success', params: { text: '解锁成功' } })
+    async unlockHandle() {
+      try {
+        const { data } = await unlockAsk({ id: this.id })
+        if (data.unlockEnable === 0) {
+          return this.$q.notify({ message: '锁仓24小时内不可以进行解锁 !' })
+        } else if (data.unlockEnable === 2) {
+          return this.$q.notify({ message: '该订单已解锁 !' })
+        }
+        // 可以解锁
+        this.safeShow = true
+      } catch (error) {}
+    },
+    async onSafeConfirm(code) {
+      try {
+        await unlock({ id: this.id, code })
+        this.$router.push({ name: 'success', params: { text: '解锁成功' } })
+      } catch (error) {}
+    },
+    async getOrderDetail() {
+      const { data } = await getOrderDetail({ id: this.$route.query.id })
+      this.orderDetail = data
     }
   },
   created() {
-    console.log(123)
+    // console.log(this.$store.getters.userinfo)
+    this.validType = this.$store.getters.userinfo.securityLevel
+    this.id = this.$route.query.id
+    this.getOrderDetail()
   }
 }
 </script>

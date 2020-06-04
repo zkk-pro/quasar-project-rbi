@@ -37,7 +37,7 @@ request.interceptors.response.use(
         store().dispatch('Logout')
         location.reload()
       }, 1500)
-    } else if (data.code === 10000) {
+    } else {
       Notify.create({
         textColor: 'red',
         message: data.message

@@ -3,7 +3,6 @@
     <div class="q-mb-sm">RBI提币</div>
     <q-form
       @submit="onSubmit"
-      @reset="onReset"
       class="q-py-lg q-px-md"
       style="background: rgba(255,255,255,0.05)"
     >
@@ -32,7 +31,7 @@
         dense
         :style="nodeInputStyle"
         :input-style="{ color: '#fff' }"
-        placeholder="最小提币数量100"
+        :placeholder="`最小提币数量${config.withdrawMinNum}`"
       >
         <template v-slot:append>
           <span class="text-white" style="font-size: 14px">RBI</span>
@@ -41,15 +40,16 @@
           <span
             class="all-btn row justify-center items-center"
             @click="allHandle"
-            >全部</span
           >
+            全部
+          </span>
         </template>
       </q-input>
       <div class="q-mt-sm text-grey-5" style="font-size:12px">
-        可用：1000.12345678 RBI
+        可用：{{ config.balance }} RBI
       </div>
       <div class="q-mt-lg text-grey-4" style="font-size:14px">
-        手续费：5 RBI
+        手续费：{{ config.withdrawFeeRate }} RBI
       </div>
       <div class="row justify-center" style="margin-top: 44px">
         <q-btn
@@ -63,11 +63,11 @@
         />
         <q-btn
           unelevated
+          type="submit"
           color="primary"
           text-color="dark"
           label="确定"
           style="width: 120px; height:36px"
-          @click="confirm"
         />
       </div>
     </q-form>
@@ -81,160 +81,147 @@
       <div class="text-grey-8 q-px-lg">提币前请先设置PIN码</div>
     </Dialog>
     <!-- 设置PIN弹框 -->
-    <Dialog
-      ref="setPINDialog"
-      title="请设置PIN码"
-      @cancel="setPINDialogCancelHandle"
-      @confirm="setPINDialogHandle"
-      :confirmHold="setPINDHold"
-    >
-      <q-item>
-        <q-input
-          v-model="setPINForm.first"
-          class="full-width"
-          type="password"
-          maxlength="6"
-          dense
-          placeholder="输入6位数字PIN码"
-        />
-      </q-item>
-      <q-item>
-        <q-input
-          v-model="setPINForm.second"
-          class="full-width"
-          type="password"
-          maxlength="6"
-          dense
-          placeholder="确定6位数字PIN码"
-        />
-      </q-item>
-    </Dialog>
+    <SetPIN
+      :show="setPINShow"
+      @success="onSetPINSuccess"
+      @cancel="onSetPINCancel"
+    />
     <!-- 输入PIN码 -->
     <Dialog
       ref="inputPINDialog"
       title="请输入PIN码"
-      @cancel="inputPINDialogCancelHandle"
+      @cancel="inputPINValue = ''"
       @confirm="inputPINDialogHandle"
-      :confirmHold="inputPINHold"
+      :confirmHold="true"
     >
-      <q-item>
-        <q-item-section
-          v-for="(item, index) in 6"
-          :key="item"
-          @click="inputPINFocus"
+      <q-form ref="inputPINVForm">
+        <q-input
+          v-model="inputPINValue"
+          maxlength="6"
+          type="password"
+          autofocus
+          :input-style="{ textAlign: 'center' }"
+          no-error-icon
+          lazy-rules
+          :rules="[val => (!!val && !(val.length < 6)) || '请输入6位数PIN']"
+        />
+      </q-form>
+      <template v-slot:leftBottom>
+        <span
+          class="row items-center full-height q-ml-sm"
+          style="color:#666; font-size:13px"
+          @click="forgetPIN"
         >
-          <q-input
-            input-style="text-align:center;font-size: 60px"
-            v-model="inputPINValue[index]"
-            type="password"
-            maxlength="1"
-            readonly
-          />
-        </q-item-section>
-      </q-item>
-
-      <q-input
-        type="text"
-        v-model="inputPINValue"
-        maxlength="6"
-        invisible
-        style="height:0;overflow:hidden"
-        ref="inputPIN"
-      />
+          忘记PIN码
+        </span>
+      </template>
     </Dialog>
-
     <!-- 安全验证弹框 -->
-    <SafeValidate ref="SafeValidate" validType="google" />
+    <SafeValidate
+      :show.sync="safeShow"
+      :validType="$store.getters.userinfo.securityLevel"
+      @safeConfirm="onSafeConfirm"
+    />
   </div>
 </template>
 
 <script>
 import Dialog from 'components/Dialog'
+import SetPIN from 'components/SetPIN'
+import { withdraw } from 'src/api/apiList'
 export default {
   inject: ['nodeInputStyle'],
+  props: {
+    config: Object
+  },
   data() {
     return {
+      safeShow: false, // 安全验证弹框
       formData: {
         address: '',
         amount: ''
       },
-      // 设置PIN
-      setPINForm: {
-        first: '',
-        second: ''
-      },
-      setPINDHold: true, // 设置PIN hold
-      inputPINHold: true, // 输入PIN hold
-      inputPINValue: '' // 输入的PIN 值
+      setPINShow: false, // 显示设置PIN弹框
+      inputPINValue: '', // 输入的PIN 值
+      PIN: '' // 输入的PIN 值
     }
   },
-  components: { Dialog },
+  components: { Dialog, SetPIN },
   methods: {
+    notify(message) {
+      this.$q.notify({
+        message,
+        icon: 'warning',
+        textColor: 'red'
+      })
+    },
     // 全部按钮
     allHandle() {
-      console.log(123)
+      this.formData.amount = this.config.balance
     },
-    xxx() {
-      console.log(this.inputPINValue)
-    },
-    confirm() {
-      this.$refs.unsetPINDialog.open()
-      // this.$refs.inputPINDialog.open()
-      // this.inputPINFocus()
-    },
-    // 没有设置 PIN confirm 事件
+    // 没有设置 PIN confirm 事件：显示设置PIN弹框
     unsetPINDialogHandle() {
-      console.log('设置密码点击确认')
-      // this.$refs.unsetPINDialog.open()
-      // this.$refs.SafeValidate.open()
-      this.$refs.setPINDialog.open()
+      this.setPINShow = true
     },
-    // 设置PIN confirm 事件
-    setPINDialogHandle() {
-      const { first, second } = this.setPINForm
-      this.setPINValidFirst = first.length > 0
-      if (!first.length > 0 || first.length < 6) {
-        this.$q.notify({
-          message: '请设置6位数PIN码',
-          icon: 'warning',
-          textColor: 'red'
-        })
-      } else if (first !== second) {
-        this.$q.notify({
-          message: '两次输入不一致',
-          icon: 'warning',
-          textColor: 'red'
-        })
-      } else {
-        this.setPINDHold = false
-      }
+    // 设置PIN成功
+    onSetPINSuccess() {
+      this.setPINShow = false
     },
-    // 设置PIN cancel 事件
-    setPINDialogCancelHandle() {
-      this.setPINForm.first = ''
-      this.setPINForm.second = ''
+    // 设置PIN 取消
+    onSetPINCancel() {
+      this.setPINShow = false
+    },
+    // 忘记PIN
+    forgetPIN() {
+      this.inputPINValue = ''
+      this.$refs.inputPINDialog.close()
+      this.setPINShow = true
     },
     // 输入PIN confirm 事件
     inputPINDialogHandle() {
-      if (!this.inputPINValue || this.inputPINValue.length < 6) {
-        return this.$q.notify({
-          message: '请输入6位数PIN码',
-          icon: 'warning',
-          textColor: 'red'
-        })
+      const res = this.$refs.inputPINVForm.validate()
+      if (res) {
+        this.PIN = this.inputPINValue
+        this.inputPINValue = ''
+        this.$refs.inputPINDialog.close()
+        this.safeShow = true
       }
-      console.log(123)
     },
-    inputPINDialogCancelHandle() {
-      this.inputPINValue = ''
+    // 安全验证 confirm 事件
+    async onSafeConfirm(code) {
+      try {
+        await withdraw({
+          num: this.formData.amount,
+          walletAddress: this.formData.address,
+          pinCode: this.PIN,
+          code
+        })
+        this.$router.push({ name: 'success', params: { text: '提交成功' } })
+      } catch (error) {}
     },
     inputPINFocus() {
       this.$nextTick(() => {
         this.$refs.inputPIN.focus()
       })
     },
-    onReset() {},
-    onSubmit() {}
+
+    onSubmit() {
+      if (!this.formData.address) {
+        return this.notify('请输入提币地址')
+      } else if (!this.formData.amount) {
+        return this.notify('请输入提币数量')
+      } else if (this.formData.amount < this.config.withdrawMinNum) {
+        return this.notify(`提币数量不能小于${this.config.withdrawMinNum}`)
+      } else if (this.formData.amount > this.config.balance) {
+        return this.notify('提币数量不能大于可用数量')
+      }
+      // 设置过PointerEvent
+      if (this.$store.getters.userinfo.securityIsBind) {
+        this.$refs.inputPINDialog.open()
+      } else {
+        this.$refs.unsetPINDialog.open()
+      }
+    }
   }
 }
 </script>

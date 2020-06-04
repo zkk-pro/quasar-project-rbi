@@ -51,7 +51,7 @@
         <q-card-section class="q-pt-lg q-pb-xs">
           <div class="earning-info column justify-center items-center">
             <div class="yield">
-              <strong>{{ currentNode.rate * 100 }}</strong
+              <strong>{{ currentNode.rate && currentNode.rate * 100 }}</strong
               >%
             </div>
             <div class="earning-text">瓜分POS挖矿收益</div>
@@ -77,14 +77,19 @@
       </q-card>
     </div>
 
-    <Dialog ref="confirmDialog" title="确定挖矿" @confirm="confirmHandle">
+    <Dialog ref="confirmDialog" title="确定挖矿" @confirm="onConfirm">
       <div class="lock-num row justify-center items-end">
         <strong>{{ currentNode.num }}</strong
         >RBI
       </div>
     </Dialog>
 
-    <SafeValidate ref="safeDialog" validType="google" />
+    <!-- ref="safeDialog" -->
+    <SafeValidate
+      :show.sync="showSafeDialog"
+      :validType="validType"
+      @safeConfirm="onSafeConfirm"
+    />
   </q-page>
 </template>
 
@@ -92,19 +97,22 @@
 import Breadcrumb from 'components/Breadcrumb'
 import Dialog from 'components/Dialog'
 import { date } from 'quasar'
-import { getNodeList, getUserInfo } from 'src/api/apiList'
+import { getNodeList, nodeBuy } from 'src/api/apiList'
 export default {
   inject: ['nodeInputStyle'],
   data() {
     return {
-      showConfirm: false,
+      showConfirm: false, // 显示确认弹框
+      showSafeDialog: false, // 显示安全验证弹框
       currentNodeId: 2, // 当前选择的节点
       nodeList: [], // 节点列
-      canUseRBI: 0 // 可用RBI
+      canUseRBI: 0, // 可用RBI
+      validType: 2 // 验证类型，1:google; 2:phone; 3:email
     }
   },
   components: { Breadcrumb, Dialog },
   computed: {
+    // 当前选择的节点
     currentNode() {
       return this.nodeList.find(item => item.id === this.currentNodeId) || {}
     }
@@ -121,11 +129,24 @@ export default {
     },
     // 确定按钮
     confirm() {
+      if (Number(this.canUseRBI) < Number(this.currentNode.num)) {
+        return this.$q.notify({ message: '当前拥有的RBI不足以购买当前节点' })
+      }
       this.$refs.confirmDialog.open()
     },
     // 确定弹框确定事件
-    confirmHandle() {
-      this.$refs.safeDialog.open()
+    onConfirm() {
+      this.showSafeDialog = true
+    },
+    // 安全验证确定按钮事件
+    async onSafeConfirm(code) {
+      try {
+        await nodeBuy({ id: this.currentNode.id, code })
+        this.$router.push({
+          name: 'success',
+          params: { text: '锁仓成功', date: this.currentNode.interestTimeBegin }
+        })
+      } catch (error) {}
     },
     // 获取节点列表
     async getNodeList() {
@@ -134,8 +155,9 @@ export default {
       this.currentNodeId = data.list[0].id
     },
     async getUserInfo() {
-      const { data } = await getUserInfo()
+      const { data } = await this.$store.dispatch('UpdateUserInfo')
       this.canUseRBI = data.balandeRBI
+      this.validType = data.securityLevel
     }
   },
   created() {
