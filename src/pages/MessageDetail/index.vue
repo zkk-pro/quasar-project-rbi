@@ -1,6 +1,6 @@
 <template>
   <q-page class="message-detail q-pa-md">
-    <router-link class="back" to="/message-list">&lt;&lt;返回公告列表</router-link>
+    <router-link class="back" replace="/message-list">&lt;&lt;返回公告列表</router-link>
     <div class="title q-mt-md">11111</div>
     <div class="time q-my-sm">1111</div>
     <div class="content q-mt-md">

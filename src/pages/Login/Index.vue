@@ -66,8 +66,6 @@ export default {
     }
   },
   beforeRouteLeave(to, from, next) {
-    console.log(to)
-    console.log(from)
     this.fromPath = from.path
     next()
   },
@@ -75,9 +73,9 @@ export default {
     async onSubmit() {
       const res = await this.$refs.login.validate()
       if (res) {
-        this.$store.dispatch('Login', this.loginForm).then(res => {
-          this.$router.push({ path: this.fromPath })
-        })
+        await this.$store.dispatch('Login', this.loginForm)
+        await this.$store.dispatch('UpdateUserInfo')
+        this.$router.push({ path: this.fromPath })
       }
     }
   }

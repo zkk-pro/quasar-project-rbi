@@ -3,19 +3,63 @@
     <div class="title row items-center q-px-sm">
       <q-icon name="play_arrow" size="15px" />收益明细
     </div>
-    <q-list class="q-px-md" style="background: rgba(255,255,255,0.05)">
-      <div v-for="item in '123'" :key="item">
-        <EarningItem />
+    <q-list
+      class="earning-list q-px-md"
+      style="background: rgba(255,255,255,0.05)"
+    >
+      <div v-for="item in earningList" :key="item.id">
+        <EarningItem :itemData="item" />
         <q-separator style="background: rgba(255,255,255,0.05)" />
       </div>
     </q-list>
+    <q-pagination
+      class="q-mt-md row justify-center"
+      v-model="params.paging"
+      v-if="earningList.length"
+      :max="pageInfo.pageMax || 1"
+      direction-links
+      @input="pageChange"
+      size="12px"
+    >
+    </q-pagination>
   </q-page>
 </template>
 
 <script>
 import EarningItem from 'components/EarningItem'
+import { getAssets } from 'src/api/apiList'
 export default {
-  components: { EarningItem }
+  data() {
+    return {
+      params: {
+        paging: 1,
+        limit: 5,
+        skey: 'INTEREST'
+      },
+      earningList: [],
+      pageInfo: {}
+    }
+  },
+  computed: {
+    currentPage() {
+      return this.params.paging + 1
+    }
+  },
+  components: { EarningItem },
+  methods: {
+    // 页码改变
+    pageChange(value) {
+      this.getAssets()
+    },
+    async getAssets() {
+      const { data } = await getAssets(this.params)
+      this.earningList = data.list
+      this.pageInfo = data.pagination
+    }
+  },
+  created() {
+    this.getAssets()
+  }
 }
 </script>
 
@@ -23,5 +67,13 @@ export default {
 .title {
   height: 40px;
   color: rgba($color: #fff, $alpha: 0.6);
+}
+.earning-list:empty::before {
+  content: '— 暂无收益 —';
+  display: block;
+  line-height: 30px;
+  font-size: 12px;
+  color: #ccc;
+  text-align: center;
 }
 </style>

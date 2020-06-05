@@ -29,7 +29,7 @@
     <q-dialog v-model="showQrcode">
       <q-card class="my-card" style="width: 180px">
         <q-icon
-          name="img:https://cdn.quasar.dev/img/mountains.jpg"
+          :name="'img:'+ qrcode"
           size="180px"
         />
       </q-card>

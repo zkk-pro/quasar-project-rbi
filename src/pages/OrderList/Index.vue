@@ -1,5 +1,12 @@
 <template>
-  <node-lock-item @nodeClick="onNodeClick" />
+  <div>
+    <node-lock-item
+      v-for="item in orderList"
+      :key="item.id"
+      :nodeData="item"
+      @nodeClick="onNodeClick"
+    />
+  </div>
 </template>
 
 <script>
@@ -13,11 +20,14 @@ export default {
   },
   components: { NodeLockItem },
   methods: {
-    onNodeClick() {
-      this.$router.push({ path: '/mining-order/order-detail' })
+    onNodeClick(item) {
+      this.$router.push({
+        path: '/mining-order/order-detail',
+        query: { id: item.id }
+      })
     },
     async getOrderList() {
-      const { data } = await orderList({ paging: 1, limit: 5 })
+      const { data } = await orderList({ paging: 0, limit: 5 })
       this.orderList = data
     }
   },

@@ -18,13 +18,9 @@
         :name="index"
         :img-src="item.img"
       />
-      <!-- <q-carousel-slide
-        :name="2"
-        img-src="https://cdn.quasar.dev/img/parallax1.jpg"
-      /> -->
     </q-carousel>
 
-    <div class="notice-box flex items-center">
+    <div class="notice-box flex items-center" v-if="noticeList.length > 0">
       <q-icon name="img:statics/icons/notice.png" size="14px" />
       <q-carousel
         height="100%"
@@ -36,14 +32,13 @@
         transition-next="slide-up"
         style="background: inherit; flex: 1"
       >
-        <q-carousel-slide :name="1">
-          <div class="notice" @click="messageDetail">
-            <div class="notice-text">消息111111</div>
-          </div>
-        </q-carousel-slide>
-        <q-carousel-slide :name="2">
-          <div class="notice" @click="messageDetail">
-            <div class="notice-text">消息222222</div>
+        <q-carousel-slide
+          :name="index"
+          v-for="(item, index) in noticeList"
+          :key="index"
+        >
+          <div class="notice" @click="messageDetail(item.id)">
+            <div class="notice-text">{{ item.title }}</div>
           </div>
         </q-carousel-slide>
       </q-carousel>
@@ -237,6 +232,11 @@ export default {
   data() {
     return {
       banner: [],
+      noticeList: [
+        { title: '111', id: 1 },
+        { title: '222', id: 2 }
+      ],
+      // noticeList: [],
       open: false,
       currentImg: 1,
       currentText: 1
@@ -244,20 +244,13 @@ export default {
   },
   components: { Footer },
   methods: {
-    messageList() {
-      // this.$router.push({ path: '/pages/message-list' })
-    },
-    messageDetail() {},
-    bannerImg(imgSrc) {
-      return require(imgSrc)
+    messageDetail(id) {
+      this.$router.push({ path: `/message-detail?id=${id}` })
     },
     async getIndexInfo() {
       const { data } = await getIndexInfo()
       this.banner = data.banner
-      this.banner.forEach(item => {
-        this.bannerImg(item.img)
-      })
-      console.log(this.banner)
+      this.noticeList = data.notice
     }
   },
   mounted() {

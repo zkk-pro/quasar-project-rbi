@@ -11,8 +11,11 @@
       <q-card-section class="q-pt-none q-pb-none">
         <slot />
       </q-card-section>
-
-      <q-card-actions align="right" class="q-pt-none">
+      <q-card-actions  class="q-pt-none justify-between">
+        <!-- 左下角slot -->
+        <div class="full-height">
+          <slot name="leftBottom" />
+        </div>
         <div style="height:36px">
           <q-btn
             label="取消"
@@ -70,6 +73,7 @@ export default {
     },
     // 弹框隐藏事件
     onDialogHide() {
+      this.$emit('hide')
       this.confirmClick && this.$emit('confirm')
     }
   },

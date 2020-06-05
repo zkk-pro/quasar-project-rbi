@@ -2,7 +2,7 @@
   <q-page class="q-pb-xl">
     <div class="header column justify-center items-center">
       <div class="header-text">总资产</div>
-      <div class="header-number">199999.1234</div>
+      <div class="header-number">{{ totalAndConfig.balance }}</div>
       <div class="header-btn row items-center ">
         <div
           v-ripple
@@ -22,11 +22,16 @@
       </div>
     </div>
     <!-- 充币 -->
-    <RechargeAddress :address="address" qrcode="" v-if="showAddress" />
+    <RechargeAddress
+      :address="totalAndConfig.address"
+      :qrcode="totalAndConfig.addressQrCode"
+      v-if="showAddress"
+    />
     <!-- 提币 -->
     <WithdrawForm
       v-if="showWithDraw"
-      @cancel=";[(showWithDraw = false)]"
+      :config="totalAndConfig"
+      @cancel="showWithDraw = false"
       @confirm="withdrawConfirm"
     />
     <!-- 交易记录 -->
@@ -38,30 +43,45 @@
       >
         交易记录
       </q-item-label>
-      <div v-for="item in '123'" :key="item">
-        <!-- 没有扩展项 -->
-        <!-- <EarningItem class="q-px-md" /> -->
+      <div v-for="item in logList" :key="item.id">
         <!-- 有扩展项 -->
-        <q-expansion-item dense group="group" expand-icon="img:statics/icons/arrow-up.png">
+        <q-expansion-item
+          v-if="item.txid"
+          dense
+          group="group"
+          expand-icon="img:statics/icons/arrow-up.png"
+        >
           <template v-slot:header>
-            <EarningItem />
+            <EarningItem :itemData="item" />
           </template>
           <q-card style="background: #1B1F41">
             <q-card-section class="content" style="">
               <div class="q-mb-xs">对方地址:</div>
               <div class="q-mb-lg">
-                0x2c4192c55654ac6dcfd9f7bc2ea1869bdfdaa25e
+                {{ item.address }}
               </div>
               <div class="q-mb-xs">交易ID:</div>
               <div>
-                5cdf4409a0ffce35dfa653b23dfdaadef2a6774824633b0f691ea999bdd5cc27
+                {{ item.txid }}
               </div>
             </q-card-section>
           </q-card>
         </q-expansion-item>
+        <!-- 没有扩展项 -->
+        <EarningItem v-else class="q-px-md" :itemData="item" />
         <q-separator style="background: rgba(255,255,255,0.05)" />
       </div>
     </q-list>
+    <q-pagination
+      class="q-mt-md row justify-center"
+      v-model="params.paging"
+      v-if="logList.length"
+      :max="pageInfo.pageMax || 1"
+      direction-links
+      @input="pageChange"
+      size="12px"
+    >
+    </q-pagination>
   </q-page>
 </template>
 
@@ -69,19 +89,42 @@
 import RechargeAddress from 'components/RechargeAddress'
 import WithdrawForm from 'components/WithdrawForm'
 import EarningItem from 'components/EarningItem'
+import { getAssets } from 'src/api/apiList'
 export default {
   data() {
     return {
       showAddress: false, // 显示充币
       showWithDraw: false, // 显示提币表单
-      address: '7197291729dhahhdehsss@BBbwallet'
+      address: '7197291729dhahhdehsss@BBbwallet',
+      params: {
+        paging: 1,
+        limit: 3
+      },
+      totalAndConfig: {}, // 总资产和配置
+      logList: [], // 交易记录
+      pageInfo: {} // 分页数据
     }
   },
   components: { RechargeAddress, WithdrawForm, EarningItem },
   methods: {
+    // 页面改变
+    pageChange(value) {
+      this.getAssets()
+    },
     withdrawConfirm(data) {
       console.log(data)
+    },
+    async getAssets() {
+      const { data } = await getAssets(this.params)
+      this.logList = data.list
+      if (this.params.paging === 1) {
+        this.totalAndConfig = data.asset
+        this.pageInfo = data.pagination
+      }
     }
+  },
+  created() {
+    this.getAssets()
   }
 }
 </script>

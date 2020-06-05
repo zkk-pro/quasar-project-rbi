@@ -6,7 +6,7 @@
     </div>
     <q-list separator>
       <div v-for="(item, index) in 3" :key="index">
-        <q-item class="q-py-md" clickable v-ripple to="/message-detail">
+        <q-item class="q-py-md" clickable v-ripple @click="toDetail(item.id)">
           <q-item-section>
             <div class="row items-center">
               <span class="circle"></span>
@@ -35,7 +35,11 @@ export default {
       ]
     }
   },
-  methods: {}
+  methods: {
+    toDetail(id) {
+      this.$router.push({ path: `/message-detail?id=${id}` })
+    }
+  }
 }
 </script>
 

@@ -4,7 +4,7 @@
       <img src="~assets/images/lock-success.png" alt="" />
     </div>
     <div class="q-mt-md q-mb-sm" style="font-size:17px; font-weight:bold;">{{info.text}}</div>
-    <div class="text-primary" style="height:14px"><span v-if="info.date">预计{{info.date}}开始计算收益</span></div>
+    <div class="text-primary" style="height:14px"><span v-if="info.date">预计{{info.date | formatDate}}开始计算收益</span></div>
     <q-btn
       rounded
       label="完成"
@@ -17,10 +17,16 @@
 </template>
 
 <script>
+import { date } from 'quasar'
 export default {
   data() {
     return {
       info: {}
+    }
+  },
+  filters: {
+    formatDate(d) {
+      return date.formatDate(d, 'YYYY-MM-DD')
     }
   },
   created() {

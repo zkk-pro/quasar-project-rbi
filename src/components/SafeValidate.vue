@@ -11,10 +11,25 @@
           color="blue-5"
           label-color="dark"
           dense
+          maxlength="6"
           v-model="code"
         >
-          <template v-if="typeData.btnText" v-slot:append>
-            <q-btn :label="typeData.btnText" unelevated text-color="blue-5" @click="getCode" />
+          <template v-if="typeData.shwoCodeBtn" v-slot:append>
+            <!-- <q-btn
+              :label="codeBtnText"
+              unelevated
+              text-color="blue-5"
+              @click="getCode"
+            /> -->
+            <q-btn
+              style="width: 80px"
+              flat
+              dense
+              :disable="codeBtnDisabled"
+              color="blue-5"
+              :label="codeBtnText"
+              @click="getCode"
+            />
           </template>
         </q-input>
         <div class="tips-text">
@@ -30,6 +45,7 @@
             text-color="blue-grey-8"
             outline
             v-close-popup
+            @click="$emit('update:show', false)"
             style="margin-right: 20px"
           />
           <q-btn
@@ -38,7 +54,7 @@
             color="primary"
             text-color="blue-grey-8"
             :disable="btn_disabled"
-            @click="confirm"
+            @click="$emit('safeConfirm', code)"
           />
         </div>
       </q-card-actions>
@@ -47,46 +63,56 @@
 </template>
 
 <script>
+import { validate } from 'src/api/apiList'
+
+const GOOGLE = 1
+const PHONE = 2
+const EMAIL = 3
 export default {
   name: 'SafeValidate',
   props: {
-    // 验证类型：google、phone、email
+    show: Boolean,
+    // 验证类型：1:google、2:phone、3:email
     validType: {
-      type: String,
+      type: Number,
       required: true,
       validator: function(value) {
-        return ['google', 'phone', 'email'].includes(value)
+        return [GOOGLE, PHONE, EMAIL].includes(value)
       }
     }
   },
   data() {
     return {
-      show: false,
-      code: ''
+      // show: false,
+      code: '',
+      codeBtnText: '发送验证码',
+      codeBtnDisabled: false,
+      timer: null
     }
   },
   computed: {
     typeData() {
       let data = {}
       switch (this.validType) {
-        case 'google':
+        case GOOGLE:
           data = {
             label: '谷歌验证码',
+            shwoCodeBtn: false,
             tipsText: ''
           }
           break
-        case 'phone':
+        case PHONE:
           data = {
             label: '短信验证码',
-            btnText: '发送验证码',
-            tipsText: '输入您的号码137****2917收到的验证码'
+            shwoCodeBtn: true,
+            tipsText: `输入您的号码${this.$store.getters.userinfo.mobile}收到的验证码`
           }
           break
-        case 'email':
+        case EMAIL:
           data = {
             label: '邮箱验证码',
-            btnText: '发送验证码',
-            tipsText: '输入您的邮箱 11*****@qq.com 收到的验证码'
+            shwoCodeBtn: true,
+            tipsText: `输入您的邮箱${this.$store.getters.userinfo.email}收到的验证码`
           }
           break
       }
@@ -94,24 +120,38 @@ export default {
     },
     // 禁用确认按钮控制
     btn_disabled() {
-      return !this.code.length
+      return !this.code.length || this.code.length !== 6
     }
   },
   methods: {
-    // 显示弹框
-    open() {
-      this.show = true
-    },
-    // 确认按钮
-    confirm() {
-      console.log(this.code)
-    },
     // 弹框隐藏事件
     onDialogHide() {
       this.code = ''
     },
-    getCode() {
-      console.log(this.validType)
+    async getCode() {
+      try {
+        this.codeBtnDisabled = true
+        await validate()
+        let time = 60
+        this.codeBtnText = time + 's'
+        time--
+        this.timer = setInterval(() => {
+          time--
+          this.codeBtnText = time + 's'
+          if (time < 0) {
+            clearInterval(this.timer)
+            this.codeBtnText = '重新发送'
+            this.codeBtnDisabled = false
+          }
+        }, 1000)
+      } catch (error) {
+        this.codeBtnDisabled = false
+        // this.$q.notify({
+        //   message: '发送验证码失败',
+        //   textColor: 'red',
+        //   icon: 'warning'
+        // })
+      }
     }
   }
 }
