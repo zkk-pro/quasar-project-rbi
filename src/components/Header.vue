@@ -1,10 +1,11 @@
 <template>
   <q-header :elevated="false" class="row justify-center bg-dark">
     <div class="header-box row items-center justify-between col-xs-11">
+      <div class="gt-xs">123</div>
       <q-icon
         name="img:statics/icons/menu-up.png"
         size="18px"
-        class="left-menu"
+        class="left-menu lt-sm"
       ></q-icon>
 
       <!-- 左侧菜单 -->
@@ -14,7 +15,7 @@
         </template>
       </Menu>
 
-      <div class="header-title absolute-center">RBI</div>
+      <div class="header-title absolute-center lt-sm">RBI</div>
       <div class="row items-center">
         <q-icon
           v-if="$q.lang.isoName === 'en-us'"
@@ -29,10 +30,15 @@
         <q-icon
           name="img:statics/icons/account.png"
           size="18px"
-          class="account"
+          class="account lt-sm"
           style="margin-left:20px"
         >
         </q-icon>
+        <div class="gt-xs row " style="text-white; margin-left: 40px">
+          <router-link to="/registry">注册</router-link>
+          <span class="q-px-md">|</span>
+          <router-link to="/login">登录</router-link>
+        </div>
 
         <!-- 个人中心icon 菜单栏 -->
         <Menu :menuData="accountMenu" target=".account">
@@ -92,7 +98,12 @@ export default {
 
 <style lang="scss" scoped>
 .header-box {
-  height: 44px;
+  height: 60px;
+}
+.screen--xs {
+  .header-box {
+    height: 44px;
+  }
 }
 .header-title {
   font-size: 18px;
