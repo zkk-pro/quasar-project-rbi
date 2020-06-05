@@ -77,26 +77,26 @@
           v-for="(item, index) in intro2Column"
           :key="index"
         >
-          <img :src="getImg(item.img)" alt="" />
+          <img :src="item.img" alt="" />
           <span class="q-mt-lg q-mb-md color1">{{ item.title }}</span>
           <span class="q-mb-sm">{{ item.bill }}</span>
           <span>{{ item.detail }}</span>
         </div>
       </div>
     </div>
-    <div class="intro intro-even q-pt-xl column justify-center items-center">
+    <div class="intro q-pt-xl column justify-center items-center">
       <img
         src="~assets/pc_images/index3.png"
-        width="117"
+        width="158"
         height="49"
         class="center-img"
       />
-      <div class="intro3 color1 q-mb-lg">
+      <div class="intro3 color1 q-mb-md text-left">
         空投合作交易所N9EX.COM
       </div>
-      <div class="intro-info row">
+      <div class="intro-info row justify-content items-center q-mt-md">
         <div class="intro3-left">
-          <div class="intro3-column">
+          <div class="intro3-column ">
             <div class="intro3-title q-mb-md q-pb-md">
               <img
                 src="~assets/images/one-icon.png"
@@ -115,7 +115,7 @@
               </p>
             </div>
           </div>
-          <div class="intro3-column">
+          <div class="intro3-column q-mt-lg">
             <div class="intro3-title q-mb-md q-pb-md">
               <img
                 src="~assets/images/two-icon.png"
@@ -145,6 +145,44 @@
         </div>
       </div>
     </div>
+    <div class="intro intro-even q-pt-xl column justify-center items-center">
+      <img
+        src="~assets/pc_images/index4.png"
+        width="107"
+        height="49"
+        class="center-img"
+      />
+      <div class="intro2-content intro-content q-mt-lg q-mb-xl">
+        POS挖矿是依据参与不同等级节点的人数按比例分配收益的。POS挖矿释放数量跟实际空投的数量有直接的关系，POS挖矿产币释放规则计算公式如下：
+      </div>
+      <img
+        src="~assets/images/formula.png"
+        width="285"
+        height="56"
+        alt=""
+        class="q-mb-md"
+      />
+      <p class="formula q-mt-lg">
+        Sn : 第n天的释放数量；N：第几天；X: 实际空投数量； P：POS年化利率
+      </p>
+      <img
+        src="~assets/pc_images/sheet2.png"
+        width="974"
+        height="436"
+        alt=""
+        class="q-my-xl "
+      />
+      <p class="q-my-xl ">
+        分阶段开放不同等级的POS节点，每个阶段的节点收益分配比例根据实际情况调整
+      </p>
+      <img
+        src="~assets/pc_images/node_line.png"
+        width="1150"
+        height="280"
+        alt=""
+        class="q-my-xl"
+      />
+    </div>
     <Footer />
   </q-page>
 </template>
@@ -163,19 +201,19 @@ export default {
       currentText: 0,
       intro2Column: [
         {
-          img: '~assets/pc_images/index_icon1.png',
+          img: require('src/assets/pc_images/index_icon1.png'),
           title: 'RBI发行总量',
           bill: '发行3亿枚',
           detail: '恒定不变'
         },
         {
-          img: '~assets/pc_images/index_icon2.png',
+          img: require('src/assets/pc_images/index_icon2.png'),
           title: '空投',
           bill: '发行1.5亿枚',
           detail: '其中的100万枚用于做星星之火市场活动'
         },
         {
-          img: '~assets/pc_images/index_icon3.png',
+          img: require('src/assets/pc_images/index_icon3.png'),
           title: 'POS挖矿',
           bill: '1.5亿枚',
           detail: '分阶段开启不同的节点等级'
@@ -190,9 +228,6 @@ export default {
       this.banner = data.banner
       this.noticeList = data.notice
       this.currentText = data.notice[0].id
-    },
-    getImg(imgSrc) {
-      // return reqiure(imgSrc)
     }
   },
   created() {
@@ -202,6 +237,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.intro-info, .intro3{
+  width: 1100px;
+}
+.intro2-column span{
+  color: rgba(255,255,255,.6)
+}
+.formula {
+  color: #999;
+  font-size: 14px;
+}
 .intro3-icon {
   width: 12px;
   height: 12px;
@@ -212,10 +257,11 @@ export default {
 .intro3-right {
   flex: 1;
 }
-.intro3-content {
+.intro3-content p {
   line-height: 30px;
   font-size: 14px;
   width: 450px;
+  margin: 0;
 }
 .color1 {
   color: #00e6ff;
@@ -244,6 +290,7 @@ export default {
 }
 .intro3 {
   margin-top: 100px;
+  text-align: left;
 }
 .big {
   font-size: 20px;
@@ -261,6 +308,7 @@ export default {
 }
 .notice-text {
   color: #3971cd;
+  width: 90%;
   font-size: 14px;
   margin-left: 10px;
   line-height: 40px;

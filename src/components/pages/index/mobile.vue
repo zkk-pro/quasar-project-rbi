@@ -303,6 +303,7 @@ export default {
   font-size: 11px;
   margin-left: 10px;
   line-height: 32px;
+  width: 90%;
 }
 .notice-more {
   color: #3971cd;
