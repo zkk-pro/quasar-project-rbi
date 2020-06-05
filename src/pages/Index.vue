@@ -1,11 +1,13 @@
 <template>
-  <IndexMobile />
+  <!-- <IndexMobile /> -->
+  <IndexPc />
 </template>
 
 <script>
-import IndexMobile from 'components/pages/index/mobile'
+// import IndexMobile from 'components/pages/index/mobile'
+import IndexPc from 'components/pages/index/pc'
 export default {
-  components: { IndexMobile }
+  components: { IndexPc }
 }
 </script>
 
