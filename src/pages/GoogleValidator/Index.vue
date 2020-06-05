@@ -7,9 +7,9 @@
       打开谷歌验证器，填入您的RBI账号，并扫描下方二维码或手动输入下方密钥。
     </p>
     <div class="column items-center">
-      <img class="qr-code" src="" alt="image-load-faild" />
+      <img class="qr-code" :src="googleAuth.secretQrCode" alt="" />
       <div class="q-mt-md row text-primary">
-        N5U3F7JEMRXJPTX7<i class="copy-icon" @click="copy"></i>
+        {{ googleAuth.secret }}<i class="copy-icon" @click="copy"></i>
       </div>
     </div>
     <p class="q-mt-md">
@@ -32,7 +32,7 @@
         filled
         dense
         class="q-mt-md"
-        :prefix="isEmail ? '邮箱验证码' : '短信验证码'"
+        :prefix="`${userTypeText}验证码`"
         maxlength="6"
         :input-style="{ color: 'white' }"
         style="background: rgba(255,255,255,0.2); border-radius: 3px"
@@ -43,8 +43,9 @@
             <q-btn
               flat
               stack
+              :disable="codeBtnDisabled"
               color="primary"
-              label="获取验证码"
+              :label="codeBtnLabel"
               style="min-width: 70px"
               @click="getCode"
             />
@@ -64,14 +65,29 @@
 </template>
 
 <script>
+import { getGoogleAuth, bindGoogle, validate } from 'src/api/apiList'
 export default {
   data() {
     return {
       address: 'N5U3F7JEMRXJPTX7',
       isEmail: true, // 是否邮箱验证
+      googleAuth: {}, // google私钥信息
+      userType: '', // 用户注册类型
+      codeBtnDisabled: false, // 发送验证按钮禁用
+      codeBtnLabel: '获取验证码', // 获取验证码按钮文字
+      timer: null,
       form: {
         googleCode: '',
         code: '' // 邮箱、短信验证码
+      }
+    }
+  },
+  computed: {
+    userTypeText() {
+      if (this.userType === 'mobile') {
+        return '手机'
+      } else {
+        return '邮箱'
       }
     }
   },
@@ -79,7 +95,7 @@ export default {
     // 复制
     async copy() {
       try {
-        await this.$copyText(this.address)
+        await this.$copyText(this.googleAuth.secret)
         this.$q.notify({
           message: '复制成功',
           icon: 'done',
@@ -94,8 +110,25 @@ export default {
       }
     },
     // 获取验证码
-    getCode() {
-      console.log(123)
+    async getCode() {
+      try {
+        await validate({ type: this.userType })
+        let time = 60
+        this.codeBtnDisabled = true
+        time--
+        this.codeBtnLabel = time + 's'
+        this.timer = setInterval(() => {
+          time--
+          this.codeBtnLabel = time + 's'
+          if (time < 0) {
+            clearInterval(this.timer)
+            this.codeBtnLabel = '重新获取'
+            this.codeBtnDisabled = false
+          }
+        }, 1000)
+      } catch (error) {
+        this.codeBtnDisabled = false
+      }
     },
     // 确认开启
     confirmOpen() {
@@ -110,7 +143,19 @@ export default {
         name: 'success',
         params: { text: '谷歌验证器开启成功' }
       })
+    },
+    // 获取google私钥
+    async getGoogleAuth() {
+      const { data } = await getGoogleAuth()
+      this.googleAuth = data
+    },
+    async bindGoogle() {
+      await bindGoogle()
     }
+  },
+  created() {
+    this.getGoogleAuth()
+    this.userType = this.$store.getters.userinfo.type
   }
 }
 </script>

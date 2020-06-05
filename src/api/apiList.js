@@ -36,7 +36,7 @@ export function getNodeList() {
 export function getUserInfo() {
   return http.get('userInfo/index')
 }
-// 安全验证
+// 安全验证类 - 验证码 （已登录）
 export function validate() {
   return http.get('userInfo/captcha')
 }
@@ -55,4 +55,12 @@ export function setPIN(params) {
 // 提币
 export function withdraw(params) {
   return http.get('withdraw/add', { params })
+}
+// 获取google私钥
+export function getGoogleAuth(params) {
+  return http.get('google/auth', { params })
+}
+// 绑定google验证器
+export function bindGoogle(params) {
+  return http.get('google/bind', { params })
 }
