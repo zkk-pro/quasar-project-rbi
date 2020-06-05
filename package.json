@@ -2,7 +2,7 @@
   "name": "rbi",
   "version": "0.0.1",
   "description": "rbi project",
-  "productName": "Quasar App",
+  "productName": "RBI",
   "cordovaId": "org.cordova.quasar.app",
   "capacitorId": "",
   "author": "zkk-pro",

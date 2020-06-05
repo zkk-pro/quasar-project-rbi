@@ -95,10 +95,9 @@ export default {
     return {
       showAddress: false, // 显示充币
       showWithDraw: false, // 显示提币表单
-      address: '7197291729dhahhdehsss@BBbwallet',
       params: {
         paging: 1,
-        limit: 3
+        limit: 5
       },
       totalAndConfig: {}, // 总资产和配置
       logList: [], // 交易记录

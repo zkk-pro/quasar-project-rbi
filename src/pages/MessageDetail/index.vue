@@ -1,11 +1,10 @@
 <template>
   <q-page class="message-detail q-pa-md">
-    <div class="back" @click="toList" >&lt;&lt;返回公告列表</div>
+    <div class="back" @click="toList">&lt;&lt;返回公告列表</div>
     <!-- <router-link class="back" to="/message-list" replace >&lt;&lt;返回公告列表</router-link> -->
-    <div class="title q-mt-lg q-mt-xs">{{notice.title}}</div>
-    <div class="time q-mb-xs q-mt-sm">{{notice.createTime | formatDate}}</div>
-    <div class="content q-mt-lg" v-html="notice.content">
-    </div>
+    <div class="title q-mt-lg q-mt-xs">{{ notice.title }}</div>
+    <div class="time q-mb-xs q-mt-sm">{{ notice.createTime | formatDate }}</div>
+    <div class="content q-mt-lg" v-html="notice.content"></div>
   </q-page>
 </template>
 
@@ -16,8 +15,14 @@ export default {
   data() {
     return {
       id: 0,
-      notice: {}
+      notice: {},
+      fromPath: '/'
     }
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.fromPath = from.path
+    })
   },
   methods: {
     async noticeDetail() {
@@ -25,7 +30,11 @@ export default {
       this.notice = data
     },
     toList() {
-      console.log(this.$router)
+      if (this.fromPath === '/') {
+        this.$router.replace({ path: '/message-list' })
+      } else {
+        this.$router.go(-1)
+      }
     }
   },
   mounted() {

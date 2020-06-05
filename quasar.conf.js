@@ -78,12 +78,11 @@ module.exports = function(ctx) {
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
       vueRouterMode: 'hash', // available values: 'hash', 'history'
-      publicPath: './',
       env: ctx.dev
         // ? { API: JSON.stringify('http://192.168.1.197:7410/api/h5/') }
         ? { API: JSON.stringify('/api') }
         : {
-          API: JSON.stringify('prod')
+          API: JSON.stringify('http://192.168.0.121:8315/api/h5/')
         },
 
       // rtl: false, // https://quasar.dev/options/rtl-support
@@ -110,8 +109,8 @@ module.exports = function(ctx) {
     devServer: {
       proxy: {
         '/api': {
-          // target: 'http://192.168.0.121:8315/api/h5/',
-          target: 'http://192.168.1.197:7410/api/h5/',
+          target: 'http://192.168.0.121:8315/api/h5/',
+          // target: 'http://192.168.1.197:7410/api/h5/',
           changeOrigin: true,
           pathRewrite: {
             '^/api': ''
