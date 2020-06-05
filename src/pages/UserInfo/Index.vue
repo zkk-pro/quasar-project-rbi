@@ -41,6 +41,7 @@
           <router-link
             class="text-primary right-arrow"
             to="/f-g-validator"
+            replace
             v-else
           >
             去绑定
@@ -90,23 +91,13 @@
     >
       <q-form ref="googleValidatorSafeForm" class="q-px-md">
         <q-input
-          v-model="openGoogleValidatorForm.googleCode"
+          v-model="closeGoogleValidatorForm.code"
           class="full-width"
           dense
           maxlength="6"
-          label="谷歌验证码"
-          lazy-rules
-          :rules="[
-            val => !!val || '请输入验证码',
-            val => !(val.length < 6) || '请输入6数位验证码'
-          ]"
-        />
-        <q-input
-          v-model="openGoogleValidatorForm.code"
-          class="full-width"
-          dense
-          maxlength="6"
-          label="手机验证码"
+          :label="`${userinfo === 'email' ? '邮箱' : '手机'}验证码`"
+          no-error-icon
+          color="blue-6"
           lazy-rules
           :rules="[
             val => !!val || '请输入验证码',
@@ -114,13 +105,34 @@
           ]"
         >
           <template v-slot:append>
-            <q-btn flat style="color:#118EE9; font-size:14px" @click="getCode"
-              >获取验证码</q-btn
+            <q-btn
+              flat
+              :disable="closeCodeBtnDisabled"
+              class="text-blue-6"
+              style=" font-size:14px"
+              @click="getCode"
             >
+              {{ closeCodeBtnLabel }}
+            </q-btn>
           </template>
         </q-input>
+        <q-input
+          v-model="closeGoogleValidatorForm.googleCode"
+          class="full-width"
+          dense
+          maxlength="6"
+          label="谷歌验证码"
+          color="blue-6"
+          no-error-icon
+          lazy-rules
+          :rules="[
+            val => !!val || '请输入验证码',
+            val => !(val.length < 6) || '请输入6数位验证码'
+          ]"
+        />
       </q-form>
     </Dialog>
+    <!-- 设置PIN -->
     <SetPIN
       :show="setPINShow"
       @success="onSetPINSuccess"
@@ -132,15 +144,19 @@
 <script>
 import Dialog from 'components/Dialog'
 import SetPIN from 'components/SetPIN'
+import { userModify, validate } from 'src/api/apiList'
 
 export default {
   data() {
     return {
-      // googleModel: false, // google验证身份验证开关
-      openGoogleValidatorForm: {
+      // 关闭谷歌验证安全表单
+      closeGoogleValidatorForm: {
         googleCode: '',
         code: ''
       },
+      closeCodeBtnLabel: '获取验证码', // 关闭验证器表单获取验证码按钮文字
+      closeCodeBtnDisabled: false, // 关闭验证器表单获取验证码按钮禁用
+      timer: null,
       userinfo: {}, // 用户信息
       setPINShow: false // 显示修改PIN弹框
     }
@@ -159,20 +175,51 @@ export default {
     // 打开安全验证 确认事件
     async openGoogleValidatorConfirm() {
       const res = await this.$refs.googleValidatorSafeForm.validate()
-      console.log('res', res)
       if (res) {
-        this.$refs.openGoogleValidatorDialog.close()
+        try {
+          await userModify({
+            securityGoogleSwitch: this.userinfo.securityGoogleSwitch ? 0 : 1,
+            code: this.closeGoogleValidatorForm.googleCode,
+            captcha: this.closeGoogleValidatorForm.code
+          })
+          const { data } = await this.$store.dispatch('UpdateUserInfo')
+          this.userinfo = data
+          this.clearCodeHandle()
+          await this.$refs.openGoogleValidatorDialog.close()
+        } catch (err) {}
       }
     },
     // 取消安全验证
     openGoogleValidatorCancel() {
-      this.openGoogleValidatorForm.googleCode = ''
-      this.openGoogleValidatorForm.code = ''
-      this.googleModel = false
+      this.closeGoogleValidatorForm.googleCode = ''
+      this.closeGoogleValidatorForm.code = ''
+      this.clearCodeHandle()
+      this.$refs.openGoogleValidatorDialog.close()
+    },
+    clearCodeHandle() {
+      clearInterval(this.timer)
+      this.closeCodeBtnLabel = '获取验证码'
+      this.closeCodeBtnDisabled = false
     },
     // 获取验证码
-    getCode() {
-      console.log(123)
+    async getCode() {
+      try {
+        await validate({ type: this.userinfo.type })
+        let time = 60
+        this.closeCodeBtnDisabled = true
+        this.closeCodeBtnLabel = time + 's'
+        this.timer = setInterval(() => {
+          time--
+          this.closeCodeBtnLabel = time + 's'
+          if (time < 0) {
+            clearInterval(this.timer)
+            this.closeCodeBtnLabel = '重新获取'
+            this.closeCodeBtnDisabled = false
+          }
+        }, 1000)
+      } catch (err) {
+        this.closeCodeBtnDisabled = false
+      }
     },
     // 重置google 验证器
     resetGoogle() {

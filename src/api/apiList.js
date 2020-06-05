@@ -37,8 +37,8 @@ export function getUserInfo() {
   return http.get('userInfo/index')
 }
 // 安全验证类 - 验证码 （已登录）
-export function validate() {
-  return http.get('userInfo/captcha')
+export function validate(params) {
+  return http.get('userInfo/captcha', { params })
 }
 // 节点购买
 export function nodeBuy(params) {
@@ -63,4 +63,8 @@ export function getGoogleAuth(params) {
 // 绑定google验证器
 export function bindGoogle(params) {
   return http.get('google/bind', { params })
+}
+// 开启关闭、关闭谷歌验证器；修改密码
+export function userModify(params) {
+  return http.get('userInfo/update', { params })
 }

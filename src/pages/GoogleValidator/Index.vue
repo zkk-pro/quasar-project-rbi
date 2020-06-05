@@ -17,50 +17,55 @@
     </p>
     <p class="q-mt-md three-icon">输入谷歌验证器中6位验证码</p>
     <div style="padding-left: 18px">
-      <q-input
-        v-model="form.googleCode"
-        filled
-        dense
-        prefix="谷歌验证码"
-        maxlength="6"
-        :input-style="{ color: 'white' }"
-        style="background: rgba(255,255,255,0.2); border-radius: 3px"
-        placeholder="请输入验证码"
-      />
-      <q-input
-        v-model="form.code"
-        filled
-        dense
-        class="q-mt-md"
-        :prefix="`${userTypeText}验证码`"
-        maxlength="6"
-        :input-style="{ color: 'white' }"
-        style="background: rgba(255,255,255,0.2); border-radius: 3px"
-        placeholder="请输入验证码"
-      >
-        <template v-solot:prepend>
-          <div class="getcode-btn row">
-            <q-btn
-              flat
-              stack
-              :disable="codeBtnDisabled"
-              color="primary"
-              :label="codeBtnLabel"
-              style="min-width: 70px"
-              @click="getCode"
-            />
-          </div>
-        </template>
-      </q-input>
+      <q-form @submit="onSubmit" ref="bindForm">
+        <q-input
+          v-model="form.googleCode"
+          filled
+          dense
+          :prefix="`${isBind ? '新': ''}谷歌验证码`"
+          maxlength="6"
+          :input-style="{ color: 'white' }"
+          placeholder="请输入验证码"
+          lazy-rules
+          no-error-icon
+          :rules="[val => (!!val && !(val.length < 6)) || '请输入6位数验证码']"
+        />
+        <q-input
+          v-model="form.code"
+          filled
+          dense
+          :prefix="`${userTypeText}验证码`"
+          maxlength="6"
+          :input-style="{ color: 'white' }"
+          placeholder="请输入验证码"
+          lazy-rules
+          no-error-icon
+          :rules="[val => (!!val && !(val.length < 6)) || '请输入6位数验证码']"
+        >
+          <template v-solot:prepend>
+            <div class="getcode-btn row">
+              <q-btn
+                flat
+                stack
+                :disable="codeBtnDisabled"
+                color="primary"
+                :label="codeBtnLabel"
+                style="min-width: 70px"
+                @click="getCode"
+              />
+            </div>
+          </template>
+        </q-input>
+        <q-btn
+          rounded
+          type="submit"
+          color="primary"
+          text-color="dark"
+          class="confrim-btn"
+          label="确认开启"
+        />
+      </q-form>
     </div>
-    <q-btn
-      rounded
-      color="primary"
-      text-color="dark"
-      class="confrim-btn"
-      label="确认开启"
-      @click="confirmOpen"
-    />
   </q-page>
 </template>
 
@@ -73,6 +78,7 @@ export default {
       isEmail: true, // 是否邮箱验证
       googleAuth: {}, // google私钥信息
       userType: '', // 用户注册类型
+      isBind: false, // 是否绑定
       codeBtnDisabled: false, // 发送验证按钮禁用
       codeBtnLabel: '获取验证码', // 获取验证码按钮文字
       timer: null,
@@ -131,18 +137,20 @@ export default {
       }
     },
     // 确认开启
-    confirmOpen() {
-      if (!this.form.googleCode) {
-        return this.$q.notify({ message: '请输入谷歌验证码' })
-      } else if (!this.form.code) {
-        return this.$q.notify({
-          message: `请输入${this.isEmail ? '邮箱' : '短信'}验证码`
-        })
+    async onSubmit() {
+      const res = this.$refs.bindForm.validate()
+      if (res) {
+        try {
+          await bindGoogle({
+            code: this.form.googleCode,
+            captcha: this.form.code
+          })
+          this.$router.replace({
+            name: 'success',
+            params: { text: '谷歌验证器开启成功' }
+          })
+        } catch (error) {}
       }
-      this.$router.push({
-        name: 'success',
-        params: { text: '谷歌验证器开启成功' }
-      })
     },
     // 获取google私钥
     async getGoogleAuth() {
@@ -156,6 +164,7 @@ export default {
   created() {
     this.getGoogleAuth()
     this.userType = this.$store.getters.userinfo.type
+    this.isBind = this.$store.getters.userinfo.securityGoogleIsBind
   }
 }
 </script>
@@ -171,6 +180,10 @@ export default {
 
 .getcode-btn /deep/ .q-btn__wrapper {
   padding: 0;
+}
+/deep/ .q-field__inner {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
 }
 // END
 
@@ -196,6 +209,6 @@ p {
   width: 315px;
   height: 46px;
   align-self: center;
-  margin-top: 90px;
+  margin-top: 70px;
 }
 </style>

@@ -110,7 +110,8 @@ module.exports = function(ctx) {
     devServer: {
       proxy: {
         '/api': {
-          target: 'http://192.168.0.121:8315/api/h5/',
+          // target: 'http://192.168.0.121:8315/api/h5/',
+          target: 'http://192.168.1.197:7410/api/h5/',
           changeOrigin: true,
           pathRewrite: {
             '^/api': ''
