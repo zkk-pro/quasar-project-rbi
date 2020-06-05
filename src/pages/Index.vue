@@ -4,7 +4,6 @@
       height="210px"
       v-model="currentImg"
       infinite
-      autoplay
       keep-alive
       swipeable
       animated
@@ -14,13 +13,15 @@
       style="background: inherit"
     >
       <q-carousel-slide
-        :name="1"
-        img-src="https://cdn.quasar.dev/img/mountains.jpg"
+        v-for="(item, index) in banner"
+        :key="index"
+        :name="index"
+        :img-src="item.img"
       />
-      <q-carousel-slide
+      <!-- <q-carousel-slide
         :name="2"
         img-src="https://cdn.quasar.dev/img/parallax1.jpg"
-      />
+      /> -->
     </q-carousel>
 
     <div class="notice-box flex items-center">
@@ -46,7 +47,9 @@
           </div>
         </q-carousel-slide>
       </q-carousel>
-      <router-link to="/message-list" class="notice-more">查看更多>></router-link>
+      <router-link to="/message-list" class="notice-more"
+        >查看更多>></router-link
+      >
     </div>
 
     <div class="intro q-mt-lg column justify-center items-center q-px-md">
@@ -227,11 +230,13 @@
 
 <script>
 import Footer from 'components/Footer'
+import { getIndexInfo } from 'src/api/apiList'
 
 export default {
   name: 'PageIndex',
   data() {
     return {
+      banner: [],
       open: false,
       currentImg: 1,
       currentText: 1
@@ -242,7 +247,21 @@ export default {
     messageList() {
       // this.$router.push({ path: '/pages/message-list' })
     },
-    messageDetail() {}
+    messageDetail() {},
+    bannerImg(imgSrc) {
+      return require(imgSrc)
+    },
+    async getIndexInfo() {
+      const { data } = await getIndexInfo()
+      this.banner = data.banner
+      this.banner.forEach(item => {
+        this.bannerImg(item.img)
+      })
+      console.log(this.banner)
+    }
+  },
+  mounted() {
+    this.getIndexInfo()
   }
 }
 </script>

@@ -24,3 +24,7 @@ export function getNodeList() {
 export function getUserInfo() {
   return http.get('userInfo/index')
 }
+// 首页
+export function getIndexInfo() {
+  return http.get('index/index')
+}
