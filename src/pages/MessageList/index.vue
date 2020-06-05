@@ -5,14 +5,16 @@
       <span>公告列表</span>
     </div>
     <q-list separator>
-      <div v-for="(item, index) in 3" :key="index">
-        <q-item class="q-py-md" clickable v-ripple @click="toDetail(item.id)">
+      <div v-for="(item, index) in messageList" :key="index">
+        <q-item class="q-py-md" clickable v-ripple :to="{ path: 'message-detail', query: {id: item.id }}">
           <q-item-section>
             <div class="row items-center">
-              <span class="circle"></span>
-              <span class="item-title">223</span>
+              <span :class="['circle',item.readTime > 0 ? '': 'new']"></span>
+              <span class="item-title">{{item.title}}</span>
             </div>
-            <div class="q-mt-sm" style="padding-left: 22px">2020-05-25 11:20</div>
+            <div class="q-mt-sm" style="padding-left: 22px; color: #999">
+              {{item.createTime | formatDate}}
+            </div>
           </q-item-section>
         </q-item>
         <q-separator style="background: rgba(255, 255, 255, .1)" />
@@ -22,22 +24,27 @@
 </template>
 
 <script>
+import { noticeList } from 'src/api/apiList'
+import { date } from 'quasar'
 export default {
   data() {
     return {
-      messageList: [
-        {
-          title: '我我我我我我我我我我我我我我我我我我我我我我我我我我',
-          content: '33333333333333'
-        },
-        { title: '111111', content: '33333333333333' },
-        { title: '111111', content: '33333333333333' }
-      ]
+      messageList: [],
+      paging: 0
     }
   },
   methods: {
-    toDetail(id) {
-      this.$router.push({ path: `/message-detail?id=${id}` })
+    async getMessageList() {
+      const { data } = await noticeList({ paging: this.paging, limit: 3 })
+      this.messageList = data
+    }
+  },
+  mounted() {
+    this.getMessageList()
+  },
+  filters: {
+    formatDate(d) {
+      return date.formatDate(d, 'YYYY-MM-DD HH:mm')
     }
   }
 }

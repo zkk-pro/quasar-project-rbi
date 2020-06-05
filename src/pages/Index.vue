@@ -5,6 +5,7 @@
       v-model="currentImg"
       infinite
       keep-alive
+      autoplay
       swipeable
       animated
       navigation
@@ -18,6 +19,10 @@
         :name="index"
         :img-src="item.img"
       />
+      <!-- <q-carousel-slide :name="1" img-src="https://cdn.quasar.dev/img/mountains.jpg" />
+      <q-carousel-slide :name="2" img-src="https://cdn.quasar.dev/img/parallax1.jpg" />
+      <q-carousel-slide :name="3" img-src="https://cdn.quasar.dev/img/parallax2.jpg" />
+      <q-carousel-slide :name="4" img-src="https://cdn.quasar.dev/img/quasar.jpg" /> -->
     </q-carousel>
 
     <div class="notice-box flex items-center" v-if="noticeList.length > 0">
@@ -33,13 +38,13 @@
         style="background: inherit; flex: 1"
       >
         <q-carousel-slide
-          :name="index"
-          v-for="(item, index) in noticeList"
-          :key="index"
+          :name="item.id"
+          v-for="item in noticeList"
+          :key="item.id"
         >
-          <div class="notice" @click="messageDetail(item.id)">
+          <router-link class="notice" :to="{ path: '/message-detail', query: { id: item.id }}">
             <div class="notice-text">{{ item.title }}</div>
-          </div>
+          </router-link>
         </q-carousel-slide>
       </q-carousel>
       <router-link to="/message-list" class="notice-more"
@@ -232,34 +237,32 @@ export default {
   data() {
     return {
       banner: [],
-      noticeList: [
-        { title: '111', id: 1 },
-        { title: '222', id: 2 }
-      ],
-      // noticeList: [],
+      noticeList: [],
       open: false,
-      currentImg: 1,
-      currentText: 1
+      currentImg: 0,
+      currentText: 0
     }
   },
   components: { Footer },
   methods: {
-    messageDetail(id) {
-      this.$router.push({ path: `/message-detail?id=${id}` })
-    },
     async getIndexInfo() {
       const { data } = await getIndexInfo()
       this.banner = data.banner
       this.noticeList = data.notice
+      this.currentText = data.notice[0].id
     }
   },
-  mounted() {
+  created() {
     this.getIndexInfo()
   }
 }
 </script>
 
 <style lang="scss" scoped>
+// 组件样式覆盖
+/deep/ .q-carousel__slide {
+  padding: 0;
+}
 .intro-table {
   width: 100%;
   border-collapse: collapse;

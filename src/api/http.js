@@ -15,7 +15,8 @@ request.interceptors.request.use(
     } else {
       config.params = { data: config.params }
     }
-    config.headers.token = store().getters.token || ''
+    config.headers.token = store().getters.token
+    config.headers.language = store().getters.language
     return config
   },
   err => {
