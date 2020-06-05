@@ -1,21 +1,42 @@
 <template>
   <q-page class="message-detail q-pa-md">
-    <router-link class="back" to="/message-list">&lt;&lt;返回公告列表</router-link>
-    <div class="title q-mt-md">11111</div>
-    <div class="time q-my-sm">1111</div>
-    <div class="content q-mt-md">
-      这里是公告正文：Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus
-      accumsan et viverra justo commodo. Proin sodales pulvinar sic tempor.
-      Sociis natoque penatibus et magnis dis parturient montes, nascetur
-      ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis
-      tellus mollis orci, sed rhoncus pronin sapien nunc accuan eget.
+    <div class="back" @click="toList" >&lt;&lt;返回公告列表</div>
+    <!-- <router-link class="back" to="/message-list" replace >&lt;&lt;返回公告列表</router-link> -->
+    <div class="title q-mt-lg q-mt-xs">{{notice.title}}</div>
+    <div class="time q-mb-xs q-mt-sm">{{notice.createTime | formatDate}}</div>
+    <div class="content q-mt-lg" v-html="notice.content">
     </div>
   </q-page>
 </template>
 
 <script>
+import { noticeDetail } from 'src/api/apiList'
+import { date } from 'quasar'
 export default {
+  data() {
+    return {
+      id: 0,
+      notice: {}
+    }
+  },
+  methods: {
+    async noticeDetail() {
+      const { data } = await noticeDetail({ id: this.id })
+      this.notice = data
+    },
+    toList() {
+      console.log(this.$router)
+    }
+  },
+  mounted() {
+    this.id = this.$route.query.id
+    this.noticeDetail()
+  },
+  filters: {
+    formatDate(d) {
+      return date.formatDate(d, 'YYYY-MM-DD HH:mm:ss')
+    }
+  }
 }
 </script>
 

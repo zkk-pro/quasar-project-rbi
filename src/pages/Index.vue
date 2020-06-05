@@ -4,8 +4,8 @@
       height="210px"
       v-model="currentImg"
       infinite
-      autoplay
       keep-alive
+      autoplay
       swipeable
       animated
       navigation
@@ -14,16 +14,18 @@
       style="background: inherit"
     >
       <q-carousel-slide
-        :name="1"
-        img-src="https://cdn.quasar.dev/img/mountains.jpg"
+        v-for="(item, index) in banner"
+        :key="index"
+        :name="index"
+        :img-src="item.img"
       />
-      <q-carousel-slide
-        :name="2"
-        img-src="https://cdn.quasar.dev/img/parallax1.jpg"
-      />
+      <!-- <q-carousel-slide :name="1" img-src="https://cdn.quasar.dev/img/mountains.jpg" />
+      <q-carousel-slide :name="2" img-src="https://cdn.quasar.dev/img/parallax1.jpg" />
+      <q-carousel-slide :name="3" img-src="https://cdn.quasar.dev/img/parallax2.jpg" />
+      <q-carousel-slide :name="4" img-src="https://cdn.quasar.dev/img/quasar.jpg" /> -->
     </q-carousel>
 
-    <div class="notice-box flex items-center">
+    <div class="notice-box flex items-center" v-if="noticeList.length > 0">
       <q-icon name="img:statics/icons/notice.png" size="14px" />
       <q-carousel
         height="100%"
@@ -35,18 +37,19 @@
         transition-next="slide-up"
         style="background: inherit; flex: 1"
       >
-        <q-carousel-slide :name="1">
-          <div class="notice" @click="messageDetail">
-            <div class="notice-text">消息111111</div>
-          </div>
-        </q-carousel-slide>
-        <q-carousel-slide :name="2">
-          <div class="notice" @click="messageDetail">
-            <div class="notice-text">消息222222</div>
-          </div>
+        <q-carousel-slide
+          :name="item.id"
+          v-for="item in noticeList"
+          :key="item.id"
+        >
+          <router-link class="notice" :to="{ path: '/message-detail', query: { id: item.id }}">
+            <div class="notice-text">{{ item.title }}</div>
+          </router-link>
         </q-carousel-slide>
       </q-carousel>
-      <router-link to="/message-list" class="notice-more">查看更多>></router-link>
+      <router-link to="/message-list" class="notice-more"
+        >查看更多>></router-link
+      >
     </div>
 
     <div class="intro q-mt-lg column justify-center items-center q-px-md">
@@ -227,27 +230,39 @@
 
 <script>
 import Footer from 'components/Footer'
+import { getIndexInfo } from 'src/api/apiList'
 
 export default {
   name: 'PageIndex',
   data() {
     return {
+      banner: [],
+      noticeList: [],
       open: false,
-      currentImg: 1,
-      currentText: 1
+      currentImg: 0,
+      currentText: 0
     }
   },
   components: { Footer },
   methods: {
-    messageList() {
-      // this.$router.push({ path: '/pages/message-list' })
-    },
-    messageDetail() {}
+    async getIndexInfo() {
+      const { data } = await getIndexInfo()
+      this.banner = data.banner
+      this.noticeList = data.notice
+      this.currentText = data.notice[0].id
+    }
+  },
+  created() {
+    this.getIndexInfo()
   }
 }
 </script>
 
 <style lang="scss" scoped>
+// 组件样式覆盖
+/deep/ .q-carousel__slide {
+  padding: 0;
+}
 .intro-table {
   width: 100%;
   border-collapse: collapse;
