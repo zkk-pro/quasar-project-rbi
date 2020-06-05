@@ -80,3 +80,11 @@ export function noticeList(params) {
 export function noticeDetail(params) {
   return http.get('notice/detail', { params })
 }
+// 获取账号验证级别
+export function getAccountSafeLevel(params) {
+  return http.get('user/accountCheck', { params })
+}
+// 修改登录密码
+export function resetPwd(params) {
+  return http.get('user/resetV2', { params })
+}
