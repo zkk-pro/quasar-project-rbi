@@ -14,10 +14,24 @@
 // --END--
 
 .q-page {
-  background: url('~assets/images/sign-bg.png');
+  background: url('~assets/pc_images/p-sign-bg.png');
   background-size: 100% 100%;
   padding-top: 60px;
 }
+.screen--xs .q-page {
+  background: url('~assets/images/sign-bg.png');
+  background-size: 100% 100%;
+}
+
+.form-box {
+  width: 440px;
+  padding-bottom: 130px;
+}
+.screen--xs .form-box {
+  width: 100%;
+  padding-bottom: 50px;
+}
+
 .title {
   font-size: 30px;
   font-weight: 800;

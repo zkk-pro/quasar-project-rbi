@@ -1,7 +1,22 @@
 <template>
   <q-header :elevated="false" class="row justify-center bg-dark">
     <div class="header-box row items-center justify-between col-xs-11">
-      <div class="gt-xs">123</div>
+      <div class="gt-xs row items-center">
+        <router-link to="/">
+          <img
+          src="~assets/pc_images/header_logo.png"
+          width="67px"
+          height="20px"
+        />
+        </router-link>
+        <q-list bordered class="row" style="margin-left: 130px">
+          <q-item class="q-px-md" clickable v-ripple v-for="item in leftMenu" :key="item.text" :to="item.path">
+            <q-item-section>
+              {{ item.text }}
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </div>
       <q-icon
         name="img:statics/icons/menu-up.png"
         size="18px"
@@ -99,6 +114,7 @@ export default {
 <style lang="scss" scoped>
 .header-box {
   height: 60px;
+  max-width: 1200px;
 }
 .screen--xs {
   .header-box {

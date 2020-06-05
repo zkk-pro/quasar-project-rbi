@@ -224,12 +224,10 @@
         </tbody>
       </q-markup-table>
     </div>
-    <Footer />
   </q-page>
 </template>
 
 <script>
-import Footer from 'components/Footer'
 import { getIndexInfo } from 'src/api/apiList'
 
 export default {
@@ -243,7 +241,6 @@ export default {
       currentText: 0
     }
   },
-  components: { Footer },
   methods: {
     async getIndexInfo() {
       const { data } = await getIndexInfo()

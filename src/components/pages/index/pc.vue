@@ -145,12 +145,10 @@
         </div>
       </div>
     </div>
-    <Footer />
   </q-page>
 </template>
 
 <script>
-import Footer from 'components/Footer'
 import { getIndexInfo } from 'src/api/apiList'
 export default {
   name: 'indexPc',
@@ -183,7 +181,6 @@ export default {
       ]
     }
   },
-  components: { Footer },
   methods: {
     async getIndexInfo() {
       const { data } = await getIndexInfo()
