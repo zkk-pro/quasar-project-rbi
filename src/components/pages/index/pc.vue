@@ -77,7 +77,7 @@
           <img :src="item.img" alt="" />
           <span class="q-mt-lg q-mb-md color1">{{ item.title }}</span>
           <span class="q-mb-sm">{{ item.bill }}</span>
-          <span>{{ item.detail }}</span>
+          <span class="text-center">{{ item.detail }}</span>
         </div>
       </div>
     </div>
@@ -284,10 +284,8 @@ export default {
   width: 30%;
 }
 .screen--xs .column-item{
-  // max-width: 100%;
   width: 50%;
   margin-bottom: 40px;
-  // min-width: unset;
 }
 .intro {
   padding: 90px 0;

@@ -45,9 +45,9 @@
         </router-link>
       </div>
     </div>
-    <div class="container">
+    <div class="list-container">
       <Breadcrumb class="col-xs-11 q-pl-lg gt-xs" />
-      <q-list bordered style="margin-top: 55px">
+      <q-list bordered class="list-box">
         <q-item clickable>
           <q-item-section>锁仓节点</q-item-section>
           <q-item-section class="text-grey-7" style="text-align:right"
@@ -92,6 +92,7 @@
         </q-item>
       </q-list>
     </div>
+
     <SafeValidate
       :show.sync="safeShow"
       :validType="$store.getters.userinfo.securityLevel"
@@ -168,6 +169,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.screen--xs {
+  .list-container {
+    padding: 0 135px;
+    width: 100%;
+    padding: 0;
+    background: initial;
+    margin-top: 55px;
+  }
+  .list-box {
+    padding: 0;
+  }
+}
+.list-container {
+  width: 670px;
+  height: 480px;
+  margin: 0 auto;
+}
+.list-box {
+  padding: 0 135px;
+  background: rgba(26, 26, 60, 1);
+}
+
 .header {
   height: 216px;
   background: url('~assets/images/order-detail-bg.png');

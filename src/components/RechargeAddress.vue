@@ -1,13 +1,13 @@
 <template>
-  <div class="q-px-md">
+  <div class="q-px-md recharge-box">
     <span>RBI充币</span>
     <div
       class="column items-center q-mt-sm"
-      style="background: rgba(255, 255, 255, 0.05); margin-bottom: 40px"
+      style="background: rgba(255, 255, 255, 0.05);height: 100%"
     >
-      <span class="q-pt-lg">我的RBI地址</span>
-      <div class="q-pt-md">{{ address }}</div>
-      <div class="q-mt-xl q-mb-md">
+      <span class="q-pt-lg pc_title">我的RBI地址</span>
+      <div class="q-pt-md pc_address">{{ address }}</div>
+      <div class="q-mt-xl q-mb-md pc_btn">
         <q-btn
           outline
           color="primary"
@@ -28,10 +28,7 @@
     <!-- 二维码 -->
     <q-dialog v-model="showQrcode">
       <q-card class="my-card" style="width: 180px">
-        <q-icon
-          :name="'img:'+ qrcode"
-          size="180px"
-        />
+        <q-icon :name="'img:' + qrcode" size="180px" />
       </q-card>
     </q-dialog>
   </div>
@@ -70,4 +67,25 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.recharge-box{
+  margin-bottom: 40px;
+}
+
+@media screen and (min-width: 599px) {
+  .recharge-box {
+    width: 670px;
+    height: 240px;
+    margin: 8px auto 40px;
+  }
+  .pc_title{
+    padding-top: 48px;
+  }
+  .pc_address{
+    padding-top: 30px;
+  }
+  .pc_btn{
+    margin-top: 58px;
+  }
+}
+</style>
