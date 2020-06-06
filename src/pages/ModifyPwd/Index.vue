@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page class="column items-center">
     <q-form @submit="onSubmit" class="form">
       <q-input
         v-model="form.old"
@@ -37,6 +37,7 @@
         placeholder="请再次输入登录密码"
         :input-style="{ color: 'white' }"
       />
+      <q-separator style="background: rgba(255,255,255,0.1)" />
       <div class="row justify-center" style="margin-top: 184px">
         <q-btn
           unelevated
@@ -106,7 +107,9 @@ export default {
 /deep/ .q-placeholder::placeholder {
   color: rgba(255, 255, 255, 0.2);
 }
-
+/deep/ .q-form{
+  width: 100%;
+}
 .getcode-btn /deep/ .q-btn__wrapper {
   padding: 0;
 }
@@ -145,5 +148,16 @@ export default {
   height: 46px;
   font-size: 16px;
   font-weight: bold;
+}
+@media screen and (min-width: 599px) {
+/deep/ .q-form{
+  width: 440px;
+  padding: 40px;
+  margin-top: 40px;
+  background: rgba(255, 255, 255, 0.05);
+}
+.input-style{
+  background: transparent;
+}
 }
 </style>

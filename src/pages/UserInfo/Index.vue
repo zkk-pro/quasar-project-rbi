@@ -1,5 +1,5 @@
 <template>
-  <q-page class="row justify-center">
+  <q-page class="row justify-center" :style-fn="pageStyle">
     <div class="list-wrapper">
     <q-list v-if="Object.keys(userinfo).length">
       <q-item style="background: rgba(255,255,255, 0.05)">
@@ -17,7 +17,7 @@
         <q-item-section>手机号</q-item-section>
         <q-item-section align="right">137***2917</q-item-section>
       </q-item> -->
-      <q-item class="q-mt-sm" style="background: rgba(255,255,255, 0.05)">
+      <q-item class="q-mt-sm q-item-odd" style="background: rgba(255,255,255, 0.05)">
         <q-item-section>谷歌身份验证</q-item-section>
         <q-item-section align="right">
           <!-- v-model="userinfo.securityGoogleSwitch" -->
@@ -49,14 +49,14 @@
           </router-link>
         </q-item-section>
       </q-item>
-      <q-item class="q-mt-sm" style="background: rgba(255,255,255, 0.05)">
+      <q-item class="q-mt-sm q-item-odd" style="background: rgba(255,255,255, 0.05)">
         <q-item-section>登录密码</q-item-section>
         <q-item-section align="right">
           <router-link class="right-arrow" to="/modify-pwd">修改</router-link>
         </q-item-section>
       </q-item>
       <q-separator inset dark style="background: rgba(255,255,255,0.1)" />
-      <q-item style="background: rgba(255,255,255, 0.05)">
+      <q-item style="background: rgba(255,255,255, 0.05)" >
         <q-item-section>PIN码</q-item-section>
         <q-item-section align="right">
           <div
@@ -165,6 +165,11 @@ export default {
   },
   components: { Dialog, SetPIN },
   methods: {
+    pageStyle(offset, height) {
+      return {
+        'margin-bottom': '100px'
+      }
+    },
     // google验证身份验证事件
     googleModelHandle(val) {
       // 判断是否绑定
@@ -263,6 +268,14 @@ export default {
 }
 .screen--xs .list-wrapper{
   width: 100%;
+}
+@media screen and (min-width: 599px){
+  .list-wrapper{
+    margin-top: 76px;
+  }
+  .q-item-odd{
+    margin-top: 40px;
+  }
 }
 .right-arrow {
   &::after {

@@ -1,11 +1,11 @@
 <template>
   <q-page class="row justify-center">
-    <div class="col-xs-11">
+    <div class="col-xs-11 lock-warpper">
       <!-- <span class="title">锁仓</span> -->
       <Breadcrumb />
       <q-card
         flat
-        class="q-py-md q-px-none"
+        class="q-py-md q-px-none lock-main"
         style="background:rgba(255, 255, 255,.05)"
       >
         <q-card-section class="q-pb-sm" style="font-size:14px"
@@ -20,7 +20,7 @@
             :label="`V${item.name} 节点`"
             :color="item.id == currentNodeId ? 'primary' : ''"
             :text-color="item.id == currentNodeId ? 'dark' : 'primary'"
-            class="q-mr-xs q-mb-xs col-xs-4"
+            class="q-mr-xs q-mb-xs col-xs-4 node-item"
             style="font-size:12px; width:100px; height:40px;"
             @click="selectNode(item.id)"
           />
@@ -58,7 +58,7 @@
           </div>
         </q-card-section>
         <q-card-section
-          class="q-py-xs"
+          class="q-py-xs pc_text"
           style="font-size: 12px; color: rgba(255, 255, 255, .6)"
           >预计{{
             currentNode.interestTimeBegin | formatDate
@@ -206,4 +206,25 @@ export default {
     margin-right: 10px;
   }
 }
+@media screen and (min-width: 599px) {
+  .lock-warpper{
+    max-width: 670px;
+  }
+  .lock-main{
+    padding: 40px 22%;
+  }
+  .node-item{
+    margin-right: 14px;
+    margin-bottom: 14px;
+  }
+  .breadcrumb {
+    height: 62px;
+    line-height: 62px;
+    padding-left: 20px;
+}
+.pc_text{
+  text-align: center;
+}
+}
+
 </style>

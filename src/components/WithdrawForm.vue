@@ -1,10 +1,9 @@
 <template>
-  <div class="q-px-md" style="margin-bottom: 40px">
-    <div class="q-mb-sm">RBI提币</div>
+  <div class="q-px-md recharge-box">
+    <div class="q-mb-sm pc_title">RBI提币</div>
     <q-form
       @submit="onSubmit"
-      class="q-py-lg q-px-md"
-      style="background: rgba(255,255,255,0.05)"
+      class="q-py-lg q-px-md draw-form"
     >
       <div class="q-mb-sm">提币币种</div>
       <q-input
@@ -234,5 +233,25 @@ export default {
   text-align: center;
   color: #fff;
   position: relative;
+}
+.recharge-box{
+  margin-bottom: 40px;
+}
+.draw-form{
+  background: rgba(255,255,255,0.05);
+}
+@media screen and (min-width: 599px) {
+  .recharge-box {
+    width: 670px;
+    height: 512px;
+    margin: 8px auto 40px;
+  }
+  .draw-form{
+    padding: 62px 135px;
+    background: rgba(26,26,60,1);
+  }
+  .pc_title{
+    margin-bottom: 20px;
+  }
 }
 </style>

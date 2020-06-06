@@ -1,70 +1,78 @@
 <template>
-  <q-page class="q-px-md q-py-md column">
-    <p class="one-icon">
-      在应用商店中搜索“Google Authenticator”应用并下载
-    </p>
-    <p class="two-icon">
-      打开谷歌验证器，填入您的RBI账号，并扫描下方二维码或手动输入下方密钥。
-    </p>
-    <div class="column items-center">
-      <img class="qr-code" :src="googleAuth.secretQrCode" alt="" />
-      <div class="q-mt-md row text-primary">
-        {{ googleAuth.secret }}<i class="copy-icon" @click="copy"></i>
+  <q-page class="q-px-md q-py-md column column items-center">
+    <div class="validator-wrapper row justify-center">
+      <div class="validator-list">
+        <p class="one-icon">
+          在应用商店中搜索“Google Authenticator”应用并下载
+        </p>
+        <p class="two-icon">
+          打开谷歌验证器，填入您的RBI账号，并扫描下方二维码或手动输入下方密钥。
+        </p>
+        <div class="column items-center">
+          <img class="qr-code" :src="googleAuth.secretQrCode" alt="" />
+          <div class="q-mt-md row text-primary">
+            {{ googleAuth.secret }}<i class="copy-icon" @click="copy"></i>
+          </div>
+        </div>
+        <p class="q-mt-md">
+          密钥用于手机更换或遗失找回谷歌验证器，绑定前请务必将密钥备份保存。
+        </p>
+        <p class="q-mt-md three-icon">输入谷歌验证器中6位验证码</p>
+        <div style="padding-left: 18px">
+          <q-form @submit="onSubmit" ref="bindForm" class="column">
+            <q-input
+              v-model="form.googleCode"
+              filled
+              dense
+              :prefix="`${isBind ? '新' : ''}谷歌验证码`"
+              maxlength="6"
+              :input-style="{ color: 'white' }"
+              placeholder="请输入验证码"
+              lazy-rules
+              no-error-icon
+              :rules="[
+                val => (!!val && !(val.length < 6)) || '请输入6位数验证码'
+              ]"
+            />
+            <q-input
+              v-model="form.code"
+              filled
+              dense
+              :prefix="`${userTypeText}验证码`"
+              maxlength="6"
+              :input-style="{ color: 'white' }"
+              placeholder="请输入验证码"
+              lazy-rules
+              no-error-icon
+              :rules="[
+                val => (!!val && !(val.length < 6)) || '请输入6位数验证码'
+              ]"
+            >
+              <template v-solot:prepend>
+                <div class="getcode-btn row">
+                  <q-btn
+                    flat
+                    stack
+                    :disable="codeBtnDisabled"
+                    color="primary"
+                    :label="codeBtnLabel"
+                    style="min-width: 70px"
+                    @click="getCode"
+                  />
+                </div>
+              </template>
+            </q-input>
+            <q-btn
+              rounded
+              type="submit"
+              color="primary"
+              text-color="dark"
+              class="confrim-btn"
+              label="确认开启"
+            />
+          </q-form>
+        </div>
       </div>
-    </div>
-    <p class="q-mt-md">
-      密钥用于手机更换或遗失找回谷歌验证器，绑定前请务必将密钥备份保存。
-    </p>
-    <p class="q-mt-md three-icon">输入谷歌验证器中6位验证码</p>
-    <div style="padding-left: 18px">
-      <q-form @submit="onSubmit" ref="bindForm">
-        <q-input
-          v-model="form.googleCode"
-          filled
-          dense
-          :prefix="`${isBind ? '新': ''}谷歌验证码`"
-          maxlength="6"
-          :input-style="{ color: 'white' }"
-          placeholder="请输入验证码"
-          lazy-rules
-          no-error-icon
-          :rules="[val => (!!val && !(val.length < 6)) || '请输入6位数验证码']"
-        />
-        <q-input
-          v-model="form.code"
-          filled
-          dense
-          :prefix="`${userTypeText}验证码`"
-          maxlength="6"
-          :input-style="{ color: 'white' }"
-          placeholder="请输入验证码"
-          lazy-rules
-          no-error-icon
-          :rules="[val => (!!val && !(val.length < 6)) || '请输入6位数验证码']"
-        >
-          <template v-solot:prepend>
-            <div class="getcode-btn row">
-              <q-btn
-                flat
-                stack
-                :disable="codeBtnDisabled"
-                color="primary"
-                :label="codeBtnLabel"
-                style="min-width: 70px"
-                @click="getCode"
-              />
-            </div>
-          </template>
-        </q-input>
-        <q-btn
-          rounded
-          type="submit"
-          color="primary"
-          text-color="dark"
-          class="confrim-btn"
-          label="确认开启"
-        />
-      </q-form>
     </div>
   </q-page>
 </template>
@@ -210,5 +218,17 @@ p {
   height: 46px;
   align-self: center;
   margin-top: 70px;
+}
+.validator-wrapper {
+  width: 100%;
+}
+@media screen and (min-width: 599px) {
+  .validator-wrapper {
+    width: 90%;
+    max-width: 1200px;
+    padding: 40px 20px;
+    margin-top: 40px;
+    background: rgba(26, 26, 60, 1);
+  }
 }
 </style>

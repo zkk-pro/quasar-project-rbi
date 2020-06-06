@@ -44,7 +44,7 @@
         </router-link>
       </div>
     </div>
-    <q-list bordered style="margin-top: 55px">
+    <q-list bordered style="margin-top: 55px" class="list-box">
       <q-item clickable>
         <q-item-section>锁仓节点</q-item-section>
         <q-item-section class="text-grey-7" style="text-align:right"
@@ -163,6 +163,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.list-box{
+  width: 670px;
+  height: 480px;
+  padding: 0 135px;
+  margin: 55px auto;
+  background:rgba(26,26,60,1);
+}
+.screen--xs .list-box{
+  width: 100%;
+  padding: 0;
+  background:initial;
+}
 .header {
   height: 216px;
   background: url('~assets/images/order-detail-bg.png');

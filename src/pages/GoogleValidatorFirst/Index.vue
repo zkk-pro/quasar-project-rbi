@@ -45,4 +45,10 @@ export default {}
   text-align: center;
   margin-top: 16px;
 }
+@media screen and (min-width: 599px) {
+  .text{
+    width: 410px;
+    padding: 0 0;
+  }
+}
 </style>
