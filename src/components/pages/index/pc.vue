@@ -226,6 +226,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .center-img{
   width: 100%;
 }

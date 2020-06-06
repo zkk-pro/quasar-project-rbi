@@ -1,10 +1,13 @@
 <template>
-  <q-page class="message-detail q-pa-md">
-    <div class="back" @click="toList">&lt;&lt;返回公告列表</div>
-    <!-- <router-link class="back" to="/message-list" replace >&lt;&lt;返回公告列表</router-link> -->
-    <div class="title q-mt-lg q-mt-xs">{{ notice.title }}</div>
-    <div class="time q-mb-xs q-mt-sm">{{ notice.createTime | formatDate }}</div>
-    <div class="content q-mt-lg" v-html="notice.content"></div>
+  <q-page class="message-detail q-pa-md column items-center">
+    <div class="back text-left" @click="toList">&lt;&lt;返回公告列表</div>
+    <div class="message-box q-mt-lg">
+      <div class="title">{{ notice.title }}</div>
+      <div class="time q-mb-xs q-mt-sm">
+        {{ notice.createTime | formatDate }}
+      </div>
+      <div class="content q-mt-lg" v-html="notice.content"></div>
+    </div>
   </q-page>
 </template>
 
@@ -50,6 +53,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.message-box{
+  height: 80%;
+  overflow-y: auto;
+  background: rgba(26,26,60,1);
+  padding:40px;
+  box-sizing: border-box;
+}
+.message-box, .back {
+  width: 90%;
+  max-width: 1200px;
+}
+@media screen and (max-width: 599px) {
+  .message-box{
+    width: auto;
+  }
+}
 .message-detail {
   .back {
     opacity: 0.6;

@@ -1,5 +1,6 @@
 <template>
-  <q-page>
+  <q-page class="row justify-center">
+    <div class="list-wrapper">
     <q-list v-if="Object.keys(userinfo).length">
       <q-item style="background: rgba(255,255,255, 0.05)">
         <q-item-section>UID</q-item-section>
@@ -72,6 +73,7 @@
         </q-item-section>
       </q-item>
     </q-list>
+    </div>
     <Dialog
       ref="googleValidatorDialog"
       title="重置谷歌验证"
@@ -254,6 +256,13 @@ export default {
 <style lang="scss" scoped>
 .q-page {
   background: #181837;
+}
+.list-wrapper{
+  width: 90%;
+  max-width: 1200px;
+}
+.screen--xs .list-wrapper{
+  width: 100%;
 }
 .right-arrow {
   &::after {
