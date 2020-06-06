@@ -5,7 +5,7 @@
       <span class="sologan">人人都能得到无风险基本收入RBI</span>
     </div>
     <div
-      class="p-footer gt-xs row justify-between col-sx-11"
+      class="p-footer gt-xs row justify-between"
       style="width: 1200px"
     >
       <div>

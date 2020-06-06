@@ -40,39 +40,42 @@
       <div class="row items-center">
         <q-icon
           v-if="$q.lang.isoName === 'en-us'"
+          class="cursor-pointer"
           name="img:statics/icons/lang-zh.png"
           size="18px"
         ></q-icon>
         <q-icon
           v-else
+          class="cursor-pointer"
           name="img:statics/icons/lang-en.png"
           size="18px"
         ></q-icon>
 
         <!-- 右侧个人中心菜单 -->
+
         <div style="margin-left:20px" class="lt-sm">
-          <q-icon
-            name="img:statics/icons/account.png"
-            size="18px"
-            class="account"
-          >
-          </q-icon>
-          <Menu :menuData="accountMenu" ref="menu2">
-            <template v-slot:triangleIcon v-if="$store.getters.token">
-              <i class="triangle"></i>
-            </template>
-            <template v-if="$store.getters.token">
-              <q-item
-                clickable
-                v-close-popup
-                class="row items-center"
-                @click="logout"
-              >
-                <q-icon :name="'img:statics/icons/menu-exit.png'"></q-icon>
-                <span class="q-ml-sm text-dark">退出</span>
-              </q-item>
-            </template>
-          </Menu>
+          <div v-if="$store.getters.token">
+            <q-icon name="img:statics/icons/account.png" size="18px"> </q-icon>
+            <Menu :menuData="accountMenu" ref="menu2">
+              <template v-slot:triangleIcon v-if="$store.getters.token">
+                <i class="triangle"></i>
+              </template>
+              <template v-if="$store.getters.token">
+                <q-item
+                  clickable
+                  v-close-popup
+                  class="row items-center"
+                  @click="logout"
+                >
+                  <q-icon :name="'img:statics/icons/menu-exit.png'"></q-icon>
+                  <span class="q-ml-sm text-dark">退出</span>
+                </q-item>
+              </template>
+            </Menu>
+          </div>
+          <router-link v-else to="/login">
+            <q-icon name="img:statics/icons/account.png" size="18px"></q-icon>
+          </router-link>
         </div>
 
         <!-- 右侧个人中心pc菜单 -->

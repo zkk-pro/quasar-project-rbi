@@ -1,5 +1,6 @@
 <template>
   <div class="detail-container">
+    <Breadcrumb class="col-xs-11 q-pl-lg lt-sm" />
     <div class="header relative-position">
       <div class="earning-total">
         <div class="q-mb-sm" style="font-size: 12px;">累积收益</div>
@@ -44,50 +45,53 @@
         </router-link>
       </div>
     </div>
-    <q-list bordered style="margin-top: 55px">
-      <q-item clickable>
-        <q-item-section>锁仓节点</q-item-section>
-        <q-item-section class="text-grey-7" style="text-align:right"
-          >V{{ orderDetail.name }}节点</q-item-section
-        >
-      </q-item>
-      <q-item clickable>
-        <q-item-section>锁仓日期</q-item-section>
-        <q-item-section class="text-grey-7" style="text-align:right">
-          {{ orderDetail.createTime | formatDate(true) }}
-        </q-item-section>
-      </q-item>
-      <q-item clickable>
-        <q-item-section>锁仓收益率</q-item-section>
-        <q-item-section class="text-grey-7" style="text-align:right">
-          POS挖矿收益的{{ orderDetail.rate && orderDetail.rate * 100 }}%
-        </q-item-section>
-      </q-item>
-      <q-item clickable>
-        <q-item-section>起息日</q-item-section>
-        <q-item-section class="text-grey-7" style="text-align:right">
-          {{ orderDetail.interestBeginTime | formatDate }}
-        </q-item-section>
-      </q-item>
-      <q-item clickable v-if="orderDetail.interestEndTime">
-        <q-item-section>解锁日期</q-item-section>
-        <q-item-section class="text-grey-7" style="text-align:right">
-          {{ orderDetail.interestEndTime | formatDate(true) }}
-        </q-item-section>
-      </q-item>
-      <q-item clickable>
-        <q-item-section>持有天数</q-item-section>
-        <q-item-section class="text-grey-7" style="text-align:right">
-          {{ orderDetail.interestTimes }} 天
-        </q-item-section>
-      </q-item>
-      <q-item clickable>
-        <q-item-section>状态</q-item-section>
-        <q-item-section class="text-grey-7" style="text-align:right">
-          {{ orderDetail.status | transStatus }}
-        </q-item-section>
-      </q-item>
-    </q-list>
+    <div class="container">
+      <Breadcrumb class="col-xs-11 q-pl-lg gt-xs" />
+      <q-list bordered style="margin-top: 55px">
+        <q-item clickable>
+          <q-item-section>锁仓节点</q-item-section>
+          <q-item-section class="text-grey-7" style="text-align:right"
+            >V{{ orderDetail.name }}节点</q-item-section
+          >
+        </q-item>
+        <q-item clickable>
+          <q-item-section>锁仓日期</q-item-section>
+          <q-item-section class="text-grey-7" style="text-align:right">
+            {{ orderDetail.createTime | formatDate(true) }}
+          </q-item-section>
+        </q-item>
+        <q-item clickable>
+          <q-item-section>锁仓收益率</q-item-section>
+          <q-item-section class="text-grey-7" style="text-align:right">
+            POS挖矿收益的{{ orderDetail.rate && orderDetail.rate * 100 }}%
+          </q-item-section>
+        </q-item>
+        <q-item clickable>
+          <q-item-section>起息日</q-item-section>
+          <q-item-section class="text-grey-7" style="text-align:right">
+            {{ orderDetail.interestBeginTime | formatDate }}
+          </q-item-section>
+        </q-item>
+        <q-item clickable v-if="orderDetail.interestEndTime">
+          <q-item-section>解锁日期</q-item-section>
+          <q-item-section class="text-grey-7" style="text-align:right">
+            {{ orderDetail.interestEndTime | formatDate(true) }}
+          </q-item-section>
+        </q-item>
+        <q-item clickable>
+          <q-item-section>持有天数</q-item-section>
+          <q-item-section class="text-grey-7" style="text-align:right">
+            {{ orderDetail.interestTimes }} 天
+          </q-item-section>
+        </q-item>
+        <q-item clickable>
+          <q-item-section>状态</q-item-section>
+          <q-item-section class="text-grey-7" style="text-align:right">
+            {{ orderDetail.status | transStatus }}
+          </q-item-section>
+        </q-item>
+      </q-list>
+    </div>
     <SafeValidate
       :show.sync="safeShow"
       :validType="$store.getters.userinfo.securityLevel"
@@ -99,6 +103,7 @@
 <script>
 import Number from 'components/Number'
 import SafeValidate from 'components/SafeValidate'
+import Breadcrumb from 'components/Breadcrumb'
 import { getOrderDetail, unlockAsk, unlock } from 'src/api/apiList'
 import { date } from 'quasar'
 
@@ -110,7 +115,7 @@ export default {
       orderDetail: {} // 订单详情数据
     }
   },
-  components: { Number, SafeValidate },
+  components: { Number, SafeValidate, Breadcrumb },
   filters: {
     formatDate(d, hasHM = false) {
       if (hasHM) {

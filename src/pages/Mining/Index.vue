@@ -1,33 +1,46 @@
 <template>
-  <q-page>
+  <!-- <q-page class="column items-center"> -->
+  <q-page class="">
     <img
+      class="gt-xs"
+      src="~assets/pc_images/p-mining-banner.png"
+      alt="mining-banner"
+      width="100%"
+    />
+    <img
+      class="lt-sm"
       src="~assets/images/mining-banner.png"
       alt="mining-banner"
       width="100%"
     />
-    <div class="row justify-between items-center" style="height: 100px">
-      <div class="column items-center" style="flex: 1">
-        <div class="row items-cneter" style="margin-bottom: 15px">
-          <q-icon name="img:statics/icons/output-icon.png"></q-icon>
-          <span class="output-text">今日产出量</span>
+    <div style="max-width: 1200px; margin: 0 auto">
+      <div
+        class="row justify-between items-center full-width"
+        style="height: 100px"
+      >
+        <div class="row justify-center items-center " style="flex: 1">
+          <div class="row items-cneter justify-center col-sm-6 col-xs-12">
+            <q-icon name="img:statics/icons/output-icon.png"></q-icon>
+            <span class="output-text">今日产出量</span>
+          </div>
+          <Number class="col-sm-6 text-center" :number="todayTotal" />
         </div>
-        <Number :number="todayTotal" />
-      </div>
-      <div class="column items-center" style="flex: 1">
-        <div class="row items-cneter" style="margin-bottom: 15px">
-          <q-icon name="img:statics/icons/output-icon.png"></q-icon>
-          <span class="output-text">总产出量</span>
+        <div class="row justify-center items-center " style="flex: 1">
+          <div class="row items-cneter justify-center col-sm-6 col-xs-12">
+            <q-icon name="img:statics/icons/output-icon.png"></q-icon>
+            <span class="output-text">总产出量</span>
+          </div>
+          <Number class="col-sm-6 text-center" :number="total" />
         </div>
-        <Number :number="total" />
       </div>
+      <node-lock-item
+        style="margin-top:15px"
+        v-for="item in nodeList"
+        :key="item.id"
+        :nodeData="item"
+        show-btn
+      />
     </div>
-    <node-lock-item
-      style="margin-top:15px"
-      v-for="item in nodeList"
-      :key="item.id"
-      :nodeData="item"
-      show-btn
-    />
   </q-page>
 </template>
 
@@ -64,5 +77,10 @@ export default {
   color: #50baf6;
   font-size: 13px;
   margin-left: 4px;
+}
+.screen--xs {
+  .number {
+  margin-top: 14px;
+}
 }
 </style>
