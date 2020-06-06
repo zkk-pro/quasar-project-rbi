@@ -4,33 +4,39 @@
       <div class="gt-xs row items-center">
         <router-link to="/">
           <img
-          src="~assets/pc_images/header_logo.png"
-          width="67px"
-          height="20px"
-        />
+            src="~assets/pc_images/header_logo.png"
+            width="67px"
+            height="20px"
+          />
         </router-link>
         <q-list bordered class="row" style="margin-left: 130px">
-          <q-item class="q-px-md" clickable v-ripple v-for="item in leftMenu" :key="item.text" :to="item.path">
+          <q-item
+            class="q-px-md"
+            clickable
+            v-ripple
+            v-for="item in leftMenu"
+            :key="item.text"
+            :to="item.path"
+            exact
+          >
             <q-item-section>
               {{ item.text }}
             </q-item-section>
           </q-item>
         </q-list>
       </div>
-      <q-icon
-        name="img:statics/icons/menu-up.png"
-        size="18px"
-        class="left-menu lt-sm"
-      ></q-icon>
-
       <!-- 左侧菜单 -->
-      <Menu :menuData="leftMenu" target=".left-menu">
-        <template v-slot:triangleIcon>
-          <i class="triangle" style="left: 11px;"></i>
-        </template>
-      </Menu>
+      <div class="lt-sm">
+        <q-icon name="img:statics/icons/menu-up.png" size="18px"> </q-icon>
+        <Menu :menuData="leftMenu" ref="menu1">
+          <template v-slot:triangleIcon>
+            <i class="triangle" style="left: 15px;"></i>
+          </template>
+        </Menu>
+      </div>
 
       <div class="header-title absolute-center lt-sm">RBI</div>
+
       <div class="row items-center">
         <q-icon
           v-if="$q.lang.isoName === 'en-us'"
@@ -42,38 +48,63 @@
           name="img:statics/icons/lang-en.png"
           size="18px"
         ></q-icon>
-        <q-icon
-          name="img:statics/icons/account.png"
-          size="18px"
-          class="account lt-sm"
-          style="margin-left:20px"
-        >
-        </q-icon>
-        <div class="gt-xs row " style="text-white; margin-left: 40px">
-          <router-link to="/registry">注册</router-link>
-          <span class="q-px-md">|</span>
-          <router-link to="/login">登录</router-link>
+
+        <!-- 右侧个人中心菜单 -->
+        <div style="margin-left:20px" class="lt-sm">
+          <q-icon
+            name="img:statics/icons/account.png"
+            size="18px"
+            class="account"
+          >
+          </q-icon>
+          <Menu :menuData="accountMenu" ref="menu2">
+            <template v-slot:triangleIcon v-if="$store.getters.token">
+              <i class="triangle"></i>
+            </template>
+            <template v-if="$store.getters.token">
+              <q-item
+                clickable
+                v-close-popup
+                class="row items-center"
+                @click="logout"
+              >
+                <q-icon :name="'img:statics/icons/menu-exit.png'"></q-icon>
+                <span class="q-ml-sm text-dark">退出</span>
+              </q-item>
+            </template>
+          </Menu>
         </div>
 
-        <!-- 个人中心icon 菜单栏 -->
-        <Menu :menuData="accountMenu" target=".account">
-          <template v-slot:triangleIcon v-if="$store.getters.token">
-            <i class="triangle"></i>
-          </template>
-          <template v-if="$store.getters.token">
-            <q-item
-              clickable
-              v-close-popup
-              class="row items-center"
-              @click="logout"
-            >
-              <q-icon :name="'img:statics/icons/menu-exit.png'"></q-icon>
-              <span class="q-ml-sm text-dark">退出</span>
-            </q-item>
-          </template>
-        </Menu>
+        <!-- 右侧个人中心pc菜单 -->
+        <div class="gt-xs row " style="text-white; margin-left: 40px">
+          <div v-if="$store.getters.token">
+            <q-icon name="img:statics/icons/account.png" size="18px"> </q-icon>
+            <Menu :menuData="accountMenu" showClass="gt-xs" ref="menu3">
+              <template v-slot:triangleIcon v-if="$store.getters.token">
+                <i class="triangle"></i>
+              </template>
+              <template v-if="$store.getters.token">
+                <q-item
+                  clickable
+                  v-close-popup
+                  class="row items-center"
+                  @click="logout"
+                >
+                  <q-icon :name="'img:statics/icons/menu-exit.png'"></q-icon>
+                  <span class="q-ml-sm text-dark">退出</span>
+                </q-item>
+              </template>
+            </Menu>
+          </div>
+          <div v-else>
+            <router-link to="/registry">注册</router-link>
+            <span class="q-px-md">|</span>
+            <router-link to="/login">登录</router-link>
+          </div>
+        </div>
       </div>
     </div>
+    <q-resize-observer @resize="onResize" />
   </q-header>
 </template>
 
@@ -96,6 +127,7 @@ export default {
   },
   components: { Menu },
   methods: {
+    // 退出
     logout() {
       this.$store.dispatch('Logout')
       this.$q.notify({
@@ -106,6 +138,11 @@ export default {
       setTimeout(() => {
         location.reload()
       }, 1500)
+    },
+    onResize(size) {
+      this.$refs.menu1 && this.$refs.menu1.hide()
+      this.$refs.menu2 && this.$refs.menu2.hide()
+      this.$refs.menu3 && this.$refs.menu3.hide()
     }
   }
 }
