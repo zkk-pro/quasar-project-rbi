@@ -19,7 +19,7 @@
           class="q-mt-sm q-item-odd"
           style="background: rgba(255,255,255, 0.05)"
         >
-          <q-item-section>{{$t('userinfo_google')}}</q-item-section>
+          <q-item-section>{{ $t('userinfo_google') }}</q-item-section>
           <q-item-section align="right">
             <!-- v-model="userinfo.securityGoogleSwitch" -->
             <q-toggle
@@ -32,13 +32,13 @@
         </q-item>
         <q-separator inset dark style="background: rgba(255,255,255,0.1)" />
         <q-item clickable v-ripple style="background: rgba(255,255,255, 0.05)">
-          <q-item-section>{{$t('userinfo_google')}}</q-item-section>
+          <q-item-section>{{ $t('userinfo_google') }}</q-item-section>
           <q-item-section align="right">
             <span
               class="right-arrow"
               v-if="userinfo.securityGoogleIsBind"
               @click="resetGoogle"
-              >{{$t('userinfo_reset')}}</span
+              >{{ $t('userinfo_reset') }}</span
             >
             <router-link
               class="text-primary right-arrow"
@@ -46,7 +46,7 @@
               replace
               v-else
             >
-              {{$t('userinfo_bind')}}
+              {{ $t('userinfo_bind') }}
             </router-link>
           </q-item-section>
         </q-item>
@@ -56,14 +56,16 @@
           class="q-mt-sm q-item-odd"
           style="background: rgba(255,255,255, 0.05)"
         >
-          <q-item-section>{{$t('userinfo_password')}}</q-item-section>
+          <q-item-section>{{ $t('userinfo_password') }}</q-item-section>
           <q-item-section align="right">
-            <router-link class="right-arrow" to="/modify-pwd">{{$t('userinfo_modify')}}</router-link>
+            <router-link class="right-arrow" to="/modify-pwd">{{
+              $t('userinfo_modify')
+            }}</router-link>
           </q-item-section>
         </q-item>
         <q-separator inset dark style="background: rgba(255,255,255,0.1)" />
         <q-item clickable v-ripple style="background: rgba(255,255,255, 0.05)">
-          <q-item-section>{{$t('userinfo_pincode')}}</q-item-section>
+          <q-item-section>{{ $t('userinfo_pincode') }}</q-item-section>
           <q-item-section align="right">
             <router-link
               class="right-arrow"
@@ -71,10 +73,15 @@
               v-if="userinfo.securityIsBind"
             >
               <!-- @click="modifyPIN" -->
-              {{$t('userinfo_modify')}}
+              {{ $t('userinfo_modify') }}
             </router-link>
-            <div class="text-primary right-arrow" to="/change-pwd" @click="modifyPIN" v-else>
-              {{$t('userinfo_set')}}
+            <div
+              class="text-primary right-arrow"
+              to="/change-pwd"
+              @click="modifyPIN"
+              v-else
+            >
+              {{ $t('userinfo_set') }}
             </div>
           </q-item-section>
         </q-item>
@@ -82,11 +89,23 @@
     </div>
     <Dialog
       ref="googleValidatorDialog"
-      :title="`${googleTips === 'close' ? $t('userinfo_close'): $t('userinfo_reset')}${$t('userinfo_google_verify')}`"
+      :title="
+        `${
+          googleTips === 'close' ? $t('userinfo_close') : $t('userinfo_reset')
+        }${$t('userinfo_google_verify')}`
+      "
       @confirm="googleValidatorConfirm"
     >
       <span class="q-pl-lg" style="font-size: 13px; color:#666">
-        {{$i18n.locale == 'en-us' ? `After the Google validator is ${googleTips === 'close' ? 'close': 'reset'}, coins cannot be withdrawn within 24 hours` : `谷歌验证器${googleTips === 'close' ? '关闭': '重置'}后，24小时内无法提币`}}
+        {{
+          $i18n.locale == 'en-us'
+            ? `After the Google validator is ${
+                googleTips === 'close' ? 'close' : 'reset'
+              }, coins cannot be withdrawn within 24 hours`
+            : `谷歌验证器${
+                googleTips === 'close' ? '关闭' : '重置'
+              }后，24小时内无法提币`
+        }}
       </span>
     </Dialog>
     <!-- 开启Google身份验证时的 安全验证 -->
@@ -104,7 +123,11 @@
           class="full-width"
           dense
           maxlength="6"
-          :label="`${userinfo === 'email' ? $t('com_email') : $t('com_mobile')}${$t('com_captcha')}`"
+          :label="
+            `${userinfo === 'email' ? $t('com_email') : $t('com_mobile')}${$t(
+              'com_captcha'
+            )}`
+          "
           no-error-icon
           color="blue-6"
           lazy-rules
@@ -179,8 +202,11 @@ export default {
       // 判断是否绑定
       if (this.userinfo.securityGoogleIsBind) {
         this.googleTips = 'close'
-        this.$refs.googleValidatorDialog.open()
-        // this.$refs.openGoogleValidatorDialog.open()
+        if (this.userinfo.securityGoogleSwitch) {
+          this.$refs.googleValidatorDialog.open()
+        } else {
+          this.$refs.openGoogleValidatorDialog.open()
+        }
       } else {
         this.$router.push({ path: 'f-g-validator' })
       }

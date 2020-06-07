@@ -139,6 +139,7 @@ export default {
   mining_total_output: '总产出量',
   mining_lock: '去锁仓',
   mining_node: '节点',
+  mining_tips_once: '每个节点只能购买一次',
 
   lock_position_node: '锁仓节点',
   lock_position_num: '锁仓数量',

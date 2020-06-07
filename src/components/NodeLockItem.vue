@@ -27,7 +27,9 @@
           :number="nodeData.num"
           big-size="30px"
           small-size="13px"
-          ><span style="font-size: 13px; margin-left: 10px; font-weight: 400;">RBI</span></Number
+          ><span style="font-size: 13px; margin-left: 10px; font-weight: 400;"
+            >RBI</span
+          ></Number
         >
 
         <div class="rbi-yield col-xs-12 col-sm-7">
@@ -48,11 +50,10 @@
           :label="$t('mining_lock') + '>'"
           color="dark"
           no-caps
-          text-color="cyan-12"
-          :to="`/lock-position?id=${nodeData.id}`"
+          :text-color="nodeData.lockStatus ? 'cyan-3' : 'primary'"
           style="width: 160px;height:40px"
-          :disable="!!nodeData.lockStatus"
           :outline="!nodeData.lockStatus"
+          @click="linkTo"
         />
         <div
           v-if="!showBtn"
@@ -90,6 +91,21 @@ export default {
   filters: {
     formatDate(d) {
       return date.formatDate(d, 'YYYY-MM-DD HH:mm')
+    }
+  },
+  methods: {
+    linkTo() {
+      if (this.nodeData.lockStatus) {
+        return this.$q.notify({
+          message: this.$t('mining_tips_once'),
+          icon: 'warning',
+          textColor: 'yellow-10'
+        })
+      }
+      this.$router.push({
+        path: '/lock-position',
+        query: { id: this.nodeData.id }
+      })
     }
   },
   mounted() {

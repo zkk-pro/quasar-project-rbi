@@ -149,6 +149,7 @@ export default {
   mining_total_output: 'Total output',
   mining_lock: 'Lock out',
   mining_node: 'node',
+  mining_tips_once: 'Each node can only be purchased once',
 
   lock_position_node: 'Hedging node',
   lock_position_num: 'Number of locks',

@@ -61,7 +61,6 @@ export default {
   methods: {
     getBannerImg() {
       var en = this.$i18n.locale === 'en-us' ? 'en' : 'zh'
-      console.log(en)
       return require(`src/assets/pc_images/p-mining-banner_${en}.png`)
     },
     async getNodeList() {

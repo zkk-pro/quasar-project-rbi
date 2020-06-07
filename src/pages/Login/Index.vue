@@ -36,6 +36,7 @@
           text-color="dark"
           rounded
           unelevated
+          :disable="loginForm.password.length < 6"
           no-caps
           :label="$t('login_login')"
           class="btn-style full-width"
@@ -222,13 +223,15 @@ export default {
       }
     },
     async onSubmit() {
-      const { data } = await getAccountSafeLevel({
-        account: this.loginForm.account
-      })
-      this.securityLevel = data.securityLevel
-      this.$store.dispatch('SetUserInfo', data)
-      this.isLogin = true
-      this.safeShow = true
+      try {
+        const { data } = await getAccountSafeLevel({
+          account: this.loginForm.account
+        })
+        this.securityLevel = data.securityLevel
+        this.$store.dispatch('SetUserInfo', data)
+        this.isLogin = true
+        this.safeShow = true
+      } catch (err) {}
     }
   }
 }
