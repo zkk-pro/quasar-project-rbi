@@ -42,6 +42,7 @@
           lazy-rules
           no-error-icon
           dense
+          style="flex:1"
           :rules="[
             val => !!val || $t('com_enter_captcha'),
             val => !(val.length < 6) || $t('com_enter_captcha_six')
@@ -52,6 +53,7 @@
               style="width: 80px"
               flat
               dense
+              no-caps
               :disable="m_btnDisable"
               color="primary"
               :label="m_btnText"

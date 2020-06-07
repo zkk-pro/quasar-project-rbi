@@ -9,6 +9,8 @@ export default {
   com_Unlocked: '已解锁',
   com_google_code: '谷歌验证码',
   com_get_code: '获取验证码',
+  com_sms_code: '短信验证码',
+  com_em_code: '邮箱验证码',
   com_cancel: '取消',
   com_confirm: '确定',
   com_enter_captcha: '请输入验证码',
@@ -26,6 +28,15 @@ export default {
   com_register_success: '注册成功',
   com_enter_old_password: '请输入原密码',
   com_enter_new_password: '请输入新密码',
+  com_submit_success: '提交成功',
+  com_lock_success: '锁仓成功',
+  com_finish: '完成',
+
+  routes_lock: '锁仓',
+  routes_min_order: '挖矿订单',
+  routes_min_orderdetail: '订单详情',
+
+  safety_verification: '安全验证',
 
   notify_copy_address_success: '地址复制成功',
   notify_copy_address_fail: '地址复制失败',
@@ -160,6 +171,7 @@ export default {
   assets_setpin: '请设置PIN码',
   assets_setpin_first: '提币前请先设置PIN码',
   assets_enterpin: '输入6位数字PIN码',
+  assets_confirm_pin: '确定6位数字PIN码',
   assets_forgetpin: '忘记PIN码',
 
   order_detail_income: '累积收益',

@@ -7,7 +7,7 @@ const routes = [
       { path: 'mining', component: () => import('pages/Mining') },
       {
         path: 'lock-position',
-        meta: { title: '锁仓' },
+        meta: { title: 'routes_lock' },
         component: () => import('pages/LockPosition')
       },
       {
@@ -17,7 +17,7 @@ const routes = [
       },
       {
         path: 'mining-order',
-        meta: { title: '挖矿订单' },
+        meta: { title: 'routes_min_order' },
         component: () => import('pages/MiningOrder'),
         children: [
           {
@@ -26,7 +26,7 @@ const routes = [
           },
           {
             path: 'order-detail',
-            meta: { title: '订单详情' },
+            meta: { title: 'routes_min_orderdetail' },
             component: () => import('pages/OrderDetail')
           }
         ]

@@ -12,6 +12,8 @@ export default {
   com_Unlocked: 'Unlocked',
   com_google_code: 'Google verification code',
   com_get_code: 'Get code',
+  com_sms_code: 'SMS verification code',
+  com_em_code: 'E-mail verification code',
   com_cancel: 'Cancel',
   com_confirm: 'Confirm ',
   com_enter_captcha: 'Please enter verification code',
@@ -22,13 +24,22 @@ export default {
   com_enter: 'Please enter',
   com_enter_password: 'Please enter password',
   com_password_lessthan_six: 'Password cannot be less than 6 digits',
-  com_enter_password_again: 'Please enter the login password again',
+  com_enter_password_again: 'Enter the login password again',
   com_enter_notsame: 'Two inconsistencies',
   com_register: 'Register',
   com_set_password: 'Please set a login password',
   com_register_success: 'Register success',
-  com_enter_old_password: '请输入原密码',
-  com_enter_new_password: '请输入新密码',
+  com_enter_old_password: 'Enter the original password',
+  com_submit_success: 'Submitted successfully',
+  com_lock_success: 'Locked successfully',
+  com_enter_new_password: 'Enter the new password',
+  com_finish: 'Finish',
+
+  routes_lock: 'Lock up',
+  routes_min_order: 'Mining order',
+  routes_min_orderdetail: 'Order detail',
+
+  safety_verification: 'Safety verification',
 
   notify_copy_address_success: 'Address copied successfully',
   notify_copy_address_fail: 'Address copied failed',
@@ -44,7 +55,7 @@ export default {
 
   login_title: 'Login RBI',
   login_password: 'Login password',
-  login_enter_password: 'Please enter the login password',
+  login_enter_password: 'Enter the login password',
   login_login: 'Login',
   login_forget_password: 'Forget password',
   login_register: 'Registration',
@@ -79,9 +90,9 @@ export default {
     'aims to create an inclusive financial system in which everyone is equal, mutually beneficial, and everyone has basic income security. In the decentralized blockchain world, the relationship between people is trustworthy, free and transparent. We are convinced that information based on the decentralized trust link on the chain can generate value, which is also Core value in the era of big data. In the world of blockchain, the relationship between people is equal and free, and they can participate in any exchange of information. Therefore, we establish a new financial system and gather data to generate value. We rely on the blockchain to re-enable the value of data brought by information exchange, and with the help of its decentralized token economic model, we create a inclusive financial system that has a risk-free basic income for everyone. You can get a basic risk-free basic income guarantee RBI.',
   index_release:
     'RBI issued a total of 300 million coins, of which 50% of the coins were airdropped, that is, 150 million coins, and 1 million of them were used for the Spark Market activity. Another 50% is produced through POS mining, which is 150 million.',
-  index_category: '类目',
-  index_number: '发行数量',
-  index_release_notes: '发行说明',
+  index_category: 'Category',
+  index_number: 'Issue number',
+  index_release_notes: 'Release Notes',
   index_register_0: 'Airdrop Cooperation Exchange N9EX.COM',
   index_register_1: 'Registered Airdrop 1000RBI',
   index_register_rules1:
@@ -168,6 +179,7 @@ export default {
   assets_setpin: 'Please set a PIN code',
   assets_setpin_first: 'Please set a PIN code before withdrawing money',
   assets_enterpin: 'Enter 6-digit PIN',
+  assets_confirm_pin: 'Confirm 6-digit PIN',
   assets_forgetpin: 'Forgot PIN',
 
   order_detail_income: 'Cumulative income',
@@ -210,6 +222,10 @@ export default {
   modify_confirm: 'Confrim',
   modify_lessthan_six: 'PIN code cannot be lower than 6 digits',
   modify_same: 'The two entries are inconsistent, please re-enter',
+
+  modify_password_old: 'Old password',
+  modify_password_new: 'New password',
+  modify_password_confirm: 'Confirm',
 
   footer_sologan: 'Everyone can get a risk-free basic income RBI',
   footer_contact: 'Contact us',

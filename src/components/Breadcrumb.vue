@@ -1,7 +1,7 @@
 <template>
   <div class="breadcrumb">
     <span v-for="(item, index) in levelList" :key="item.path">
-      {{ item.meta.title }}
+      {{ $t(item.meta.title) }}
       <span v-if="index !== levelList.length - 1">></span>
     </span>
   </div>

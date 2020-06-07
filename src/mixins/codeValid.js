@@ -2,7 +2,7 @@ import { sendCode } from 'src/api/apiList'
 export default {
   data() {
     return {
-      m_btnText: '获取验证码',
+      m_btnText: this.$t('com_get_code'),
       m_btnDisable: false, // 按钮禁用
       timer: null
     }

@@ -156,7 +156,7 @@ export default {
         await nodeBuy({ id: this.currentNode.id, code })
         this.$router.replace({
           name: 'success',
-          params: { text: '锁仓成功', date: this.currentNode.interestTimeBegin }
+          params: { text: this.$t('com_lock_success'), date: this.currentNode.interestTimeBegin }
         })
       } catch (error) {}
     },

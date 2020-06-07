@@ -8,7 +8,7 @@
         class="input-style q-px-md"
         maxlength="20"
         :prefix="$t('modify_password_old')"
-        :placeholder="$t('modify_password_new')"
+        :placeholder="$t('com_enter_old_password')"
         :input-style="{ color: 'white' }"
       >
         <template v-slot:append>
@@ -36,8 +36,8 @@
         type="password"
         class="input-style q-px-md"
         maxlength="20"
-        prefix="新密码确认"
-        placeholder="请再次输入登录密码"
+        :prefix="$t('modify_password_confirm')"
+        :placeholder="$t('com_enter_password_again')"
         :input-style="{ color: 'white' }"
       />
       <q-separator style="background: rgba(255,255,255,0.1)" />
@@ -46,9 +46,10 @@
           unelevated
           rounded
           type="submit"
+          no-caps
           color="primary"
           text-color="dark"
-          label="确定"
+          :label="$t('com_confirm')"
           class="confirm-btn"
         />
       </div>

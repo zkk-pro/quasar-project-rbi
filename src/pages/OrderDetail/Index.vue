@@ -144,15 +144,6 @@ export default {
       } else {
         return date.formatDate(d, 'YYYY-MM-DD')
       }
-    },
-    transStatus(status) {
-      // if (status === 0) {
-      //   return '已结束'
-      // } else if (status === 1) {
-      //   return '持有中'
-      // } else if (status === 2) {
-      //   return '已解锁'
-      // }
     }
   },
   methods: {
