@@ -21,14 +21,14 @@
         <div class="row justify-center items-center " style="flex: 1">
           <div class="row items-cneter justify-center col-sm-6 col-xs-12">
             <q-icon name="img:statics/icons/output-icon.png"></q-icon>
-            <span class="output-text">今日产出量</span>
+            <span class="output-text">{{$t('mining_output')}}</span>
           </div>
           <Number class="col-sm-6 text-center" :number="todayTotal" />
         </div>
         <div class="row justify-center items-center " style="flex: 1">
           <div class="row items-cneter justify-center col-sm-6 col-xs-12">
             <q-icon name="img:statics/icons/output-icon.png"></q-icon>
-            <span class="output-text">总产出量</span>
+            <span class="output-text">{{$t('mining_total_output')}}</span>
           </div>
           <Number class="col-sm-6 text-center" :number="total" />
         </div>

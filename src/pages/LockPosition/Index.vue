@@ -9,7 +9,7 @@
         style="background:rgba(255, 255, 255,.05)"
       >
         <q-card-section class="q-pb-sm" style="font-size:14px"
-          >锁仓节点</q-card-section
+          >{{$t('lock_position_node')}}</q-card-section
         >
         <q-card-section class="q-py-none row" style="font-size:14px;">
           <q-btn
@@ -17,7 +17,7 @@
             :key="item.id"
             unelevated
             :outline="item.id != currentNodeId"
-            :label="`V${item.name} 节点`"
+            :label="`V${item.name} ${$t('lock_position_node1')}`"
             :color="item.id == currentNodeId ? 'primary' : ''"
             :text-color="item.id == currentNodeId ? 'dark' : 'primary'"
             class="q-mr-xs q-mb-xs col-xs-4 node-item"
@@ -26,7 +26,7 @@
           />
         </q-card-section>
         <q-card-section class="section-title q-pt-lg q-pb-sm"
-          >锁仓数量</q-card-section
+          >{{$t('lock_position_num')}}</q-card-section
         >
         <q-card-section class="section-title q-pt-none q-pb-sm">
           <q-field
@@ -46,7 +46,7 @@
         <q-card-section
           class="q-py-xs"
           style="font-size: 12px; color: rgba(255, 255, 255, .6)"
-          >可用：{{ canUseRBI }} RBI</q-card-section
+          >{{$t('lock_position_available')}}：{{ canUseRBI }} RBI</q-card-section
         >
         <q-card-section class="q-pt-lg q-pb-xs">
           <div class="earning-info column justify-center items-center">
@@ -54,19 +54,28 @@
               <strong>{{ currentNode.rate && currentNode.rate * 100 }}</strong
               >%
             </div>
-            <div class="earning-text">瓜分POS挖矿收益</div>
+            <div class="earning-text">{{$t('lock_position_revenue')}}</div>
           </div>
         </q-card-section>
         <q-card-section
           class="q-py-xs pc_text"
+          v-if="lang == 'en-us'"
           style="font-size: 12px; color: rgba(255, 255, 255, .6)"
-          >预计{{
-            currentNode.interestTimeBegin | formatDate
-          }}开始计算收益</q-card-section
+          >
+          Expected to start calculating revenue in {{currentNode.interestTimeBegin | formatDate}}
+          </q-card-section
+        >
+        <q-card-section
+          class="q-py-xs pc_text"
+          v-else
+          style="font-size: 12px; color: rgba(255, 255, 255, .6)"
+          >
+          预计{{currentNode.interestTimeBegin | formatDate}}开始计算收益
+          </q-card-section
         >
         <q-card-section class="q-pt-lg">
           <q-btn
-            label="确定"
+            :label="$t('lock_position_confirm')"
             color="primary"
             text-color="dark"
             rounded
@@ -77,7 +86,7 @@
       </q-card>
     </div>
 
-    <Dialog ref="confirmDialog" title="确定挖矿" @confirm="onConfirm">
+    <Dialog ref="confirmDialog" :title="$t('lock_position_confirm_mining')" @confirm="onConfirm">
       <div class="lock-num row justify-center items-end">
         <strong>{{ currentNode.num }}</strong
         >RBI
@@ -107,7 +116,8 @@ export default {
       currentNodeId: 2, // 当前选择的节点
       nodeList: [], // 节点列
       canUseRBI: 0, // 可用RBI
-      validType: 2 // 验证类型，1:google; 2:phone; 3:email
+      validType: 2, // 验证类型，1:google; 2:phone; 3:email
+      lang: ''
     }
   },
   components: { Breadcrumb, Dialog },
@@ -163,6 +173,7 @@ export default {
   created() {
     this.getUserInfo()
     this.getNodeList()
+    this.lang = this.$i18n.locale
   }
 }
 </script>

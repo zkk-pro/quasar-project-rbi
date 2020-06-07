@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-pb-xl">
     <div class="header column justify-center items-center">
-      <div class="header-text">总资产</div>
+      <div class="header-text">{{$t('assets_total')}}</div>
       <div class="header-number">{{ totalAndConfig.balance }}</div>
       <div class="header-btn row items-center ">
         <div
@@ -10,14 +10,14 @@
           to="/mining"
           @click=";[(showWithDraw = false), (showAddress = !showAddress)]"
         >
-          充币
+          {{$t('assets_recharge')}}
         </div>
         <div
           v-ripple
           class="btn recharge-btn row justify-center items-center relative-position cursor-pointer"
           @click=";[(showAddress = false), (showWithDraw = !showWithDraw)]"
         >
-          提币
+          {{$t('assets_withdraw')}}
         </div>
       </div>
     </div>
@@ -42,7 +42,7 @@
           class="q-pt-none q-pb-md"
           style="background: #1B1F41"
         >
-          交易记录
+          {{$t('assets_record')}}
         </q-item-label>
         <div v-for="item in logList" :key="item.id">
           <!-- 有扩展项 -->
@@ -57,11 +57,11 @@
             </template>
             <q-card style="background: #1B1F41">
               <q-card-section class="content" style="">
-                <div class="q-mb-xs">对方地址:</div>
+                <div class="q-mb-xs">{{$t('assets_address')}}:</div>
                 <div class="q-mb-lg">
                   {{ item.address }}
                 </div>
-                <div class="q-mb-xs">交易ID:</div>
+                <div class="q-mb-xs">{{$t('assets_id')}}:</div>
                 <div>
                   {{ item.txid }}
                 </div>
@@ -167,7 +167,7 @@ export default {
   color: #fff;
 }
 .header-btn {
-  width: 153px;
+  width: 190px;
   height: 40px;
   background: #fff;
   border-radius: 20px;

@@ -46,35 +46,30 @@
         </q-carousel-slide>
       </q-carousel>
       <router-link to="/message-list" class="notice-more"
-        >查看更多>></router-link
+        >{{ $t('index_more') }}>></router-link
       >
     </div>
     <div class="intro column justify-center items-center">
       <div style="max-width: 565px">
-      <img
-        src="~assets/pc_images/p_index1.png"
-        class="center-img"
-      /></div>
+        <img src="~assets/pc_images/p_index1.png" class="center-img" />
+      </div>
       <div class="intro1-content intro-content q-mt-lg q-px-lg">
-        <span class="big">Risk-free Basic Income（简称：RBI）</span
-        >旨在打造人人平等，互惠互助，每人都有基本收入保障的普惠金融体系。在去中心化的区块链世界里，人与人之间的关系是可信任的，自由和透明的，我们确信基于链上去中心化信任纽带所带来的信息是可以产生价值的，这也是大数据时代的核心价值。在区块链的世界里，人和人的关系是平等、自由的可以参与到任何的信息交换，由此我们建立全新的金融体系，汇集数据产生价值。我们依托区块链重新赋能信息交换所带来的数据价值，借助其去中心化通证经济模型，打造一套人人都有无风险基本收入的普惠金融体系，参与其中的任何人都可以得到基本的无风险基本收入保障RBI。
+        <span class="big">{{ $t('index_description_0') }}</span
+        >{{ $t('index_description_1') }}
       </div>
     </div>
     <div class="intro intro-even q-pt-xl column justify-center items-center">
-      <img
-        src="~assets/pc_images/p_index2.png"
-        width="117"
-      />
+      <img src="~assets/pc_images/p_index2.png" width="117" />
       <div class="intro2-content intro-content q-mt-lg q-px-lg">
-        RBI共发行3亿枚，其中50%的币进行空投，即1.5亿枚，从其中拿出100万枚用于做星星之火市场活动。另外50%通过POS挖矿产出，即1.5亿枚。
+        {{ $t('index_release') }}
       </div>
       <div class="intro2-column q-mt-xl row justify-between q-px-lg">
         <div
           class="column-item column justify-center items-center"
-          v-for="(item, index) in intro2Column"
+          v-for="(item, index) in $t('index_intro2Column')"
           :key="index"
         >
-          <img :src="item.img" alt="" />
+          <img :src="getImg(item.img)" alt="" />
           <span class="q-mt-lg q-mb-md color1">{{ item.title }}</span>
           <span class="q-mb-sm">{{ item.bill }}</span>
           <span class="text-center">{{ item.detail }}</span>
@@ -82,12 +77,9 @@
       </div>
     </div>
     <div class="intro q-pt-xl column justify-center items-center col-11">
-      <img
-        src="~assets/pc_images/p_index3.png"
-         width="158"
-      />
+      <img src="~assets/pc_images/p_index3.png" width="158" />
       <div class="intro3 color1 q-mb-md text-left q-px-lg">
-        空投合作交易所N9EX.COM
+        {{ $t('index_register_0') }}
       </div>
       <div class="intro-info row justify-center items-center q-mt-md">
         <div class="intro3-left col-sm-12 col-md-6 q-px-lg">
@@ -98,15 +90,16 @@
                 alt=""
                 class="intro3-icon q-mr-sm"
               />
-              <span class="color1">注册交易空投1000RBI</span>
+              <span class="color1">{{ $t('index_register_1') }}</span>
             </div>
             <div class="intro3-content q-ml-lg">
               <p>
-                规则：注册并实名后即送500个币（T+1天到账），交易指定的交易对RBI/USDT，交易额满10USDT，再送500个币（RBI在交易时，最低交易量为100RBI）。
+                {{ $t('index_register_rules1') }}
               </p>
-              <p>锁仓机制：空投的币种锁仓365天，每天释放1/365。</p>
+              {{ $t('index_register_rules2') }}
+              <p></p>
               <p>
-                实名注册空投数量递减规则：注册送500个币，每达到1000人实名注册，注册赠币数量递减10%，减产上限是10次，当减产到第十次，将停止减产。
+                {{ $t('index_register_rules3') }}
               </p>
             </div>
           </div>
@@ -117,20 +110,24 @@
                 alt=""
                 class="intro3-icon q-mr-sm"
               />
-              <span class="color1">邀请返佣</span>
+              <span class="color1">{{ $t('index_invite') }}</span>
             </div>
             <div class="intro3-content q-ml-lg">
               <p>
-                规则：每邀请一人注册并实名，并交易指定的交易对RBI/USDT，交易额满10USDT（RBI在交易时，最低交易量为100RBI）；
+                {{ $t('index_invite_rules1') }}
               </p>
-              <p>奖励：送邀请人30个RBI/人，只算一级邀请，邀请不设上限；</p>
+              {{ $t('index_invite_rules2') }}
+              <p></p>
               <p>
-                注册赠币和邀请返佣的锁仓机制：邀请返佣的币锁仓365天，每天释放1/365。
+                {{ $t('index_invite_rules3') }}
               </p>
             </div>
           </div>
         </div>
-        <div class="intro-right col-sm-12 col-md-6 q-px-xl q-mt-lg" style="max-width: 550px">
+        <div
+          class="intro-right col-sm-12 col-md-6 q-px-xl q-mt-lg"
+          style="max-width: 550px"
+        >
           <img
             src="~assets/pc_images/p_sheet1.png"
             alt=""
@@ -140,12 +137,9 @@
       </div>
     </div>
     <div class="intro intro-even q-pt-xl column justify-center items-center">
-      <img
-        src="~assets/pc_images/p_index4.png"
-        width="107px"
-      />
+      <img src="~assets/pc_images/p_index4.png" width="107px" />
       <div class="intro2-content intro-content q-mt-lg q-mb-xl q-px-lg">
-        POS挖矿是依据参与不同等级节点的人数按比例分配收益的。POS挖矿释放数量跟实际空投的数量有直接的关系，POS挖矿产币释放规则计算公式如下：
+        {{ $t('index_pos_mining') }}
       </div>
       <img
         src="~assets/images/formula.png"
@@ -155,24 +149,24 @@
         class="q-mb-md"
       />
       <p class="formula q-mt-lg q-px-lg">
-        Sn : 第n天的释放数量；N：第几天；X: 实际空投数量； P：POS年化利率
+        {{ $t('index_pos_trans') }}
       </p>
       <div style="max-width: 974px">
-      <img
-        src="~assets/pc_images/p_sheet2.png"
-        alt=""
-        class="q-my-xl center-img"
-      />
+        <img
+          src="~assets/pc_images/p_sheet2.png"
+          alt=""
+          class="q-my-xl center-img"
+        />
       </div>
       <p class="q-my-xl q-px-lg">
-        分阶段开放不同等级的POS节点，每个阶段的节点收益分配比例根据实际情况调整
+        {{ $t('index_pos_node') }}
       </p>
       <div style="max-width: 1150px">
-      <img
-        src="~assets/pc_images/p_node_line.png"
-        alt=""
-        class="q-my-xl center-img"
-      />
+        <img
+          src="~assets/pc_images/p_node_line.png"
+          alt=""
+          class="q-my-xl center-img"
+        />
       </div>
     </div>
   </q-page>
@@ -188,30 +182,13 @@ export default {
       noticeList: [],
       open: false,
       currentImg: 0,
-      currentText: 0,
-      intro2Column: [
-        {
-          img: require('src/assets/pc_images/p_index_icon1.png'),
-          title: 'RBI发行总量',
-          bill: '发行3亿枚',
-          detail: '恒定不变'
-        },
-        {
-          img: require('src/assets/pc_images/p_index_icon2.png'),
-          title: '空投',
-          bill: '发行1.5亿枚',
-          detail: '其中的100万枚用于做星星之火市场活动'
-        },
-        {
-          img: require('src/assets/pc_images/p_index_icon3.png'),
-          title: 'POS挖矿',
-          bill: '1.5亿枚',
-          detail: '分阶段开启不同的节点等级'
-        }
-      ]
+      currentText: 0
     }
   },
   methods: {
+    getImg(src) {
+      return require(`src/assets/pc_images/p_index_icon${src}.png`)
+    },
     async getIndexInfo() {
       const { data } = await getIndexInfo()
       this.banner = data.banner
@@ -226,19 +203,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-.center-img{
+.center-img {
   width: 100%;
 }
-.screen--xs .center-img{
+.screen--xs .center-img {
   margin-top: 20px;
   margin-bottom: 20px;
 }
-.intro-info, .intro3{
+.intro-info,
+.intro3 {
   max-width: 1100px;
 }
-.intro2-column span{
-  color: rgba(255,255,255,.6)
+.intro2-column span {
+  color: rgba(255, 255, 255, 0.6);
 }
 .formula {
   color: #999;
@@ -275,22 +252,23 @@ export default {
     width: 60px;
   }
 }
-.screen--sm .intro2-column ,.screen--xs .intro2-column{
+.screen--sm .intro2-column,
+.screen--xs .intro2-column {
   max-width: 100%;
   width: 100%;
   min-width: unset;
 }
-.intro2-column .column-item{
+.intro2-column .column-item {
   width: 30%;
 }
-.screen--xs .column-item{
+.screen--xs .column-item {
   width: 50%;
   margin-bottom: 40px;
 }
 .intro {
   padding: 90px 0;
 }
-.screen--xs .intro{
+.screen--xs .intro {
   padding: 40px 0;
 }
 .intro3 {
@@ -298,7 +276,7 @@ export default {
   text-align: left;
   width: 100%;
 }
-.screen--xs .intro3{
+.screen--xs .intro3 {
   margin-top: 40px;
 }
 .big {

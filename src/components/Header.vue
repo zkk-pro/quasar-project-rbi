@@ -133,9 +133,12 @@ export default {
   components: { Menu },
   methods: {
     changeLanguage() {
-      const language = this.$store.getters.language === 'zh-cn' ? 'en-us' : 'zh-cn'
-      this.$store.dispatch('ChangeLanguage', language)
-      this.$i18n.locale = language
+      location.reload()
+      setTimeout(() => {
+        const language = this.$store.getters.language === 'zh-cn' ? 'en-us' : 'zh-cn'
+        this.$store.dispatch('ChangeLanguage', language)
+        this.$i18n.locale = language
+      })
     },
     // 退出
     logout() {

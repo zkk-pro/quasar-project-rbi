@@ -1,5 +1,5 @@
 <template>
-  <div class="node-v  row items-center" :class="'node-v-' + node">V{{node}}节点</div>
+  <div class="node-v  row items-center" :class="'node-v-' + node">V{{node}}&nbsp;{{$t('mining_node')}}</div>
 </template>
 
 <script>

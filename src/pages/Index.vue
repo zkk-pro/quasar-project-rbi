@@ -1,7 +1,7 @@
 <template>
   <div>
-    <IndexMobile class="lt-sm"/>
-    <IndexPc class="gt-xs"/>
+    <IndexMobile class="lt-sm" />
+    <IndexPc class="gt-xs" />
   </div>
 </template>
 

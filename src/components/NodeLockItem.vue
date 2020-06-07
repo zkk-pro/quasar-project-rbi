@@ -26,7 +26,7 @@
           small-size="13px"
         />
         <div class="rbi-yield col-xs-12 col-sm-8">
-          瓜分POS挖矿收益的{{ nodeData.rate * 100 }}%
+          {{lang == 'en-us' ? `Share ${nodeData.rate * 100}% of POS mining revenue` : `瓜分POS挖矿收益的${nodeData.rate * 100}%`}}
         </div>
       </div>
 
@@ -34,7 +34,7 @@
         <q-btn
           v-if="showBtn"
           rounded
-          label="去锁仓>"
+          :label="$t('mining_lock')+'>'"
           color="dark"
           text-color="cyan-12"
           to="/lock-position"
@@ -67,7 +67,8 @@ export default {
   data() {
     return {
       disabled: false,
-      status: 1
+      status: 1,
+      lang: ''
     }
   },
   components: { NodeIcon, Number },
@@ -84,6 +85,9 @@ export default {
         return '已解锁'
       }
     }
+  },
+  mounted() {
+    this.lang = this.$i18n.locale
   }
 }
 </script>

@@ -2,7 +2,7 @@
   <q-page class="message-list column items-center">
     <div class="notice q-ml-md row items-center text-left">
       <q-icon name="play_arrow" size="10" class="icon q-mr-xs q-pl-xs"></q-icon>
-      <span>公告列表</span>
+      <span>{{ $t('message_list_title') }}</span>
     </div>
     <q-list separator>
       <div v-for="(item, index) in messageList" :key="index">
@@ -25,9 +25,7 @@
         <q-separator style="background: rgba(255, 255, 255, .1)" />
       </div>
     </q-list>
-    <div
-      class="q-pa-lg flex flex-center justify-center paging-wrapper"
-    >
+    <div class="q-pa-lg flex flex-center justify-center paging-wrapper">
       <q-pagination
         class="q-mt-md row justify-center"
         v-model="paging"
@@ -97,7 +95,11 @@ export default {
   color: rgba(255, 255, 255, 0.6);
   text-align: center;
 }
-.item-title{
+/deep/.q-item__section--main {
+  flex-direction: row;
+  justify-content: space-between;
+}
+.item-title {
   width: 263px;
 }
 .page-input {
@@ -109,18 +111,18 @@ export default {
   height: 154px;
 }
 
-.screen--xs .q-list, .notice {
-  width: 100%;
+.screen--xs {
+  .q-list,
+  .notice {
+    width: 100%;
+  }
 }
-.notice{
+.notice {
   height: 40px;
 }
 .item-time {
   padding-left: 22px;
   color: #999;
-}
-.screen--sm .item-time {
-  margin-top: 0;
 }
 .circle {
   width: 10px;
@@ -135,15 +137,13 @@ export default {
   }
 }
 @media screen and (min-width: 599px) {
-  .q-list, .notice {
-  width: 90%;
-  max-width: 1200px;
-}
-  .q-item__section--main {
-    flex-direction: row;
-    justify-content: space-between;
+  .q-list,
+  .notice {
+    width: 90%;
+    max-width: 1200px;
   }
-  .item-time{
+
+  .item-time {
     margin-top: 0;
   }
   .message-list {
