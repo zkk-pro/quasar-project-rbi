@@ -144,15 +144,6 @@ export default {
       } else {
         return date.formatDate(d, 'YYYY-MM-DD')
       }
-    },
-    transStatus(status) {
-      // if (status === 0) {
-      //   return '已结束'
-      // } else if (status === 1) {
-      //   return '持有中'
-      // } else if (status === 2) {
-      //   return '已解锁'
-      // }
     }
   },
   methods: {
@@ -160,9 +151,9 @@ export default {
       try {
         const { data } = await unlockAsk({ id: this.id })
         if (data.unlockEnable === 0) {
-          return this.$q.notify({ message: '锁仓24小时内不可以进行解锁 !' })
+          return this.$q.notify({ message: this.$t('notify_lock') })
         } else if (data.unlockEnable === 2) {
-          return this.$q.notify({ message: '该订单已解锁 !' })
+          return this.$q.notify({ message: this.$t('notify_unlocke') })
         }
         // 可以解锁
         this.safeShow = true
@@ -171,7 +162,7 @@ export default {
     async onSafeConfirm(code) {
       try {
         await unlock({ id: this.id, code })
-        this.$router.push({ name: 'success', params: { text: '解锁成功' } })
+        this.$router.push({ name: 'success', params: { text: this.$t('Unlocked successfully') } })
       } catch (error) {}
     },
     async getOrderDetail() {

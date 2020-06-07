@@ -2,7 +2,7 @@
   <q-dialog v-model="show" persistent @hide="onDialogHide">
     <q-card class="dialog-card column justify-between">
       <q-card-section class="q-pb-none">
-        <div style="font-size:16px; color:#333">安全验证</div>
+        <div style="font-size:16px; color:#333">{{$t('safety_verification')}}</div>
       </q-card-section>
 
       <q-card-section class="q-px-lg q-py-none">
@@ -13,12 +13,14 @@
           dense
           maxlength="6"
           v-model="code"
+          style="flex:1"
         >
           <template v-if="typeData.shwoCodeBtn" v-slot:append>
             <q-btn
               style="width: 80px"
               flat
               dense
+              no-caps
               :disable="codeBtnDisabled"
               color="blue-5"
               :label="codeBtnText"
@@ -34,18 +36,20 @@
       <q-card-actions align="right" class="q-pt-none">
         <div style="height:36px">
           <q-btn
-            label="取消"
+            :label="$t('com_cancel')"
             color="blue-grey-8"
             text-color="blue-grey-8"
             outline
+            no-caps
             v-close-popup
             @click="$emit('update:show', false)"
             style="margin-right: 20px"
           />
           <q-btn
             unelevated
-            label="确定"
+            :label="$t('com_confirm')"
             color="primary"
+            no-caps
             text-color="blue-grey-8"
             :disable="btn_disabled"
             @click="$emit('safeConfirm', code)"
@@ -79,7 +83,7 @@ export default {
     return {
       // show: false,
       code: '',
-      codeBtnText: '发送验证码',
+      codeBtnText: this.$t('com_get_code'),
       codeBtnDisabled: false,
       timer: null
     }
@@ -90,23 +94,25 @@ export default {
       switch (this.validType) {
         case GOOGLE:
           data = {
-            label: '谷歌验证码',
+            label: this.$t('com_google_code'),
             shwoCodeBtn: false,
             tipsText: ''
           }
           break
         case PHONE:
+          var text = this.$i18n.locale === 'en-us' ? `Enter the verification code received by your number ${this.$store.getters.userinfo.mobile}` : `输入您的号码${this.$store.getters.userinfo.mobile}收到的验证码`
           data = {
-            label: '短信验证码',
+            label: this.$t('com_sms_code'),
             shwoCodeBtn: true,
-            tipsText: `输入您的号码${this.$store.getters.userinfo.mobile}收到的验证码`
+            tipsText: text
           }
           break
         case EMAIL:
+          var text1 = this.$i18n.locale === 'en-us' ? `Enter the verification code received in your email ${this.$store.getters.userinfo.email}` : `输入您的邮箱${this.$store.getters.userinfo.mobile}收到的验证码`
           data = {
-            label: '邮箱验证码',
+            label: this.$t('com_em_code'),
             shwoCodeBtn: true,
-            tipsText: `输入您的邮箱${this.$store.getters.userinfo.mobile}收到的验证码`
+            tipsText: text1
           }
           break
       }
@@ -122,7 +128,7 @@ export default {
     onDialogHide() {
       this.code = ''
       clearInterval(this.timer)
-      this.codeBtnText = '获取验证码'
+      this.codeBtnText = this.$t('com_get_code')
       this.codeBtnDisabled = false
     },
     async getCode() {
@@ -144,7 +150,7 @@ export default {
           this.codeBtnText = time + 's'
           if (time < 0) {
             clearInterval(this.timer)
-            this.codeBtnText = '重新发送'
+            this.codeBtnText = this.$t('notidy_send_again')
             this.codeBtnDisabled = false
           }
         }, 1000)

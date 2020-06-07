@@ -91,18 +91,6 @@ export default {
     formatDate(d) {
       return date.formatDate(d, 'YYYY-MM-DD HH:mm')
     }
-    // transStatus(status) {
-    //   if (status === 0) {
-    //     var text = this.lang === 'en-us' ? 'over' : '已结束'
-    //     return text
-    //   } else if (status === 1) {
-    //     var text1 = this.lang === 'en-us' ? 'Holding' : '持有中'
-    //     return text1
-    //   } else if (status === 2) {
-    //     var text2 = this.lang === 'en-us' ? 'Unlocked' : '已解锁'
-    //     return text2
-    //   }
-    // }
   },
   mounted() {
     this.lang = this.$i18n.locale

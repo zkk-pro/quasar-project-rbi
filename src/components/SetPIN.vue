@@ -2,7 +2,7 @@
   <div>
     <Dialog
       ref="setPINDialog"
-      title="请设置PIN码"
+      :title="$t('assets_setpin')"
       @hide="onSetPINDialogHide"
       @confirm="setPINDialogHandle"
       :confirmHold="true"
@@ -14,10 +14,10 @@
           type="password"
           maxlength="6"
           dense
-          placeholder="输入6位数字PIN码"
+          :placeholder="$t('assets_enterpin')"
           no-error-icon
           lazy-rules
-          :rules="[val => (!!val && !(val.length < 6)) || '请输入6位数字PIN码']"
+          :rules="[val => (!!val && !(val.length < 6)) || $t('assets_enterpin')]"
         />
         <q-input
           v-model="setPINForm.second"
@@ -25,10 +25,10 @@
           type="password"
           maxlength="6"
           dense
-          placeholder="确定6位数字PIN码"
+          :placeholder="$t('assets_confirm_pin')"
           no-error-icon
           lazy-rules
-          :rules="[val => val === setPINForm.first || '两次输入不一致']"
+          :rules="[val => val === setPINForm.first || $t('com_enter_notsame')]"
         />
       </q-form>
     </Dialog>
@@ -87,7 +87,7 @@ export default {
         this.$emit('success')
         this.safeShow = false
         this.$q.notify({
-          message: '设置成功',
+          message: this.$t('notify_setting_success'),
           icon: 'done',
           textColor: 'green'
         })

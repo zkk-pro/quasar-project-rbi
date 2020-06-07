@@ -142,7 +142,7 @@ export default {
     // 确定按钮
     confirm() {
       if (Number(this.canUseRBI) < Number(this.currentNode.num)) {
-        return this.$q.notify({ message: '当前拥有的RBI不足以购买当前节点' })
+        return this.$q.notify({ message: this.$t('notify_cant_buy') })
       }
       this.$refs.confirmDialog.open()
     },
@@ -156,7 +156,7 @@ export default {
         await nodeBuy({ id: this.currentNode.id, code })
         this.$router.replace({
           name: 'success',
-          params: { text: '锁仓成功', date: this.currentNode.interestTimeBegin }
+          params: { text: this.$t('com_lock_success'), date: this.currentNode.interestTimeBegin }
         })
       } catch (error) {}
     },

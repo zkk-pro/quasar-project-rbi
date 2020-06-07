@@ -7,8 +7,8 @@
         :type="showPwd ? 'text' : 'password'"
         class="input-style q-px-md"
         maxlength="20"
-        prefix="原密码"
-        placeholder="请输入原密码"
+        :prefix="$t('modify_password_old')"
+        :placeholder="$t('com_enter_old_password')"
         :input-style="{ color: 'white' }"
       >
         <template v-slot:append>
@@ -25,8 +25,8 @@
         type="password"
         class="input-style q-px-md"
         maxlength="20"
-        prefix="新密码"
-        placeholder="请输入新密码"
+        :prefix="$t('modify_password_new')"
+        :placeholder="$t('com_enter_new_password')"
         :input-style="{ color: 'white' }"
       />
       <q-separator style="background: rgba(255,255,255,0.1)" />
@@ -36,8 +36,8 @@
         type="password"
         class="input-style q-px-md"
         maxlength="20"
-        prefix="新密码确认"
-        placeholder="请再次输入登录密码"
+        :prefix="$t('modify_password_confirm')"
+        :placeholder="$t('com_enter_password_again')"
         :input-style="{ color: 'white' }"
       />
       <q-separator style="background: rgba(255,255,255,0.1)" />
@@ -46,9 +46,10 @@
           unelevated
           rounded
           type="submit"
+          no-caps
           color="primary"
           text-color="dark"
-          label="确定"
+          :label="$t('com_confirm')"
           class="confirm-btn"
         />
       </div>
@@ -81,21 +82,18 @@ export default {
       this.$q.notify({ message, icon: 'warning', textColor: 'red' })
     },
     async onSubmit() {
-      // else if (this.form.new.length < 6) {
-      //   return this.notify('密码不能低于6位数')
-      // }
       if (!this.form.old) {
-        return this.notify('请输入原密码')
+        return this.notify(this.$t('com_enter_old_password'))
       } else if (!this.form.new) {
-        return this.notify('请输入新密码')
+        return this.notify(this.$t('com_enter_new_password'))
       } else if (this.form.new !== this.form.newAgen) {
-        return this.notify('两次输入不一致，请重新输入')
+        return this.notify(this.$t('com_enter_notsame'))
       } else if (
         !/^(?=.*?[a-z)(?=.*>[A-Z])(?=.*?[0-9])[a-zA_Z0-9]{6,20}$/.test(
           this.form.new
         )
       ) {
-        return this.notify('登入密码6-20位，由字母和数字组成')
+        return this.notify(this.$t('register_password'))
       }
       this.safeShow = true
     },
@@ -108,7 +106,7 @@ export default {
           passwordUpdate: this.form.new
         })
         this.$q.notify({
-          message: '修改成功',
+          message: this.$t('com_modify_success'),
           icon: 'done',
           textColor: 'green'
         })

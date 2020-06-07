@@ -199,7 +199,7 @@ export default {
           pinCode: this.PIN,
           code
         })
-        this.$router.push({ name: 'success', params: { text: '提交成功' } })
+        this.$router.push({ name: 'success', params: { text: this.$t('com_submit_success') } })
       } catch (error) {}
     },
     inputPINFocus() {
@@ -210,15 +210,15 @@ export default {
 
     onSubmit() {
       if (!this.formData.address) {
-        return this.notify('请输入提币地址')
+        return this.notify(`${this.$t('com_enter')}${this.$t('assets_withdraw_address')}`)
       } else if (!this.formData.amount) {
-        return this.notify('请输入提币数量')
+        return this.notify(`${this.$t('com_enter')}${this.$t('assets_withdraw_num')}`)
       } else if (
         Number(this.formData.amount) < Number(this.config.withdrawMinNum)
       ) {
-        return this.notify(`提币数量不能小于${this.config.withdrawMinNum}`)
+        return this.notify(`${this.$t('notify_withdraw_num')}${this.config.withdrawMinNum}`)
       } else if (Number(this.formData.amount) > Number(this.config.balance)) {
-        return this.notify('提币数量不能大于可用数量')
+        return this.notify(this.$t('notify_withdraw_num_lt'))
       }
       // 是否可提币
       if (!this.config.withdrawStatus) {
