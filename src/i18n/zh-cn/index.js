@@ -173,7 +173,7 @@ export default {
   order_detail_yield: '锁仓收益率',
   order_detail_day: '起息日',
   order_detail_unlock_day: '解锁日期',
-  order_detail_hold_day: '持有日期',
+  order_detail_hold_day: '持有天数',
   order_detail_day_text: '天',
   order_detail_status: '状态',
 
