@@ -54,11 +54,11 @@
 
       <!-- 忘了密码一系列弹框 -->
       <!-- 确认框 -->
-      <Dialog title="重置登录密码" ref="resetTip" @confirm="resetTipCofirm">
+      <!-- <Dialog title="重置登录密码" ref="resetTip" @confirm="resetTipCofirm">
         <div class="q-pl-md" style="font-size:14px; color: #666">
           重置登录密码后，24小时内无法提币
         </div>
-      </Dialog>
+      </Dialog> -->
       <!-- 账号输入 -->
       <Dialog
         title="重置登录密码"
@@ -157,12 +157,13 @@ export default {
     // 忘记密码
     forgetPwd() {
       this.isLogin = false
-      this.$refs.resetTip.open()
-    },
-    // 忘记密码确认弹框 confirm
-    resetTipCofirm() {
+      // this.$refs.resetTip.open()
       this.$refs.resetInput.open()
     },
+    // 忘记密码确认弹框 confirm
+    // resetTipCofirm() {
+    //   this.$refs.resetInput.open()
+    // },
     // 输入手机号/邮箱
     async resetInputCofirm() {
       if (!this.forgetAccount) {

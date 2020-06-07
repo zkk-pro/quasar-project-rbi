@@ -29,11 +29,11 @@ export default {
           }
         }, 1000)
       } catch (error) {
-        this.$q.notify({
-          message: '验证码发送失败，请重试',
-          textColor: 'red',
-          icon: 'warning'
-        })
+        // this.$q.notify({
+        //   message: '验证码发送失败，请重试',
+        //   textColor: 'red',
+        //   icon: 'warning'
+        // })
       }
     }
   }

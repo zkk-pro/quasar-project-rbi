@@ -11,7 +11,7 @@
         :style="{ color: itemData.num > 0 ? '#14BE7D' : '#FC4A1A' }"
         style="font-size: 15px"
       >
-        {{ itemData.num > 0 ? '+' : '' }}{{itemData.num}}
+        {{ itemData.num > 0 ? '+' : '' }}{{Number(itemData.num)}}
       </span>
     </q-item-section>
   </q-item>

@@ -51,7 +51,7 @@
             v-if="item.txid"
             dense
             group="group"
-            expand-icon="img:statics/icons/arrow-up.png"
+            expand-icon="img:statics/icons/arrow-down.png"
           >
             <template v-slot:header>
               <EarningItem :itemData="item" />

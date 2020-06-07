@@ -46,7 +46,7 @@
             val => !(val.length < 6) || '请输入6位数验证码'
           ]"
         >
-          <template v-slot:after>
+          <template v-slot:append>
             <q-btn
               style="width: 80px"
               flat
@@ -165,7 +165,6 @@ export default {
     },
     // 提示
     notify(message) {
-      console.log(message)
       this.$q.notify({
         message,
         textColor: 'red',

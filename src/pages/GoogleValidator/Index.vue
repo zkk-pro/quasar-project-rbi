@@ -83,7 +83,6 @@ import { getGoogleAuth, bindGoogle, validate } from 'src/api/apiList'
 export default {
   data() {
     return {
-      address: 'N5U3F7JEMRXJPTX7',
       isEmail: true, // 是否邮箱验证
       googleAuth: {}, // google私钥信息
       userType: '', // 用户注册类型
