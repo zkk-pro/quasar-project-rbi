@@ -44,4 +44,7 @@ export default {
   padding: 40px;
   box-sizing: border-box;
 }
+/deep/ p {
+  line-height: 22px;
+}
 </style>
