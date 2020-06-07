@@ -130,7 +130,7 @@ export default {
   assets_address: '对方地址',
   assets_id: '交易ID',
   assets_recharge_address: 'RBI充币',
-  assets_my_address: '我的RBI充币',
+  assets_my_address: '我的RBI地址',
   assets_copy: '复制地址',
   assets_qrcode: '二维码',
   assets_withdrawRBI: 'RBI提币',

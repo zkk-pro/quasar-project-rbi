@@ -11,7 +11,7 @@
       color="primary"
       text-color="dark"
       style="width:315px; height:46px; font-size:16px; margin-top:80px"
-      @click="$router.go(-1)"
+      @click="$router.go(info.back ? info.back: -1)"
     />
   </q-page>
 </template>

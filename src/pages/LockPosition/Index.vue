@@ -115,7 +115,7 @@ export default {
     return {
       showConfirm: false, // 显示确认弹框
       showSafeDialog: false, // 显示安全验证弹框
-      currentNodeId: 2, // 当前选择的节点
+      currentNodeId: 0, // 当前选择的节点
       nodeList: [], // 节点列
       canUseRBI: 0, // 可用RBI
       validType: 2, // 验证类型，1:google; 2:phone; 3:email
@@ -163,8 +163,9 @@ export default {
     // 获取节点列表
     async getNodeList() {
       const { data } = await getNodeList()
-      this.nodeList = data.list
-      this.currentNodeId = data.list[0].id
+      this.nodeList = data.list.filter(item => {
+        return !item.lockStatus
+      })
     },
     async getUserInfo() {
       const { data } = await this.$store.dispatch('UpdateUserInfo')
@@ -173,6 +174,7 @@ export default {
     }
   },
   created() {
+    this.currentNodeId = this.$route.query.id
     this.getUserInfo()
     this.getNodeList()
     this.lang = this.$i18n.locale

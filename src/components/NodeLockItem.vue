@@ -49,7 +49,7 @@
           color="dark"
           no-caps
           text-color="cyan-12"
-          to="/lock-position"
+          :to="`/lock-position?id=${nodeData.id}`"
           style="width: 160px;height:40px"
           :disable="!!nodeData.lockStatus"
           :outline="!nodeData.lockStatus"
