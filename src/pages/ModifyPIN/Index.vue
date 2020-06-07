@@ -6,9 +6,9 @@
         borderless
         :type="showPwd ? 'text' : 'password'"
         class="input-style q-px-md"
-        maxlength="20"
-        prefix="原密码"
-        placeholder="请输入原密码"
+        maxlength="6"
+        prefix="原PIN"
+        placeholder="请输入原PIN"
         :input-style="{ color: 'white' }"
       >
         <template v-slot:append>
@@ -24,9 +24,9 @@
         borderless
         type="password"
         class="input-style q-px-md"
-        maxlength="20"
-        prefix="新密码"
-        placeholder="请输入新密码"
+        maxlength="6"
+        prefix="新PIN"
+        placeholder="请输入新PIN"
         :input-style="{ color: 'white' }"
       />
       <q-separator style="background: rgba(255,255,255,0.1)" />
@@ -35,9 +35,9 @@
         borderless
         type="password"
         class="input-style q-px-md"
-        maxlength="20"
-        prefix="新密码确认"
-        placeholder="请再次输入登录密码"
+        maxlength="6"
+        prefix="新PIN确认"
+        placeholder="请再次输入PIN"
         :input-style="{ color: 'white' }"
       />
       <q-separator style="background: rgba(255,255,255,0.1)" />
@@ -74,21 +74,14 @@ export default {
       this.$q.notify({ message, icon: 'warning', textColor: 'red' })
     },
     async onSubmit() {
-      // else if (this.form.new.length < 6) {
-      //   return this.notify('密码不能低于6位数')
-      // }
       if (!this.form.old) {
-        return this.notify('请输入原密码')
+        return this.notify('请输入原PIN')
       } else if (!this.form.new) {
-        return this.notify('请输入新密码')
+        return this.notify('请输入新PIN')
+      } else if (this.form.new.length < 6) {
+        return this.notify('PIN不能低于6位数')
       } else if (this.form.new !== this.form.newAgen) {
         return this.notify('两次输入不一致，请重新输入')
-      } else if (
-        /^(?=.*?[a-z)(?=.*>[A-Z])(?=.*?[0-9])[a-zA_Z0-9]{6,20}$/.test(
-          this.form.new
-        )
-      ) {
-        return this.notify('登入密码6-20位，由字母和数字组成')
       }
       try {
         await userModify({
@@ -117,7 +110,7 @@ export default {
 /deep/ .q-placeholder::placeholder {
   color: rgba(255, 255, 255, 0.2);
 }
-/deep/ .q-form {
+/deep/ .q-form{
   width: 100%;
 }
 .getcode-btn /deep/ .q-btn__wrapper {
@@ -160,14 +153,14 @@ export default {
   font-weight: bold;
 }
 @media screen and (min-width: 599px) {
-  /deep/ .q-form {
-    width: 440px;
-    padding: 40px;
-    margin-top: 40px;
-    background: rgba(255, 255, 255, 0.05);
-  }
-  .input-style {
-    background: transparent;
-  }
+/deep/ .q-form{
+  width: 440px;
+  padding: 40px;
+  margin-top: 40px;
+  background: rgba(255, 255, 255, 0.05);
+}
+.input-style{
+  background: transparent;
+}
 }
 </style>

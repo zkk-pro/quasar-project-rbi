@@ -35,53 +35,54 @@
       @confirm="withdrawConfirm"
     />
     <!-- 交易记录 -->
-    <q-list style="background: rgba(255,255,255,0.05)">
-      <q-item-label
-        header
-        class="q-pt-none q-pb-md"
-        style="background: #1B1F41"
-      >
-        交易记录
-      </q-item-label>
-      <div v-for="item in logList" :key="item.id">
-        <!-- 有扩展项 -->
-        <q-expansion-item
-          v-if="item.txid"
-          dense
-          group="group"
-          expand-icon="img:statics/icons/arrow-up.png"
+    <div class="container">
+      <q-list style="background: rgba(255,255,255,0.05)">
+        <q-item-label
+          header
+          class="q-pt-none q-pb-md"
+          style="background: #1B1F41"
         >
-          <template v-slot:header>
-            <EarningItem :itemData="item" />
-          </template>
-          <q-card style="background: #1B1F41">
-            <q-card-section class="content" style="">
-              <div class="q-mb-xs">对方地址:</div>
-              <div class="q-mb-lg">
-                {{ item.address }}
-              </div>
-              <div class="q-mb-xs">交易ID:</div>
-              <div>
-                {{ item.txid }}
-              </div>
-            </q-card-section>
-          </q-card>
-        </q-expansion-item>
-        <!-- 没有扩展项 -->
-        <EarningItem v-else class="q-px-md" :itemData="item" />
-        <q-separator style="background: rgba(255,255,255,0.05)" />
-      </div>
-    </q-list>
-    <q-pagination
-      class="q-mt-md row justify-center"
-      v-model="params.paging"
-      v-if="logList.length"
-      :max="pageInfo.pageMax || 1"
-      direction-links
-      @input="pageChange"
-      size="12px"
-    >
-    </q-pagination>
+          交易记录
+        </q-item-label>
+        <div v-for="item in logList" :key="item.id">
+          <!-- 有扩展项 -->
+          <q-expansion-item
+            v-if="item.txid"
+            dense
+            group="group"
+            expand-icon="img:statics/icons/arrow-up.png"
+          >
+            <template v-slot:header>
+              <EarningItem :itemData="item" />
+            </template>
+            <q-card style="background: #1B1F41">
+              <q-card-section class="content" style="">
+                <div class="q-mb-xs">对方地址:</div>
+                <div class="q-mb-lg">
+                  {{ item.address }}
+                </div>
+                <div class="q-mb-xs">交易ID:</div>
+                <div>
+                  {{ item.txid }}
+                </div>
+              </q-card-section>
+            </q-card>
+          </q-expansion-item>
+          <!-- 没有扩展项 -->
+          <EarningItem v-else class="q-px-md" :itemData="item" />
+          <q-separator style="background: rgba(255,255,255,0.05)" />
+        </div>
+      </q-list>
+      <q-pagination
+        class="q-mt-md row justify-center"
+        v-model="params.paging"
+        v-if="logList.length"
+        :max="pageInfo.pageMax || 1"
+        direction-links
+        @input="pageChange"
+        size="12px"
+      />
+    </div>
   </q-page>
 </template>
 
@@ -142,9 +143,16 @@ export default {
 </style>
 
 <style lang="scss" scoped>
+.screen--xs {
+  .header {
+    height: 162px;
+    background: url('~assets/images/assets-bg.png');
+    background-size: 100% 100%;
+  }
+}
 .header {
-  height: 162px;
-  background: url('~assets/images/assets-bg.png');
+  height: 200px;
+  background: url('~assets/pc_images/q-assets-bg.png');
   background-size: 100% 100%;
   position: relative;
   margin-bottom: 20px;

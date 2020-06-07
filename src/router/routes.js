@@ -49,7 +49,8 @@ const routes = [
         component: () => import('pages/GoogleValidatorFirst')
       },
       { path: 'g-validator', component: () => import('pages/GoogleValidator') },
-      { path: 'modify-pwd', component: () => import('pages/ModifyPwd') }
+      { path: 'modify-pwd', component: () => import('pages/ModifyPwd') },
+      { path: 'modify-pin', component: () => import('pages/ModifyPIN') }
     ]
   }
 ]

@@ -1,5 +1,5 @@
 <template>
-  <q-item class="q-py-md q-px-none row full-width">
+  <q-item clickable class="q-py-md q-px-none row full-width">
     <q-item-section>
       <div>{{ itemData.title }}</div>
       <div class="q-mt-md text-grey-8" style="font-size: 11px">

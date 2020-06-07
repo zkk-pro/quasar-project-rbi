@@ -1,8 +1,7 @@
 <template>
-  <q-dialog v-model="show" persistent @hide="onDialogHide">
+  <q-dialog v-model="show" persistent @hide="onDialogHide" >
     <q-card
-      class="column justify-between"
-      style="min-width: 335px; height: 240px"
+      class="column justify-between dialog-card"
     >
       <q-card-section class="q-pb-none">
         <div style="font-size:16px; color:#333">{{ title }}</div>

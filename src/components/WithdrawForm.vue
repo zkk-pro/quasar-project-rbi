@@ -1,10 +1,7 @@
 <template>
   <div class="q-px-md recharge-box">
     <div class="q-mb-sm pc_title">RBI提币</div>
-    <q-form
-      @submit="onSubmit"
-      class="q-py-lg q-px-md draw-form"
-    >
+    <q-form @submit="onSubmit" class="q-py-lg q-px-md draw-form">
       <div class="q-mb-sm">提币币种</div>
       <q-input
         filled
@@ -26,6 +23,7 @@
       <div class="q-mb-sm q-mt-md">提币数量</div>
       <q-input
         v-model="formData.amount"
+        type="number"
         filled
         dense
         :style="nodeInputStyle"
@@ -209,9 +207,11 @@ export default {
         return this.notify('请输入提币地址')
       } else if (!this.formData.amount) {
         return this.notify('请输入提币数量')
-      } else if (this.formData.amount < this.config.withdrawMinNum) {
+      } else if (
+        Number(this.formData.amount) < Number(this.config.withdrawMinNum)
+      ) {
         return this.notify(`提币数量不能小于${this.config.withdrawMinNum}`)
-      } else if (this.formData.amount > this.config.balance) {
+      } else if (Number(this.formData.amount) > Number(this.config.balance)) {
         return this.notify('提币数量不能大于可用数量')
       }
       // 设置过PointerEvent
@@ -234,11 +234,11 @@ export default {
   color: #fff;
   position: relative;
 }
-.recharge-box{
+.recharge-box {
   margin-bottom: 40px;
 }
-.draw-form{
-  background: rgba(255,255,255,0.05);
+.draw-form {
+  background: rgba(255, 255, 255, 0.05);
 }
 @media screen and (min-width: 599px) {
   .recharge-box {
@@ -246,11 +246,11 @@ export default {
     height: 512px;
     margin: 8px auto 40px;
   }
-  .draw-form{
+  .draw-form {
     padding: 62px 135px;
-    background: rgba(26,26,60,1);
+    background: rgba(26, 26, 60, 1);
   }
-  .pc_title{
+  .pc_title {
     margin-bottom: 20px;
   }
 }

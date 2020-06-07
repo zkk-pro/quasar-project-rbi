@@ -30,7 +30,7 @@ export default {
         const n = this.number.toString()
         return n.split('.')
       }
-      return ''
+      return '0'
     }
   }
 }

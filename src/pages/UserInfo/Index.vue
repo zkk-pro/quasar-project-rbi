@@ -1,86 +1,96 @@
 <template>
   <q-page class="row justify-center" :style-fn="pageStyle">
     <div class="list-wrapper">
-    <q-list v-if="Object.keys(userinfo).length">
-      <q-item style="background: rgba(255,255,255, 0.05)">
-        <q-item-section>UID</q-item-section>
-        <q-item-section align="right">{{ userinfo.id }}</q-item-section>
-      </q-item>
-      <q-separator inset dark style="background: rgba(255,255,255,0.1)" />
-      <q-item style="background: rgba(255,255,255, 0.05)">
-        <q-item-section>
-          {{ userinfo.type === 'email' ? '邮箱号' : '手机号' }}
-        </q-item-section>
-        <q-item-section align="right">{{ userinfo.mobile }}</q-item-section>
-      </q-item>
-      <!-- <q-item style="background: rgba(255,255,255, 0.05)" v-else>
+      <q-list v-if="Object.keys(userinfo).length">
+        <q-item style="background: rgba(255,255,255, 0.05)">
+          <q-item-section>UID</q-item-section>
+          <q-item-section align="right">{{ userinfo.id }}</q-item-section>
+        </q-item>
+        <q-separator inset dark style="background: rgba(255,255,255,0.1)" />
+        <q-item style="background: rgba(255,255,255, 0.05)">
+          <q-item-section>
+            {{ userinfo.type === 'email' ? '邮箱号' : '手机号' }}
+          </q-item-section>
+          <q-item-section align="right">{{ userinfo.mobile }}</q-item-section>
+        </q-item>
+        <!-- <q-item style="background: rgba(255,255,255, 0.05)" v-else>
         <q-item-section>手机号</q-item-section>
         <q-item-section align="right">137***2917</q-item-section>
       </q-item> -->
-      <q-item class="q-mt-sm q-item-odd" style="background: rgba(255,255,255, 0.05)">
-        <q-item-section>谷歌身份验证</q-item-section>
-        <q-item-section align="right">
-          <!-- v-model="userinfo.securityGoogleSwitch" -->
-          <q-toggle
-            :value="userinfo.securityGoogleSwitch"
-            @input="googleModelHandle"
-            :false-value="0"
-            :true-value="1"
-          />
-        </q-item-section>
-      </q-item>
-      <q-separator inset dark style="background: rgba(255,255,255,0.1)" />
-      <q-item style="background: rgba(255,255,255, 0.05)">
-        <q-item-section>谷歌验证器</q-item-section>
-        <q-item-section align="right">
-          <span
-            class="right-arrow"
-            v-if="userinfo.securityGoogleIsBind"
-            @click="resetGoogle"
-            >重置</span
-          >
-          <router-link
-            class="text-primary right-arrow"
-            to="/f-g-validator"
-            replace
-            v-else
-          >
-            去绑定
-          </router-link>
-        </q-item-section>
-      </q-item>
-      <q-item class="q-mt-sm q-item-odd" style="background: rgba(255,255,255, 0.05)">
-        <q-item-section>登录密码</q-item-section>
-        <q-item-section align="right">
-          <router-link class="right-arrow" to="/modify-pwd">修改</router-link>
-        </q-item-section>
-      </q-item>
-      <q-separator inset dark style="background: rgba(255,255,255,0.1)" />
-      <q-item style="background: rgba(255,255,255, 0.05)" >
-        <q-item-section>PIN码</q-item-section>
-        <q-item-section align="right">
-          <div
-            class="right-arrow"
-            to="/modify-pin"
-            v-if="userinfo.securityIsBind"
-            @click="modifyPIN"
-          >
-            修改
-          </div>
-          <div class="text-primary right-arrow" to="/change-pwd" v-else>
-            去设置
-          </div>
-        </q-item-section>
-      </q-item>
-    </q-list>
+        <q-item
+          clickable
+          v-ripple
+          class="q-mt-sm q-item-odd"
+          style="background: rgba(255,255,255, 0.05)"
+        >
+          <q-item-section>谷歌身份验证</q-item-section>
+          <q-item-section align="right">
+            <!-- v-model="userinfo.securityGoogleSwitch" -->
+            <q-toggle
+              :value="userinfo.securityGoogleSwitch"
+              @input="googleModelHandle"
+              :false-value="0"
+              :true-value="1"
+            />
+          </q-item-section>
+        </q-item>
+        <q-separator inset dark style="background: rgba(255,255,255,0.1)" />
+        <q-item clickable v-ripple style="background: rgba(255,255,255, 0.05)">
+          <q-item-section>谷歌验证器</q-item-section>
+          <q-item-section align="right">
+            <span
+              class="right-arrow"
+              v-if="userinfo.securityGoogleIsBind"
+              @click="resetGoogle"
+              >重置</span
+            >
+            <router-link
+              class="text-primary right-arrow"
+              to="/f-g-validator"
+              replace
+              v-else
+            >
+              去绑定
+            </router-link>
+          </q-item-section>
+        </q-item>
+        <q-item
+          clickable
+          v-ripple
+          class="q-mt-sm q-item-odd"
+          style="background: rgba(255,255,255, 0.05)"
+        >
+          <q-item-section>登录密码</q-item-section>
+          <q-item-section align="right">
+            <router-link class="right-arrow" to="/modify-pwd">修改</router-link>
+          </q-item-section>
+        </q-item>
+        <q-separator inset dark style="background: rgba(255,255,255,0.1)" />
+        <q-item clickable v-ripple style="background: rgba(255,255,255, 0.05)">
+          <q-item-section>PIN码</q-item-section>
+          <q-item-section align="right">
+            <router-link
+              class="right-arrow"
+              to="/modify-pin"
+              v-if="userinfo.securityIsBind"
+            >
+              <!-- @click="modifyPIN" -->
+              修改
+            </router-link>
+            <div class="text-primary right-arrow" to="/change-pwd" @click="modifyPIN" v-else>
+              去设置
+            </div>
+          </q-item-section>
+        </q-item>
+      </q-list>
     </div>
     <Dialog
       ref="googleValidatorDialog"
-      title="重置谷歌验证"
+      :title="`${googleTips === 'close' ? '关闭': '重置'}谷歌验证`"
       @confirm="googleValidatorConfirm"
     >
       <span class="q-pl-lg" style="font-size: 13px; color:#666">
-        谷歌验证器重置后，24小时内无法提币
+        {{`谷歌验证器${googleTips === 'close' ? '关闭': '重置'}后，24小时内无法提币`}}
       </span>
     </Dialog>
     <!-- 开启Google身份验证时的 安全验证 -->
@@ -89,8 +99,9 @@
       title="安全验证"
       confirmHold
       @confirm="openGoogleValidatorConfirm"
-      @cancel="openGoogleValidatorCancel"
+      @hide="openGoogleValidatorCancel"
     >
+      <!-- @cancel="openGoogleValidatorCancel" -->
       <q-form ref="googleValidatorSafeForm" class="q-px-md">
         <q-input
           v-model="closeGoogleValidatorForm.code"
@@ -160,7 +171,8 @@ export default {
       closeCodeBtnDisabled: false, // 关闭验证器表单获取验证码按钮禁用
       timer: null,
       userinfo: {}, // 用户信息
-      setPINShow: false // 显示修改PIN弹框
+      setPINShow: false, // 显示修改PIN弹框
+      googleTips: '' // 关闭、重置google验证器提示类型 close/reset
     }
   },
   components: { Dialog, SetPIN },
@@ -174,7 +186,9 @@ export default {
     googleModelHandle(val) {
       // 判断是否绑定
       if (this.userinfo.securityGoogleIsBind) {
-        this.$refs.openGoogleValidatorDialog.open()
+        this.googleTips = 'close'
+        this.$refs.googleValidatorDialog.open()
+        // this.$refs.openGoogleValidatorDialog.open()
       } else {
         this.$router.push({ path: 'f-g-validator' })
       }
@@ -196,13 +210,14 @@ export default {
         } catch (err) {}
       }
     },
-    // 取消安全验证
+    // 安全验证隐藏
     openGoogleValidatorCancel() {
       this.closeGoogleValidatorForm.googleCode = ''
       this.closeGoogleValidatorForm.code = ''
       this.clearCodeHandle()
       this.$refs.openGoogleValidatorDialog.close()
     },
+    // 数据重置
     clearCodeHandle() {
       clearInterval(this.timer)
       this.closeCodeBtnLabel = '获取验证码'
@@ -230,10 +245,14 @@ export default {
     },
     // 重置google 验证器
     resetGoogle() {
+      this.googleTips = 'reset'
       this.$refs.googleValidatorDialog.open()
     },
     // 重置google 验证器 dialog confirm
     googleValidatorConfirm() {
+      if (this.googleTips === 'close') {
+        return this.$refs.openGoogleValidatorDialog.open()
+      }
       this.$router.push({ path: 'g-validator' })
     },
     // 修改、设置PIN
@@ -262,18 +281,18 @@ export default {
 .q-page {
   background: #181837;
 }
-.list-wrapper{
+.list-wrapper {
   width: 90%;
   max-width: 1200px;
 }
-.screen--xs .list-wrapper{
+.screen--xs .list-wrapper {
   width: 100%;
 }
-@media screen and (min-width: 599px){
-  .list-wrapper{
+@media screen and (min-width: 599px) {
+  .list-wrapper {
     margin-top: 76px;
   }
-  .q-item-odd{
+  .q-item-odd {
     margin-top: 40px;
   }
 }

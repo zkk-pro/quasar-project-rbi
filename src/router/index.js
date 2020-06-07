@@ -36,7 +36,7 @@ export default function({ store /* , ssrContext */ }) {
         next({ path: '/' })
       }
     } else {
-      if (whiteRoute.includes(to.path) || to.path === '/') {
+      if (whiteRoute.includes(to.path) || to.path === '/' || to.path === '/mining') {
         next()
       } else {
         next({ path: '/login' })

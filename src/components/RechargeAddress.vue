@@ -27,8 +27,8 @@
     </div>
     <!-- 二维码 -->
     <q-dialog v-model="showQrcode">
-      <q-card class="my-card" style="width: 180px">
-        <q-icon :name="'img:' + qrcode" size="180px" />
+      <q-card class="qr-card">
+        <q-icon :name="'img:' + qrcode" style="width:100%; height: 100%" />
       </q-card>
     </q-dialog>
   </div>
@@ -68,7 +68,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.recharge-box{
+.recharge-box {
   margin-bottom: 40px;
 }
 
@@ -78,14 +78,25 @@ export default {
     height: 240px;
     margin: 8px auto 40px;
   }
-  .pc_title{
+  .pc_title {
     padding-top: 48px;
   }
-  .pc_address{
+  .pc_address {
     padding-top: 30px;
   }
-  .pc_btn{
+  .pc_btn {
     margin-top: 58px;
+  }
+}
+.qr-card {
+  width: 360px;
+  height: 360px;
+}
+
+.screen--xs {
+  .qr-card {
+    width: 160px;
+    height: 160px;
   }
 }
 </style>

@@ -66,3 +66,16 @@ a:focus {
   max-width: 1200px;
   margin: 0 auto;
 }
+
+.dialog-card {
+  width: 90%;
+  min-width: 335px;
+  max-width: 500px !important;
+  height: 320px;
+}
+.screen--xs {
+  .dialog-card {
+    min-width: 335px;
+    height: 240px;
+  }
+}

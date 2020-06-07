@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page class="container">
     <div class="title row items-center q-px-sm">
       <q-icon name="play_arrow" size="15px" />收益明细
     </div>

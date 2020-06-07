@@ -1,11 +1,11 @@
 <template>
   <q-dialog v-model="show" persistent @hide="onDialogHide">
-    <q-card style="min-width: 335px">
+    <q-card class="dialog-card column justify-between">
       <q-card-section class="q-pb-none">
         <div style="font-size:16px; color:#333">安全验证</div>
       </q-card-section>
 
-      <q-card-section class="q-pt-none q-pb-none" style="margin: 50px 0">
+      <q-card-section class="q-px-lg q-py-none">
         <q-input
           :label="typeData.label"
           color="blue-5"
@@ -15,12 +15,6 @@
           v-model="code"
         >
           <template v-if="typeData.shwoCodeBtn" v-slot:append>
-            <!-- <q-btn
-              :label="codeBtnText"
-              unelevated
-              text-color="blue-5"
-              @click="getCode"
-            /> -->
             <q-btn
               style="width: 80px"
               flat
@@ -112,7 +106,7 @@ export default {
           data = {
             label: '邮箱验证码',
             shwoCodeBtn: true,
-            tipsText: `输入您的邮箱${this.$store.getters.userinfo.email}收到的验证码`
+            tipsText: `输入您的邮箱${this.$store.getters.userinfo.mobile}收到的验证码`
           }
           break
       }

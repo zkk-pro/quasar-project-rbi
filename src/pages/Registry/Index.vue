@@ -70,7 +70,11 @@
           dense
           :rules="[
             val => !!val || '请输入密码',
-            val => !(val.length < 6) || '密码不能低于6位数'
+            val => !(val.length < 6) || '密码不能低于6位数',
+            val =>
+              /^(?=.*?[a-z)(?=.*>[A-Z])(?=.*?[0-9])[a-zA_Z0-9]{6,20}$/.test(
+                val
+              ) || '登入密码6-20位，由字母和数字组成'
           ]"
         >
           <template v-slot:append>
@@ -98,7 +102,7 @@
             ></span>
           </template>
         </q-input>
-        <router-link class=" text-primary inline-block" to="/login"
+        <router-link class="q-mt-sm text-primary inline-block" to="/login"
           >已有账号，去登录></router-link
         >
         <q-btn
