@@ -1,48 +1,51 @@
 <template>
   <div class="detail-container">
     <Breadcrumb class="col-xs-11 q-pl-lg lt-sm" />
-    <div class="header relative-position">
-      <div class="earning-total">
-        <div class="q-mb-sm" style="font-size: 12px;">累积收益</div>
-        <Number
-          :number="orderDetail.interestNumTodal || ''"
-          big-size="36px"
-          small-size="30px"
-        />
-      </div>
-      <div class="row" style="margin-top: 35px">
-        <div style="flex:1">
-          <div class="q-mb-sm" style="font-size: 12px;">今日收益</div>
+    <div class="header relative-position row items-center">
+      <!-- <img src="~assets/pc_images/p_order_bg.png" class="header_bg absolute" /> -->
+      <div class="container">
+        <div class="earning-total">
+          <div class="q-mb-sm" style="font-size: 12px;">累积收益</div>
           <Number
-            :number="orderDetail.interestNumToday || ''"
-            big-size="30px"
-            small-size="18px"
+            :number="orderDetail.interestNumTodal || ''"
+            big-size="36px"
+            small-size="30px"
           />
         </div>
-        <div style="flex:1">
-          <div class="q-mb-sm" style="font-size: 12px;">锁仓RBI</div>
-          <Number
-            :number="orderDetail.num || ''"
-            big-size="30px"
-            small-size="18px"
-          />
+        <div class="row" style="margin-top: 35px">
+          <div style="flex:1">
+            <div class="q-mb-sm" style="font-size: 12px;">今日收益</div>
+            <Number
+              :number="orderDetail.interestNumToday || ''"
+              big-size="30px"
+              small-size="18px"
+            />
+          </div>
+          <div style="flex:1">
+            <div class="q-mb-sm" style="font-size: 12px;">锁仓RBI</div>
+            <Number
+              :number="orderDetail.num || ''"
+              big-size="30px"
+              small-size="18px"
+            />
+          </div>
         </div>
-      </div>
-      <div class="header-btn row items-center">
-        <div
-          v-ripple
-          class="btn unlock-btn row justify-center items-center cursor-pointer relative-position"
-          @click="unlockHandle"
-        >
-          解锁
+        <div class="header-btn row items-center">
+          <div
+            v-ripple
+            class="btn unlock-btn row justify-center items-center cursor-pointer relative-position"
+            @click="unlockHandle"
+          >
+            解锁
+          </div>
+          <router-link
+            v-ripple
+            class="btn mining-btn row justify-center items-center relative-position"
+            to="/mining"
+          >
+            挖矿
+          </router-link>
         </div>
-        <router-link
-          v-ripple
-          class="btn mining-btn row justify-center items-center relative-position"
-          to="/mining"
-        >
-          挖矿
-        </router-link>
       </div>
     </div>
     <div class="list-container">
@@ -50,43 +53,43 @@
       <q-list bordered class="list-box">
         <q-item clickable>
           <q-item-section>锁仓节点</q-item-section>
-          <q-item-section class="text-grey-7" style="text-align:right"
+          <q-item-section class="pc_color text-grey-7" style="text-align:right"
             >V{{ orderDetail.name }}节点</q-item-section
           >
         </q-item>
         <q-item clickable>
           <q-item-section>锁仓日期</q-item-section>
-          <q-item-section class="text-grey-7" style="text-align:right">
+          <q-item-section class="pc_color text-grey-7" style="text-align:right">
             {{ orderDetail.createTime | formatDate(true) }}
           </q-item-section>
         </q-item>
         <q-item clickable>
           <q-item-section>锁仓收益率</q-item-section>
-          <q-item-section class="text-grey-7" style="text-align:right">
+          <q-item-section class="pc_color text-grey-7" style="text-align:right">
             POS挖矿收益的{{ orderDetail.rate && orderDetail.rate * 100 }}%
           </q-item-section>
         </q-item>
         <q-item clickable>
           <q-item-section>起息日</q-item-section>
-          <q-item-section class="text-grey-7" style="text-align:right">
+          <q-item-section class="pc_color text-grey-7" style="text-align:right">
             {{ orderDetail.interestBeginTime | formatDate }}
           </q-item-section>
         </q-item>
         <q-item clickable v-if="orderDetail.interestEndTime">
           <q-item-section>解锁日期</q-item-section>
-          <q-item-section class="text-grey-7" style="text-align:right">
+          <q-item-section class="pc_color text-grey-7" style="text-align:right">
             {{ orderDetail.interestEndTime | formatDate(true) }}
           </q-item-section>
         </q-item>
         <q-item clickable>
           <q-item-section>持有天数</q-item-section>
-          <q-item-section class="text-grey-7" style="text-align:right">
+          <q-item-section class="pc_color text-grey-7" style="text-align:right">
             {{ orderDetail.interestTimes }} 天
           </q-item-section>
         </q-item>
         <q-item clickable>
           <q-item-section>状态</q-item-section>
-          <q-item-section class="text-grey-7" style="text-align:right">
+          <q-item-section class="pc_color text-grey-7" style="text-align:right">
             {{ orderDetail.status | transStatus }}
           </q-item-section>
         </q-item>
@@ -180,6 +183,15 @@ export default {
   .list-box {
     padding: 0;
   }
+  .header {
+    height: 216px;
+    background: url('~assets/images/order-detail-bg.png');
+    background-size: 100% 100%;
+    align-items: initial;
+  }
+}
+.container{
+  width: 800px;
 }
 .list-container {
   width: 670px;
@@ -187,15 +199,24 @@ export default {
   margin: 0 auto;
 }
 .list-box {
-  padding: 0 135px;
+  padding: 40px 135px;
   background: rgba(26, 26, 60, 1);
 }
-
+@media screen and (min-width: 599px) {
+  .breadcrumb {
+    height: 62px;
+    line-height: 62px;
+  }
+  .pc_color {
+    color: #fff !important;
+  }
+}
 .header {
-  height: 216px;
-  background: url('~assets/images/order-detail-bg.png');
-  background-size: 100% 100%;
+  width: 100%;
+  height: 300px;
   padding: 25px 30px;
+  background: url('~assets/pc_images/p_order_bg.png');
+  background-size: 100% 100%;
 }
 .header-btn {
   width: 153px;
