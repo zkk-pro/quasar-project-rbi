@@ -2,6 +2,14 @@
 // so you can safely delete all default props below
 
 export default {
+  com_email: 'mailbox',
+  com_mobile: 'phone number',
+  com_over: 'over',
+  com_Holding: 'Holding',
+  com_Unlocked: 'Unlocked',
+  com_google_code: 'Google verification code',
+  com_get_code: 'Get code',
+
   index_more: 'see more',
   index_description_0: 'Risk-free Basic Income (abbreviation: RBI) ',
   index_description_1:
@@ -111,6 +119,35 @@ export default {
   order_detail_unlock_day: 'Unlock date',
   order_detail_hold_day: 'Holding days',
   order_detail_day_text: 'day',
-  order_detail_status: 'status'
+  order_detail_status: 'status',
+
+  earning_detail: 'Revenue breakdown',
+
+  userinfo_google: 'Google authentication',
+  userinfo_google_author: 'Google Authenticator',
+  userinfo_reset: 'reset',
+  userinfo_bind: 'To bind',
+  userinfo_password: 'Login password',
+  userinfo_modify: 'To modify',
+  userinfo_pincode: 'PIN code',
+  userinfo_set: 'To set',
+  userinfo_close: 'close',
+  userinfo_google_verify: 'Google Authenticator',
+  userinfo_safe: 'safety verification',
+  userinfo_enter_captcha: 'please enter verification code',
+  userinfo_enter_captcha_six: 'Please Enter 6-digit code',
+
+  modify_pin_origin: 'original PIN code',
+  modify_pin_new: 'new PIN code',
+  modify_newpin_confirm: 'new PIN code confirmation',
+  modify_six_digit_pin: 'Enter 6-digit PIN code',
+  modify_six_digit_pinnew: 'Confirm 6-digit PIN code',
+  modify_pinorigin: 'Please enter the original password',
+  modify_pinnew: 'Please enter the new PIN code',
+  modify_pinnew_again: 'Please enter the PIN code again',
+  modify_confirm: 'Confrim',
+  modify_lessthan_six: 'PIN code cannot be lower than 6 digits',
+  modify_same: 'The two entries are inconsistent, please re-enter',
+  modify_success: 'Successfully modified'
 
 }

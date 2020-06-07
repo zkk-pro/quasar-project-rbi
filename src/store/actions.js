@@ -40,5 +40,9 @@ export default {
   ChangeLanguage({ commit }, language) {
     Cookies.set('language', language)
     commit('changeLanguage', language)
+  },
+  // 设置用户信息
+  SetUserInfo({ commit }, userinfo) {
+    commit('setUserInfo', userinfo)
   }
 }

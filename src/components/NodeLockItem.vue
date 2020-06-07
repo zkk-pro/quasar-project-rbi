@@ -1,6 +1,6 @@
 <template>
   <div
-    class="node row justify-center full-width"
+    class="node row justify-center full-width cursor-pointer"
     @click="$emit('nodeClick', nodeData)"
   >
     <div class="node-box row col-12">
@@ -12,9 +12,12 @@
         <div
           v-if="!showBtn"
           class="status absolute-right lt-sm"
-          :style="{ color: nodeData.status === 1 ? '#999' : '#00E6FF' }"
+          :style="{ color: nodeData.status === 1 ? '#00E6FF' : '#999' }"
         >
-          {{ nodeData.status | transStatus }}
+          <!-- {{ nodeData.status | transStatus }} -->
+          <span v-if="nodeData.status === 0">{{ $t('com_over') }}</span>
+          <span v-if="nodeData.status === 1">{{ $t('com_Holding') }}</span>
+          <span v-if="nodeData.status === 2">{{ $t('com_Unlocked') }}</span>
         </div>
       </div>
 
@@ -28,8 +31,10 @@
         <div class="rbi-yield col-xs-12 col-sm-8">
           {{
             lang == 'en-us'
-              ? `Share ${nodeData.rate * 100}% of POS mining revenue`
-              : `瓜分POS挖矿收益的${nodeData.rate * 100}%`
+              ? `Share ${(nodeData.rate * 100).toFixed(
+                  2
+                )}% of POS mining revenue`
+              : `瓜分POS挖矿收益的${(nodeData.rate * 100).toFixed(2)}%`
           }}
         </div>
       </div>
@@ -50,9 +55,12 @@
         <div
           v-if="!showBtn"
           class="gt-xs"
-          :style="{ color: nodeData.status === 1 ? '#999' : '#00E6FF' }"
+          :style="{ color: nodeData.status === 1 ? '#00E6FF' : '#999' }"
         >
-          {{ nodeData.status | transStatus }}
+          <!-- {{ nodeData.status | transStatus }} -->
+          <span v-if="nodeData.status === 0">{{ $t('com_over') }}</span>
+          <span v-if="nodeData.status === 1">{{ $t('com_Holding') }}</span>
+          <span v-if="nodeData.status === 2">{{ $t('com_Unlocked') }}</span>
         </div>
       </div>
     </div>
@@ -80,19 +88,19 @@ export default {
   filters: {
     formatDate(d) {
       return date.formatDate(d, 'YYYY-MM-DD HH:mm')
-    },
-    transStatus(status) {
-      if (status === 0) {
-        var text = this.lang === 'en-us' ? 'over' : '已结束'
-        return text
-      } else if (status === 1) {
-        var text1 = this.lang === 'en-us' ? 'Holding' : '持有中'
-        return text1
-      } else if (status === 2) {
-        var text2 = this.lang === 'en-us' ? 'Unlocked' : '已解锁'
-        return text2
-      }
     }
+    // transStatus(status) {
+    //   if (status === 0) {
+    //     var text = this.lang === 'en-us' ? 'over' : '已结束'
+    //     return text
+    //   } else if (status === 1) {
+    //     var text1 = this.lang === 'en-us' ? 'Holding' : '持有中'
+    //     return text1
+    //   } else if (status === 2) {
+    //     var text2 = this.lang === 'en-us' ? 'Unlocked' : '已解锁'
+    //     return text2
+    //   }
+    // }
   },
   mounted() {
     this.lang = this.$i18n.locale

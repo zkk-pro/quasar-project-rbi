@@ -9,19 +9,22 @@
     />
     <div class="container">
       <Breadcrumb class="col-xs-11 q-pl-lg" />
-      <node-lock-item
-        style="margin-bottom:15px"
-        v-for="item in orderList"
-        :key="item.id"
-        :nodeData="item"
-        @nodeClick="onNodeClick"
-      />
+      <div class="no-data">
+        <node-lock-item
+          style="margin-bottom:15px"
+          v-for="item in orderList"
+          :key="item.id"
+          :nodeData="item"
+          @nodeClick="onNodeClick"
+        />
+      </div>
     </div>
     <q-pagination
       class="q-mt-md row justify-center"
       v-model="params.paging"
       v-if="orderList.length"
       :max="pageInfo.pageMax || 1"
+      :max-pages="6"
       direction-links
       @input="pageChange"
       size="12px"
@@ -50,7 +53,7 @@ export default {
     pageChange() {
       this.getOrderList()
     },
-    // 点击 节点
+    // 点击 节点事件
     onNodeClick(item) {
       this.$router.push({
         path: '/mining-order/order-detail',
@@ -59,7 +62,8 @@ export default {
     },
     async getOrderList() {
       const { data } = await orderList(this.params)
-      this.orderList = data
+      this.orderList = data.list
+      this.pageInfo = data.pagination
     }
   },
   created() {

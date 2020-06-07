@@ -14,5 +14,9 @@ export default {
   // 改变语言
   changeLanguage(state, language) {
     state.language = language
+  },
+  // 设置用户信息
+  setUserInfo(state, userinfo) {
+    state.userinfo = userinfo
   }
 }

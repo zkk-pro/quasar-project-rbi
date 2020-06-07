@@ -51,7 +51,7 @@
         <q-card-section class="q-pt-lg q-pb-xs">
           <div class="earning-info column justify-center items-center">
             <div class="yield">
-              <strong>{{ currentNode.rate && currentNode.rate * 100 }}</strong
+              <strong>{{ currentNode.rate && (currentNode.rate * 100).toFixed(2) }}</strong
               >%
             </div>
             <div class="earning-text">{{$t('lock_position_revenue')}}</div>

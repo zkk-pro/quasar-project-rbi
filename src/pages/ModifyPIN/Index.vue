@@ -7,8 +7,8 @@
         :type="showPwd ? 'text' : 'password'"
         class="input-style q-px-md"
         maxlength="6"
-        prefix="原PIN"
-        placeholder="请输入原PIN"
+        :prefix="$t('modify_pin_origin')"
+        :placeholder="$t('modify_six_digit_pin')"
         :input-style="{ color: 'white' }"
       >
         <template v-slot:append>
@@ -25,8 +25,8 @@
         type="password"
         class="input-style q-px-md"
         maxlength="6"
-        prefix="新PIN"
-        placeholder="请输入新PIN"
+        :prefix="$t('modify_pin_new')"
+        :placeholder="$t('modify_pinnew')"
         :input-style="{ color: 'white' }"
       />
       <q-separator style="background: rgba(255,255,255,0.1)" />
@@ -36,8 +36,8 @@
         type="password"
         class="input-style q-px-md"
         maxlength="6"
-        prefix="新PIN确认"
-        placeholder="请再次输入PIN"
+        :prefix="$t('modify_newpin_confirm')"
+        :placeholder="$t('modify_pinnew_again')"
         :input-style="{ color: 'white' }"
       />
       <q-separator style="background: rgba(255,255,255,0.1)" />
@@ -45,14 +45,20 @@
         <q-btn
           unelevated
           rounded
+          no-caps
           type="submit"
           color="primary"
           text-color="dark"
-          label="确定"
+          :label="$t('modify_confirm')"
           class="confirm-btn"
         />
       </div>
     </q-form>
+    <SafeValidate
+      :show.sync="safeShow"
+      :validType="validType"
+      @safeConfirm="onSafeConfirm"
+    />
   </q-page>
 </template>
 
@@ -62,6 +68,8 @@ export default {
   data() {
     return {
       showPwd: false,
+      safeShow: false, // 显示安全验证
+      validType: 1, // 验证类型
       form: {
         old: '',
         new: '',
@@ -73,31 +81,40 @@ export default {
     notify(message) {
       this.$q.notify({ message, icon: 'warning', textColor: 'red' })
     },
-    async onSubmit() {
+    onSubmit() {
+      console.log(this.form.new)
       if (!this.form.old) {
-        return this.notify('请输入原PIN')
+        return this.notify(this.$t('modify_pinorigin'))
       } else if (!this.form.new) {
-        return this.notify('请输入新PIN')
+        return this.notify(this.$t('modify_pinnew'))
       } else if (this.form.new.length < 6) {
-        return this.notify('PIN不能低于6位数')
+        return this.notify(this.$t('modify_lessthan_six'))
       } else if (this.form.new !== this.form.newAgen) {
-        return this.notify('两次输入不一致，请重新输入')
+        return this.notify(this.$t('modify_same'))
       }
+      this.safeShow = true
+    },
+    async onSafeConfirm(code) {
       try {
         await userModify({
-          password: this.form.old,
-          passwordUpdate: this.form.new
+          code,
+          pinCode: this.form.old,
+          pinCodeUpdate: this.form.new
         })
         this.$q.notify({
-          message: '修改成功',
+          message: this.$t('modify_success'),
           icon: 'done',
           textColor: 'green'
         })
+        this.safeShow = false
         setTimeout(() => {
           this.$router.go(-1)
         }, 1500)
       } catch (error) {}
     }
+  },
+  created() {
+    this.validType = this.$store.getters.userinfo.securityLevel
   }
 }
 </script>
@@ -110,7 +127,7 @@ export default {
 /deep/ .q-placeholder::placeholder {
   color: rgba(255, 255, 255, 0.2);
 }
-/deep/ .q-form{
+/deep/ .q-form {
   width: 100%;
 }
 .getcode-btn /deep/ .q-btn__wrapper {
@@ -153,14 +170,14 @@ export default {
   font-weight: bold;
 }
 @media screen and (min-width: 599px) {
-/deep/ .q-form{
-  width: 440px;
-  padding: 40px;
-  margin-top: 40px;
-  background: rgba(255, 255, 255, 0.05);
-}
-.input-style{
-  background: transparent;
-}
+  /deep/ .q-form {
+    width: 440px;
+    padding: 40px;
+    margin-top: 40px;
+    background: rgba(255, 255, 255, 0.05);
+  }
+  .input-style {
+    background: transparent;
+  }
 }
 </style>

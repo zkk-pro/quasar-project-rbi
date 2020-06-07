@@ -171,6 +171,7 @@ export default {
           account: this.forgetAccount
         })
         this.securityLevel = data.securityLevel
+        this.$store.dispatch('SetUserInfo', data)
         this.resetPwdParams.account = this.forgetAccount
         this.$refs.resetInput.close()
         this.safeShow = true

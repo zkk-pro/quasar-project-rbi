@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import { validate } from 'src/api/apiList'
+import { validate, sendCode } from 'src/api/apiList'
 
 const GOOGLE = 1
 const PHONE = 2
@@ -125,7 +125,14 @@ export default {
     async getCode() {
       try {
         this.codeBtnDisabled = true
-        await validate()
+        if (this.$store.getters.token) {
+          await validate()
+        } else {
+          await sendCode({
+            type: this.$store.getters.userinfo.type,
+            target: this.$store.getters.userinfo.account
+          })
+        }
         let time = 60
         this.codeBtnText = time + 's'
         time--

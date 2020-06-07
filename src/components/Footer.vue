@@ -2,7 +2,7 @@
   <div class="footer-box row justify-center">
     <div class="fit flex justify-center items-center lt-sm">
       <img class="m-logo-img" src="~assets/images/footer-logo.png" alt="logo" />
-      <span class="sologan">人人都能得到无风险基本收入RBI</span>
+      <span class="sologan">{{$t('footer_sologan')}}</span>
     </div>
     <div
       class="p-footer gt-xs row justify-between"
@@ -15,7 +15,7 @@
           height="66px"
           alt="footer-logo"
         />
-        <div class="sologan q-mt-lg">人人都能得到无风险基本收入RBI</div>
+        <div class="sologan q-mt-lg">{{$t('footer_sologan')}}</div>
       </div>
       <div class="row">
         <q-list>
@@ -32,7 +32,7 @@
         </q-list>
         <q-list>
           <q-item>
-            <q-item-section>联系我们</q-item-section>
+            <q-item-section>{{$t('footer_contact')}}</q-item-section>
           </q-item>
           <q-item class="q-py-none">
             <q-item-section style="width: 100px; height: 100px">
@@ -46,7 +46,7 @@
           </q-item>
           <q-item>
             <q-item-section style="color: rgba(255,255,255,0.4)"
-              >微信官方客服 1</q-item-section
+              >{{$t('footer_kefu1')}}</q-item-section
             >
           </q-item>
         </q-list>
@@ -66,7 +66,7 @@
           </q-item>
           <q-item>
             <q-item-section style="color: rgba(255,255,255,0.4)"
-              >微信官方客服 2</q-item-section
+              >{{$t('footer_kefu2')}}</q-item-section
             >
           </q-item>
         </q-list>
@@ -88,7 +88,7 @@
           </q-item>
           <q-item>
             <q-item-section style="color: rgba(255,255,255,0.4)"
-              >海外电报群</q-item-section
+              >{{$t('footer_group')}}</q-item-section
             >
           </q-item>
         </q-list>

@@ -68,7 +68,7 @@
               color="primary"
               text-color="dark"
               class="confrim-btn"
-              label="确认开启"
+              :label="`确认${isBind ? '重置': '开启'}`"
             />
           </q-form>
         </div>
