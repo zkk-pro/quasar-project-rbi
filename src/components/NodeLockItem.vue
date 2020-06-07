@@ -26,7 +26,11 @@
           small-size="13px"
         />
         <div class="rbi-yield col-xs-12 col-sm-8">
-          {{lang == 'en-us' ? `Share ${nodeData.rate * 100}% of POS mining revenue` : `瓜分POS挖矿收益的${nodeData.rate * 100}%`}}
+          {{
+            lang == 'en-us'
+              ? `Share ${nodeData.rate * 100}% of POS mining revenue`
+              : `瓜分POS挖矿收益的${nodeData.rate * 100}%`
+          }}
         </div>
       </div>
 
@@ -34,8 +38,9 @@
         <q-btn
           v-if="showBtn"
           rounded
-          :label="$t('mining_lock')+'>'"
+          :label="$t('mining_lock') + '>'"
           color="dark"
+          no-caps
           text-color="cyan-12"
           to="/lock-position"
           style="width: 160px;height:40px"
@@ -78,11 +83,14 @@ export default {
     },
     transStatus(status) {
       if (status === 0) {
-        return '已结束'
+        var text = this.lang === 'en-us' ? 'over' : '已结束'
+        return text
       } else if (status === 1) {
-        return '持有中'
+        var text1 = this.lang === 'en-us' ? 'Holding' : '持有中'
+        return text1
       } else if (status === 2) {
-        return '已解锁'
+        var text2 = this.lang === 'en-us' ? 'Unlocked' : '已解锁'
+        return text2
       }
     }
   },

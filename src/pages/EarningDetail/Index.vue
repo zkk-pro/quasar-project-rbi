@@ -1,7 +1,7 @@
 <template>
   <q-page class="container">
     <div class="title row items-center q-px-sm">
-      <q-icon name="play_arrow" size="15px" />收益明细
+      <q-icon name="play_arrow" size="15px" />{{$t('earning_detail')}}
     </div>
     <q-list
       class="earning-list q-px-md"
