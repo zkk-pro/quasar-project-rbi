@@ -102,10 +102,10 @@ export default {
   data() {
     return {
       menu: [
-        { text: 'home', path: '/' },
-        { text: 'POS挖矿', path: '/mining' },
-        { text: '总资产', path: '/assets' },
-        { text: '公告', path: '/message-list' }
+        { text: 'footer_home', path: '/' },
+        { text: 'footer_miningPOS挖矿', path: '/mining' },
+        { text: 'footer_assets总资产', path: '/assets' },
+        { text: 'footer_notice公告', path: '/message-list' }
       ]
     }
   }

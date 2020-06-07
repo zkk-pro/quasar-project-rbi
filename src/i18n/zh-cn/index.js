@@ -152,5 +152,5 @@ export default {
   footer_contact: '联系我们',
   footer_kefu1: '微信官方客服 1',
   footer_kefu2: '微信官方客服 2',
-  footer_group: '海外电报群',
+  footer_group: '海外电报群'
 }
