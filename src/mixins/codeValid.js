@@ -16,7 +16,7 @@ export default {
           textColor: 'green',
           icon: 'done'
         })
-        let time = 10
+        let time = 60
         this.m_btnText = time + 's'
         this.m_btnDisable = true
         this.timer = setInterval(() => {
