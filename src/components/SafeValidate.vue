@@ -121,6 +121,9 @@ export default {
     // 弹框隐藏事件
     onDialogHide() {
       this.code = ''
+      clearInterval(this.timer)
+      this.codeBtnText = '获取验证码'
+      this.codeBtnDisabled = false
     },
     async getCode() {
       try {

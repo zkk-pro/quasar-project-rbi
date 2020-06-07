@@ -29,7 +29,7 @@
           :rules="[
             val =>
               !!val || `${$t('com_enter')}${registryType === 'email' ? $t('com_email') : $t('com_mobile')}`,
-              val => val.includes('@') || $t('register_email_no')
+              val => (val.includes('@') || registryType === 'mobile') || $t('register_email_no')
           ]"
         />
         <q-input

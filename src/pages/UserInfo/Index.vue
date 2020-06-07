@@ -82,7 +82,7 @@
     </div>
     <Dialog
       ref="googleValidatorDialog"
-      :title="`${googleTips === 'close' ? $t('userinfo_close'): $t('userinfo_reset')}$t('userinfo_google_verify')`"
+      :title="`${googleTips === 'close' ? $t('userinfo_close'): $t('userinfo_reset')}${$t('userinfo_google_verify')}`"
       @confirm="googleValidatorConfirm"
     >
       <span class="q-pl-lg" style="font-size: 13px; color:#666">
@@ -104,7 +104,7 @@
           class="full-width"
           dense
           maxlength="6"
-          :label="`${userinfo === 'email' ? $t('com_email') : $t('com_mobile')}$t('com_captcha')`"
+          :label="`${userinfo === 'email' ? $t('com_email') : $t('com_mobile')}${$t('com_captcha')}`"
           no-error-icon
           color="blue-6"
           lazy-rules
@@ -116,6 +116,7 @@
           <template v-slot:append>
             <q-btn
               flat
+              no-caps
               :disable="closeCodeBtnDisabled"
               class="text-blue-6"
               style=" font-size:14px"
@@ -212,7 +213,7 @@ export default {
     clearCodeHandle() {
       clearInterval(this.timer)
       // this.closeCodeBtnLabel = '获取验证码'
-      this.closeCodeBtnLabel = this.$t('closeCodeBtnLabel')
+      this.closeCodeBtnLabel = this.$t('com_get_code')
       this.closeCodeBtnDisabled = false
     },
     // 获取验证码
@@ -228,7 +229,7 @@ export default {
           if (time < 0) {
             clearInterval(this.timer)
             // this.closeCodeBtnLabel = '重新获取'
-            this.closeCodeBtnLabel = this.$t('closeCodeBtnLabel')
+            this.closeCodeBtnLabel = this.$t('com_get_code')
             this.closeCodeBtnDisabled = false
           }
         }, 1000)
@@ -266,7 +267,7 @@ export default {
   },
   created() {
     this.getUserINfo()
-    this.closeCodeBtnLabel = this.$t('closeCodeBtnLabel')
+    this.closeCodeBtnLabel = this.$t('com_get_code')
   }
 }
 </script>
