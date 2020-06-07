@@ -17,7 +17,8 @@
         </div>
         <div style="height:36px">
           <q-btn
-            label="取消"
+            no-caps
+            :label="$t('com_cancel')"
             color="blue-grey-8"
             text-color="blue-grey-8"
             outline
@@ -27,7 +28,8 @@
           />
           <q-btn
             unelevated
-            label="确定"
+            :label="$t('com_confirm')"
+            no-caps
             color="primary"
             text-color="blue-grey-8"
             @click="confirm"

@@ -28,7 +28,8 @@
           lazy-rules
           :rules="[
             val =>
-              !!val || `$t('com_enter')${registryType === 'email' ? $t('com_email') : $t('com_mobile')}`
+              !!val || `${$t('com_enter')}${registryType === 'email' ? $t('com_email') : $t('com_mobile')}`,
+              val => val.includes('@') || $t('register_email_no')
           ]"
         />
         <q-input
@@ -74,7 +75,7 @@
             val =>
               /^(?=.*?[a-z)(?=.*>[A-Z])(?=.*?[0-9])[a-zA_Z0-9]{6,20}$/.test(
                 val
-              ) || '登入密码6-20位，由字母和数字组成'
+              ) || $t('register_password')
           ]"
         >
           <template v-slot:append>
@@ -87,13 +88,13 @@
         <q-input
           v-model="registryForm.passwordAgen"
           :type="passwordAgenVisible ? 'text' : 'password'"
-          label="请再次输入登录密码"
+          :label="$t('com_enter_password_again')"
           :input-style="{ color: 'white' }"
           filled
           dense
           lazy-rules
           no-error-icon
-          :rules="[val => val === registryForm.password || '两次密码不一致']"
+          :rules="[val => val === registryForm.password || $t('com_enter_notsame')]"
         >
           <template v-slot:append>
             <span
@@ -103,23 +104,24 @@
           </template>
         </q-input>
         <router-link class="q-mt-sm text-primary inline-block" to="/login"
-          >已有账号，去登录></router-link
+          >{{$t('register_has_user')}}></router-link
         >
         <q-btn
           type="submit"
           unelevated
           rounded
           color="primary"
+          no-caps
           text-color="dark"
-          label="注册"
+          :label="$t('com_register')"
           class="btn-style full-width"
           style="margin-top:60px"
         />
         <div class="q-mt-lg row justify-center items-center">
           <q-checkbox v-model="checked" dense keep-color color="primary">
             <div class="protocol">
-              我已阅读并同意<span class="text-primary" @click.stop="toProtocal"
-                >《用户协议》</span
+              {{$t('register_agree')}}<span class="text-primary" @click.stop="toProtocal"
+                >{{$t('register_agreement')}}</span
               >
             </div>
           </q-checkbox>
@@ -187,13 +189,13 @@ export default {
       const res = await this.$refs.registry.validate()
       if (res) {
         if (!this.checked) {
-          return this.notify('请阅读并同意下方用户协议')
+          return this.notify(this.$t('register_agreement_reqiured'))
         }
         this.registryForm.type = this.registryType
         try {
           await registry(this.registryForm)
           this.$q.notify({
-            message: '注册成功',
+            message: this.$t('com_register_success'),
             textColor: 'green',
             icon: 'done'
           })

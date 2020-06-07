@@ -53,7 +53,7 @@
     </div>
     <div class="intro column justify-center items-center">
       <div style="max-width: 565px">
-        <img src="~assets/pc_images/p_index1.png" class="center-img" />
+        <img :src="getPImg('p_index1')" class="center-img" />
       </div>
       <div class="intro1-content intro-content q-mt-lg q-px-lg">
         <span class="big">{{ $t('index_description_0') }}</span
@@ -61,7 +61,7 @@
       </div>
     </div>
     <div class="intro intro-even q-pt-xl column justify-center items-center">
-      <img src="~assets/pc_images/p_index2.png" width="117" />
+      <img :src="getPImg('p_index2')" width="117" />
       <div class="intro2-content intro-content q-mt-lg q-px-lg text-center">
         {{ $t('index_release') }}
       </div>
@@ -79,7 +79,7 @@
       </div>
     </div>
     <div class="intro q-pt-xl column justify-center items-center col-11">
-      <img src="~assets/pc_images/p_index3.png" width="158" />
+      <img :src="getPImg('p_index3')" width="158" />
       <div class="intro3 color1 q-mb-md text-left q-px-lg">
         {{ $t('index_register_0') }}
       </div>
@@ -131,7 +131,7 @@
           style="max-width: 550px"
         >
           <img
-            src="~assets/pc_images/p_sheet1.png"
+            :src="getPImg('p_sheet1')"
             alt=""
             class="q-mt-lg center-img"
           />
@@ -139,7 +139,7 @@
       </div>
     </div>
     <div class="intro intro-even q-pt-xl column justify-center items-center">
-      <img src="~assets/pc_images/p_index4.png" width="107px" />
+      <img :src="getPImg('p_index4')" width="107px" />
       <div class="intro2-content intro-content q-mt-lg q-mb-xl q-px-lg text-center">
         {{ $t('index_pos_mining') }}
       </div>
@@ -155,7 +155,7 @@
       </p>
       <div style="max-width: 974px">
         <img
-          src="~assets/pc_images/p_sheet2.png"
+          :src="getPImg('p_sheet2')"
           alt=""
           class="q-my-xl center-img"
         />
@@ -165,7 +165,7 @@
       </p>
       <div style="max-width: 1150px">
         <img
-          src="~assets/pc_images/p_node_line.png"
+          :src="getPImg('p_node_line')"
           alt=""
           class="q-my-xl center-img"
         />
@@ -188,6 +188,9 @@ export default {
     }
   },
   methods: {
+    getPImg(src) {
+      return require(`src/assets/pc_images/${this.$t(src)}.png`)
+    },
     getImg(src) {
       return require(`src/assets/pc_images/p_index_icon${src}.png`)
     },

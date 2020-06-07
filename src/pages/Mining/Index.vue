@@ -3,7 +3,7 @@
   <q-page class="">
     <img
       class="gt-xs"
-      src="~assets/pc_images/p-mining-banner.png"
+      :src="getBannerImg()"
       alt="mining-banner"
       width="100%"
     />
@@ -59,6 +59,11 @@ export default {
   },
   components: { Number, NodeLockItem },
   methods: {
+    getBannerImg() {
+      var en = this.$i18n.locale === 'en-us' ? 'en' : 'zh'
+      console.log(en)
+      return require(`src/assets/pc_images/p-mining-banner_${en}.png`)
+    },
     async getNodeList() {
       const { data } = await getNodeList()
       this.nodeList = data.list

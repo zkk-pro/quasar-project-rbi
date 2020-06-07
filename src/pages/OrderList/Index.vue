@@ -2,7 +2,7 @@
   <div>
     <img
       class="gt-xs"
-      src="~assets/pc_images/p-mining-banner.png"
+      :src="getBannerImg()"
       alt="mining-banner"
       width="100%"
       v-if="$route.path !== '/mining-order/order-detail'"
@@ -49,6 +49,10 @@ export default {
   },
   components: { NodeLockItem, Breadcrumb },
   methods: {
+    getBannerImg() {
+      var en = this.$i18n.locale === 'en-us' ? 'en' : 'zh'
+      return require(`src/assets/pc_images/p-mining-banner_${en}.png`)
+    },
     // 页码改变
     pageChange() {
       this.getOrderList()

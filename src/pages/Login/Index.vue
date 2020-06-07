@@ -110,10 +110,10 @@
             v-model="newPwdForm.second"
             type="password"
             dense
-            :label="$t('login_enter_password_again')"
+            :label="$t('com_enter_password_again')"
             lazy-rules
             no-error-icon
-            :rules="[val => val === newPwdForm.first || $t('login_enter_notsame')]"
+            :rules="[val => val === newPwdForm.first || $t('com_enter_notsame')]"
           />
         </q-form>
       </Dialog>

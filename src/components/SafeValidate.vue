@@ -147,11 +147,6 @@ export default {
         }, 1000)
       } catch (error) {
         this.codeBtnDisabled = false
-        // this.$q.notify({
-        //   message: '发送验证码失败',
-        //   textColor: 'red',
-        //   icon: 'warning'
-        // })
       }
     }
   }

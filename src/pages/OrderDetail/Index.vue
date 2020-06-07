@@ -81,7 +81,7 @@
         <q-item clickable>
           <q-item-section>{{$t('order_detail_yield')}}</q-item-section>
           <q-item-section class="pc_color text-grey-7" style="text-align:right">
-            {{lang == 'en-us' ? `${orderDetail.rate && orderDetail.rate * 100}% of POS mining revenue` : `POS挖矿收益的${orderDetail.rate && orderDetail.rate * 100}%`}}
+            {{$i18n.locale == 'en-us' ? `${orderDetail.rate && orderDetail.rate * 100}% of POS mining revenue` : `POS挖矿收益的${orderDetail.rate && orderDetail.rate * 100}%`}}
           </q-item-section>
         </q-item>
         <q-item clickable>
@@ -99,7 +99,7 @@
         <q-item clickable>
           <q-item-section>{{$t('order_detail_hold_day')}}</q-item-section>
           <q-item-section class="pc_color text-grey-7" style="text-align:right">
-            {{ orderDetail.interestTimes }} {{order_detail_day_text}}
+            {{ orderDetail.interestTimes }} {{$t('order_detail_day_text')}}
           </q-item-section>
         </q-item>
         <q-item clickable>

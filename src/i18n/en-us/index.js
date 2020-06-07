@@ -3,11 +3,11 @@
 
 export default {
   com_email: 'Mailbox number',
-  com_mobile: 'phone number',
+  com_mobile: 'Phone number',
   com_mailbox: 'mailbox ',
   com_phone: 'mobile ',
-  com_captcha: 'verification code',
-  com_over: 'over',
+  com_captcha: 'Verification code',
+  com_over: 'Over',
   com_Holding: 'Holding',
   com_Unlocked: 'Unlocked',
   com_google_code: 'Google verification code',
@@ -19,6 +19,14 @@ export default {
   com_open: 'Open',
   com_enter_phone_or_mail: 'Please enter your mobile phone number/email',
   com_modify_success: 'Successfully modified',
+  com_enter: 'Please enter',
+  com_enter_password: 'Please enter password',
+  com_password_lessthan_six: 'Password cannot be less than 6 digits',
+  com_enter_password_again: 'Please enter the login password again',
+  com_enter_notsame: 'Two inconsistencies',
+  com_register: 'Register',
+  com_set_password: 'Please set a login password',
+  com_register_success: 'Register success',
 
   login_title: 'Login RBI',
   login_password: 'Login password',
@@ -27,17 +35,39 @@ export default {
   login_forget_password: 'Forget password',
   login_register: 'Registration',
   login_reset: 'Reset',
-  login_reset_watch: 'After the login password is reset, coins cannot be withdrawn within 24 hours',
+  login_reset_watch:
+    'After the login password is reset, coins cannot be withdrawn within 24 hours',
   login_reset_password: 'Set a new login password',
   login_set_password: 'Please set a login password',
-  login_enter_notsame: 'Two inconsistencies',
 
+  register_title: 'Register RBI',
+  register_byphone: 'Register your phone',
+  register_byemail: 'Email registration',
+  register_password:
+    'Login password 6-20 digits, consisting of letters and numbers',
+  register_has_user: 'Have an account, log in',
+  register_agree: 'I have read and agree to the ',
+  register_agreement: '"User Agreement"',
+  register_agreement_reqiured:
+    'Please read and agree to the user agreement below',
+  register_email_no: 'Mailbox does not meet specifications',
+
+  p_index1: 'p_index1_en',
+  p_index2: 'p_index2_en',
+  p_index3: 'p_index3_en',
+  p_index4: 'p_index4_en',
+  p_node_line: 'p_node_line_en',
+  p_sheet1: 'p_sheet1_en',
+  p_sheet2: 'p_sheet2_en',
   index_more: 'see more',
   index_description_0: 'Risk-free Basic Income (abbreviation: RBI) ',
   index_description_1:
     'aims to create an inclusive financial system in which everyone is equal, mutually beneficial, and everyone has basic income security. In the decentralized blockchain world, the relationship between people is trustworthy, free and transparent. We are convinced that information based on the decentralized trust link on the chain can generate value, which is also Core value in the era of big data. In the world of blockchain, the relationship between people is equal and free, and they can participate in any exchange of information. Therefore, we establish a new financial system and gather data to generate value. We rely on the blockchain to re-enable the value of data brought by information exchange, and with the help of its decentralized token economic model, we create a inclusive financial system that has a risk-free basic income for everyone. You can get a basic risk-free basic income guarantee RBI.',
   index_release:
     'RBI issued a total of 300 million coins, of which 50% of the coins were airdropped, that is, 150 million coins, and 1 million of them were used for the Spark Market activity. Another 50% is produced through POS mining, which is 150 million.',
+  index_category: '类目',
+  index_number: '发行数量',
+  index_release_notes: '发行说明',
   index_register_0: 'Airdrop Cooperation Exchange N9EX.COM',
   index_register_1: 'Registered Airdrop 1000RBI',
   index_register_rules1:
@@ -189,16 +219,19 @@ export default {
 
   exit_success: 'Login out success',
 
-  googel_validator: 'Google Authenticator is a dynamic password tool that works like SMS dynamic authentication. When you turn on Google verification, Google verification will be used instead of SMS/email verification.',
+  googel_validator:
+    'Google Authenticator is a dynamic password tool that works like SMS dynamic authentication. When you turn on Google verification, Google verification will be used instead of SMS/email verification.',
   googel_open: 'Open now',
-  googel_step1: 'Search and download the "Google Authenticator" app in the app store.',
-  googel_step2: 'Open Google Authenticator, fill in your RBI account, and scan the QR code below or manually enter the key below.',
+  googel_step1:
+    'Search and download the "Google Authenticator" app in the app store.',
+  googel_step2:
+    'Open Google Authenticator, fill in your RBI account, and scan the QR code below or manually enter the key below.',
   googel_step3: 'Enter the 6-digit verification code from Google Authenticator',
-  googel_tips: 'The key is used to retrieve the Google authenticator when the phone/mailbox is replaced or lost. Please make sure to save the key before binding.',
+  googel_tips:
+    'The key is used to retrieve the Google authenticator when the phone/mailbox is replaced or lost. Please make sure to save the key before binding.',
   googel_new: 'new',
   googel_copy_success: 'Copy successful',
   googel_copy_fail: 'Copy failed, please refresh the page and try again',
   googel_resend: 'Reacquire',
   googel_googel_open_success: 'Google validator opened successfully'
-
 }
