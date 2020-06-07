@@ -81,6 +81,7 @@ export default {
       this.$q.notify({ message, icon: 'warning', textColor: 'red' })
     },
     onSubmit() {
+      console.log(this.form.new)
       if (!this.form.old) {
         return this.notify('请输入原PIN')
       } else if (!this.form.new) {

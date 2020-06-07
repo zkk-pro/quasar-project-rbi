@@ -1,6 +1,6 @@
 <template>
   <q-page class="message-detail q-pa-md column items-center">
-    <div class="back text-left" @click="toList">&lt;&lt;返回公告列表</div>
+    <div class="back text-left cursor-pointer" @click="toList">&lt;&lt;{{$t('message_detail_back')}}</div>
     <div class="message-box q-mt-lg">
       <div class="title">{{ notice.title }}</div>
       <div class="time q-mb-xs q-mt-sm">
@@ -53,6 +53,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.screen--xs {
+  .message-box, .back {
+    width: 100%;
+  }
+  .message-box{
+    padding: 0;
+    background: transparent;
+  }
+}
 .message-box{
   height: 80%;
   overflow-y: auto;
@@ -63,11 +72,6 @@ export default {
 .message-box, .back {
   width: 90%;
   max-width: 1200px;
-}
-@media screen and (max-width: 599px) {
-  .message-box{
-    width: auto;
-  }
 }
 .message-detail {
   .back {

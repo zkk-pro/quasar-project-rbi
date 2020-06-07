@@ -91,7 +91,7 @@ export default {
       } else if (this.form.new !== this.form.newAgen) {
         return this.notify('两次输入不一致，请重新输入')
       } else if (
-        /^(?=.*?[a-z)(?=.*>[A-Z])(?=.*?[0-9])[a-zA_Z0-9]{6,20}$/.test(
+        !/^(?=.*?[a-z)(?=.*>[A-Z])(?=.*?[0-9])[a-zA_Z0-9]{6,20}$/.test(
           this.form.new
         )
       ) {

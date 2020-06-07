@@ -27,7 +27,7 @@
             :to="item.path"
             active-class="none"
           >
-            <q-item-section>{{ item.text }}</q-item-section>
+            <q-item-section>{{ $t(item.text) }}</q-item-section>
           </q-item>
         </q-list>
         <q-list>
@@ -102,7 +102,7 @@ export default {
   data() {
     return {
       menu: [
-        { text: '首页', path: '/' },
+        { text: 'home', path: '/' },
         { text: 'POS挖矿', path: '/mining' },
         { text: '总资产', path: '/assets' },
         { text: '公告', path: '/message-list' }

@@ -2,7 +2,7 @@
   <q-page class="message-list column items-center">
     <div class="notice q-ml-md row items-center text-left">
       <q-icon name="play_arrow" size="10" class="icon q-mr-xs q-pl-xs"></q-icon>
-      <span>公告列表</span>
+      <span>{{ $t('message_list_title') }}</span>
     </div>
     <q-list separator>
       <div v-for="(item, index) in messageList" :key="index">
@@ -25,15 +25,17 @@
         <q-separator style="background: rgba(255, 255, 255, .1)" />
       </div>
     </q-list>
-    <div
-      class="q-pa-lg flex flex-center absolute-bottom justify-center paging-wrapper"
-    >
+    <div class="q-pa-lg flex flex-center justify-center paging-wrapper">
       <q-pagination
-        v-model="current"
-        :max="10"
+        class="q-mt-md row justify-center"
+        v-model="paging"
+        v-if="messageList.length"
+        :max="pagination.pageMax || 1"
         :max-pages="6"
-        :direction-links="true"
         :boundary-numbers="true"
+        :direction-links="true"
+        @input="pageChange"
+        size="12px"
       >
       </q-pagination>
       <!-- <div class="paging-input q-ml-lg row items-center">
@@ -52,15 +54,20 @@ export default {
   data() {
     return {
       messageList: [],
-      paging: 0,
-      current: 1,
-      page: ''
+      paging: 1,
+      current: 0,
+      pagination: {}
     }
   },
   methods: {
+    pageChange(value) {
+      console.log(value)
+      this.getMessageList()
+    },
     async getMessageList() {
-      const { data } = await noticeList({ paging: this.paging, limit: 3 })
-      this.messageList = data
+      const { data } = await noticeList({ paging: this.paging, limit: 10 })
+      this.messageList = data.list
+      this.pagination = data.pagination
     }
   },
   mounted() {
@@ -88,7 +95,11 @@ export default {
   color: rgba(255, 255, 255, 0.6);
   text-align: center;
 }
-.item-title{
+/deep/.q-item__section--main {
+  flex-direction: row;
+  justify-content: space-between;
+}
+.item-title {
   width: 263px;
 }
 .page-input {
@@ -96,26 +107,22 @@ export default {
   height: 20px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.6);
 }
-.screen--xs .paging-wrapper {
-  display: none;
-}
 .paging-wrapper {
-  bottom: 0;
   height: 154px;
 }
 
-.screen--xs .q-list, .notice {
-  width: 100%;
+.screen--xs {
+  .q-list,
+  .notice {
+    width: 100%;
+  }
 }
-.notice{
+.notice {
   height: 40px;
 }
 .item-time {
   padding-left: 22px;
   color: #999;
-}
-.screen--sm .item-time {
-  margin-top: 0;
 }
 .circle {
   width: 10px;
@@ -130,15 +137,13 @@ export default {
   }
 }
 @media screen and (min-width: 599px) {
-  .q-list, .notice {
-  width: 90%;
-  max-width: 1200px;
-}
-  .q-item__section--main {
-    flex-direction: row;
-    justify-content: space-between;
+  .q-list,
+  .notice {
+    width: 90%;
+    max-width: 1200px;
   }
-  .item-time{
+
+  .item-time {
     margin-top: 0;
   }
   .message-list {
