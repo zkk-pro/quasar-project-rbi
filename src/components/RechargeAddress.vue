@@ -54,14 +54,14 @@ export default {
         this.$q.notify({
           icon: 'done',
           textColor: 'green',
-          message: '地址复制成功'
+          message: this.$t('notify_copy_address_success')
         })
       } catch (error) {
         console.log(error)
         this.$q.notify({
           icon: 'warning',
           textColor: 'red',
-          message: '地址复制失败'
+          message: this.$t('notify_copy_address_fail')
         })
       }
     }

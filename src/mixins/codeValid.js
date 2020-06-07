@@ -12,7 +12,7 @@ export default {
       try {
         await sendCode(params)
         this.$q.notify({
-          message: '验证码发送成功',
+          message: this.$t('notify_sendcode_success'),
           textColor: 'green',
           icon: 'done'
         })
@@ -24,16 +24,11 @@ export default {
           time--
           if (time < 0) {
             clearInterval(this.timer)
-            this.m_btnText = '重新获取'
+            this.m_btnText = this.$t('notidy_send_again')
             this.m_btnDisable = false
           }
         }, 1000)
       } catch (error) {
-        // this.$q.notify({
-        //   message: '验证码发送失败，请重试',
-        //   textColor: 'red',
-        //   icon: 'warning'
-        // })
       }
     }
   }

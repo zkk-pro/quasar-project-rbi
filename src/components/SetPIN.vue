@@ -87,7 +87,7 @@ export default {
         this.$emit('success')
         this.safeShow = false
         this.$q.notify({
-          message: '设置成功',
+          message: this.$t('notify_setting_success'),
           icon: 'done',
           textColor: 'green'
         })

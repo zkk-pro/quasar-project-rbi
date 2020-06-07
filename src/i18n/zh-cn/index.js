@@ -24,6 +24,20 @@ export default {
   com_enter_notsame: '两次输入不一致',
   com_register: '注册',
   com_register_success: '注册成功',
+  com_enter_old_password: '请输入原密码',
+  com_enter_new_password: '请输入新密码',
+
+  notify_copy_address_success: '地址复制成功',
+  notify_copy_address_fail: '地址复制失败',
+  notify_setting_success: '设置成功',
+  notify_withdraw_num: '提币数量不能小于',
+  notify_withdraw_num_lt: '提币数量不能大于可用数量',
+  notify_sendcode_success: '验证码发送成功',
+  notidy_send_again: '重新获取',
+  notify_cant_buy: '当前拥有的RBI不足以购买当前节点',
+  notify_lock: '锁仓24小时内不可以进行解锁 !',
+  notify_unlock: '该订单已解锁',
+  notify_lock_success: '解锁成功',
 
   login_title: '登录RBI',
   login_password: '登录密码',
@@ -188,6 +202,10 @@ export default {
   modify_confirm: '确定',
   modify_lessthan_six: 'PIN码不能低于6位数',
   modify_same: '两次输入不一致，请重新输入',
+
+  modify_password_old: '原密码',
+  modify_password_new: '新密码',
+  modify_password_confirm: '新密码确认',
 
   footer_sologan: '人人都能得到无风险基本收入RBI',
   footer_contact: '联系我们',
