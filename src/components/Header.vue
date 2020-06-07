@@ -38,18 +38,20 @@
       <div class="header-title absolute-center lt-sm">RBI</div>
 
       <div class="row items-center">
-        <q-icon
-          v-if="$q.lang.isoName === 'en-us'"
-          class="cursor-pointer"
-          name="img:statics/icons/lang-zh.png"
-          size="18px"
-        ></q-icon>
-        <q-icon
-          v-else
-          class="cursor-pointer"
-          name="img:statics/icons/lang-en.png"
-          size="18px"
-        ></q-icon>
+        <div @click="changeLanguage">
+          <q-icon
+            v-if="$store.getters.language === 'en-us'"
+            class="cursor-pointer"
+            name="img:statics/icons/lang-zh.png"
+            size="18px"
+          ></q-icon>
+          <q-icon
+            v-else
+            class="cursor-pointer"
+            name="img:statics/icons/lang-en.png"
+            size="18px"
+          ></q-icon>
+        </div>
 
         <!-- 右侧个人中心菜单 -->
 
@@ -130,6 +132,11 @@ export default {
   },
   components: { Menu },
   methods: {
+    changeLanguage() {
+      const language = this.$store.getters.language === 'zh-cn' ? 'en-us' : 'zh-cn'
+      this.$store.dispatch('ChangeLanguage', language)
+      this.$i18n.locale = language
+    },
     // 退出
     logout() {
       this.$store.dispatch('Logout')

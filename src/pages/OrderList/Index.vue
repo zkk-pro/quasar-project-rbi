@@ -17,6 +17,15 @@
         @nodeClick="onNodeClick"
       />
     </div>
+    <q-pagination
+      class="q-mt-md row justify-center"
+      v-model="params.paging"
+      v-if="orderList.length"
+      :max="pageInfo.pageMax || 1"
+      direction-links
+      @input="pageChange"
+      size="12px"
+    />
   </div>
 </template>
 
@@ -27,11 +36,21 @@ import { orderList } from 'src/api/apiList'
 export default {
   data() {
     return {
-      orderList: []
+      params: {
+        paging: 1,
+        limit: 5
+      },
+      orderList: [],
+      pageInfo: {}
     }
   },
   components: { NodeLockItem, Breadcrumb },
   methods: {
+    // 页码改变
+    pageChange() {
+      this.getOrderList()
+    },
+    // 点击 节点
     onNodeClick(item) {
       this.$router.push({
         path: '/mining-order/order-detail',
@@ -39,7 +58,7 @@ export default {
       })
     },
     async getOrderList() {
-      const { data } = await orderList({ paging: 0, limit: 5 })
+      const { data } = await orderList(this.params)
       this.orderList = data
     }
   },
