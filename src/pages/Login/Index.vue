@@ -143,7 +143,8 @@ export default {
       newPwdForm: {
         first: '',
         second: ''
-      }
+      },
+      isLogin: false // 是否为登录
     }
   },
   components: { Dialog },
@@ -155,6 +156,7 @@ export default {
   methods: {
     // 忘记密码
     forgetPwd() {
+      this.isLogin = false
       this.$refs.resetTip.open()
     },
     // 忘记密码确认弹框 confirm
@@ -178,10 +180,20 @@ export default {
       } catch (error) {}
     },
     // 安全验证
-    onSafeConfirm(code) {
-      this.resetPwdParams.validCode = code
-      this.safeShow = false
-      this.$refs.resetSetPwd.open()
+    async onSafeConfirm(code) {
+      if (this.isLogin) {
+        const res = await this.$refs.login.validate()
+        if (res) {
+          this.loginForm.code = code
+          await this.$store.dispatch('Login', this.loginForm)
+          await this.$store.dispatch('UpdateUserInfo')
+          this.$router.push({ path: this.fromPath })
+        }
+      } else {
+        this.resetPwdParams.validCode = code
+        this.safeShow = false
+        this.$refs.resetSetPwd.open()
+      }
     },
     // 设置新密码
     async resetSetPwdCofirm() {
@@ -203,12 +215,13 @@ export default {
       }
     },
     async onSubmit() {
-      const res = await this.$refs.login.validate()
-      if (res) {
-        await this.$store.dispatch('Login', this.loginForm)
-        await this.$store.dispatch('UpdateUserInfo')
-        this.$router.push({ path: this.fromPath })
-      }
+      const { data } = await getAccountSafeLevel({
+        account: this.loginForm.account
+      })
+      this.securityLevel = data.securityLevel
+      this.$store.dispatch('SetUserInfo', data)
+      this.safeShow = true
+      this.isLogin = true
     }
   }
 }

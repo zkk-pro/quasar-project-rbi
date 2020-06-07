@@ -19,6 +19,7 @@
       text-color="dark"
       label="立即开启"
       style="max-width: 315px; height:46px; margin-top:80px;font-weight: bold"
+      replace
       to="/g-validator"
     />
   </q-page>
