@@ -9,21 +9,17 @@
         <q-separator inset dark style="background: rgba(255,255,255,0.1)" />
         <q-item style="background: rgba(255,255,255, 0.05)">
           <q-item-section>
-            {{ userinfo.type === 'email' ? '邮箱号' : '手机号' }}
+            {{ userinfo.type === 'email' ? $t('com_email') : $t('com_mobile') }}
           </q-item-section>
           <q-item-section align="right">{{ userinfo.mobile }}</q-item-section>
         </q-item>
-        <!-- <q-item style="background: rgba(255,255,255, 0.05)" v-else>
-        <q-item-section>手机号</q-item-section>
-        <q-item-section align="right">137***2917</q-item-section>
-      </q-item> -->
         <q-item
           clickable
           v-ripple
           class="q-mt-sm q-item-odd"
           style="background: rgba(255,255,255, 0.05)"
         >
-          <q-item-section>谷歌身份验证</q-item-section>
+          <q-item-section>{{$t('userinfo_google')}}</q-item-section>
           <q-item-section align="right">
             <!-- v-model="userinfo.securityGoogleSwitch" -->
             <q-toggle
@@ -36,13 +32,13 @@
         </q-item>
         <q-separator inset dark style="background: rgba(255,255,255,0.1)" />
         <q-item clickable v-ripple style="background: rgba(255,255,255, 0.05)">
-          <q-item-section>谷歌验证器</q-item-section>
+          <q-item-section>{{$t('userinfo_google')}}</q-item-section>
           <q-item-section align="right">
             <span
               class="right-arrow"
               v-if="userinfo.securityGoogleIsBind"
               @click="resetGoogle"
-              >重置</span
+              >{{$t('userinfo_reset')}}</span
             >
             <router-link
               class="text-primary right-arrow"
@@ -50,7 +46,7 @@
               replace
               v-else
             >
-              去绑定
+              {{$t('userinfo_bind')}}
             </router-link>
           </q-item-section>
         </q-item>
@@ -60,14 +56,14 @@
           class="q-mt-sm q-item-odd"
           style="background: rgba(255,255,255, 0.05)"
         >
-          <q-item-section>登录密码</q-item-section>
+          <q-item-section>{{$t('userinfo_password')}}</q-item-section>
           <q-item-section align="right">
-            <router-link class="right-arrow" to="/modify-pwd">修改</router-link>
+            <router-link class="right-arrow" to="/modify-pwd">{{$t('userinfo_modify')}}</router-link>
           </q-item-section>
         </q-item>
         <q-separator inset dark style="background: rgba(255,255,255,0.1)" />
         <q-item clickable v-ripple style="background: rgba(255,255,255, 0.05)">
-          <q-item-section>PIN码</q-item-section>
+          <q-item-section>{{$t('userinfo_pincode')}}</q-item-section>
           <q-item-section align="right">
             <router-link
               class="right-arrow"
@@ -75,10 +71,10 @@
               v-if="userinfo.securityIsBind"
             >
               <!-- @click="modifyPIN" -->
-              修改
+              {{$t('userinfo_modify')}}
             </router-link>
             <div class="text-primary right-arrow" to="/change-pwd" @click="modifyPIN" v-else>
-              去设置
+              {{$t('userinfo_set')}}
             </div>
           </q-item-section>
         </q-item>
@@ -86,17 +82,17 @@
     </div>
     <Dialog
       ref="googleValidatorDialog"
-      :title="`${googleTips === 'close' ? '关闭': '重置'}谷歌验证`"
+      :title="`${googleTips === 'close' ? $t('userinfo_close'): $t('userinfo_reset')}$t('userinfo_google_verify')`"
       @confirm="googleValidatorConfirm"
     >
       <span class="q-pl-lg" style="font-size: 13px; color:#666">
-        {{`谷歌验证器${googleTips === 'close' ? '关闭': '重置'}后，24小时内无法提币`}}
+        {{$i18n.locale == 'en-us' ? `After the Google validator is ${googleTips === 'close' ? 'close': 'reset'}, coins cannot be withdrawn within 24 hours` : `谷歌验证器${googleTips === 'close' ? '关闭': '重置'}后，24小时内无法提币`}}
       </span>
     </Dialog>
     <!-- 开启Google身份验证时的 安全验证 -->
     <Dialog
       ref="openGoogleValidatorDialog"
-      title="安全验证"
+      :title="$t('userinfo_safe')"
       confirmHold
       @confirm="openGoogleValidatorConfirm"
       @hide="openGoogleValidatorCancel"
@@ -108,13 +104,13 @@
           class="full-width"
           dense
           maxlength="6"
-          :label="`${userinfo === 'email' ? '邮箱' : '手机'}验证码`"
+          :label="`${userinfo === 'email' ? $t('com_email') : $t('com_mobile')}$t('com_captcha')`"
           no-error-icon
           color="blue-6"
           lazy-rules
           :rules="[
-            val => !!val || '请输入验证码',
-            val => !(val.length < 6) || '请输入6数位验证码'
+            val => !!val || $t('userinfo_enter_captcha'),
+            val => !(val.length < 6) || $t('userinfo_enter_captcha_six')
           ]"
         >
           <template v-slot:append>
@@ -134,13 +130,13 @@
           class="full-width"
           dense
           maxlength="6"
-          label="谷歌验证码"
+          :label="$t('com_google_code')"
           color="blue-6"
           no-error-icon
           lazy-rules
           :rules="[
-            val => !!val || '请输入验证码',
-            val => !(val.length < 6) || '请输入6数位验证码'
+            val => !!val || $t('userinfo_enter_captcha'),
+            val => !(val.length < 6) || $t('userinfo_enter_captcha_six')
           ]"
         />
       </q-form>
@@ -167,7 +163,7 @@ export default {
         googleCode: '',
         code: ''
       },
-      closeCodeBtnLabel: '获取验证码', // 关闭验证器表单获取验证码按钮文字
+      closeCodeBtnLabel: '', // 关闭验证器表单获取验证码按钮文字
       closeCodeBtnDisabled: false, // 关闭验证器表单获取验证码按钮禁用
       timer: null,
       userinfo: {}, // 用户信息
@@ -215,7 +211,8 @@ export default {
     // 数据重置
     clearCodeHandle() {
       clearInterval(this.timer)
-      this.closeCodeBtnLabel = '获取验证码'
+      // this.closeCodeBtnLabel = '获取验证码'
+      this.closeCodeBtnLabel = this.$t('closeCodeBtnLabel')
       this.closeCodeBtnDisabled = false
     },
     // 获取验证码
@@ -230,7 +227,8 @@ export default {
           this.closeCodeBtnLabel = time + 's'
           if (time < 0) {
             clearInterval(this.timer)
-            this.closeCodeBtnLabel = '重新获取'
+            // this.closeCodeBtnLabel = '重新获取'
+            this.closeCodeBtnLabel = this.$t('closeCodeBtnLabel')
             this.closeCodeBtnDisabled = false
           }
         }, 1000)
@@ -268,6 +266,7 @@ export default {
   },
   created() {
     this.getUserINfo()
+    this.closeCodeBtnLabel = this.$t('closeCodeBtnLabel')
   }
 }
 </script>

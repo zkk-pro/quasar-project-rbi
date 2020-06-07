@@ -6,7 +6,7 @@
 export default {
   props: {
     node: {
-      type: String
+      type: [String, Number]
     }
   }
 }

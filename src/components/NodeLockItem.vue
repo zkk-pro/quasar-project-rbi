@@ -12,9 +12,12 @@
         <div
           v-if="!showBtn"
           class="status absolute-right lt-sm"
-          :style="{ color: nodeData.status === 1 ? '#999' : '#00E6FF' }"
+          :style="{ color: nodeData.status === 1 ? '#00E6FF' : '#999' }"
         >
-          {{ nodeData.status | transStatus }}
+          <!-- {{ nodeData.status | transStatus }} -->
+          <span v-if="nodeData.status === 0">{{ $t('com_over') }}</span>
+          <span v-if="nodeData.status === 1">{{ $t('com_Holding') }}</span>
+          <span v-if="nodeData.status === 2">{{ $t('com_Unlocked') }}</span>
         </div>
       </div>
 
@@ -42,6 +45,7 @@
           rounded
           :label="$t('mining_lock') + '>'"
           color="dark"
+          no-caps
           text-color="cyan-12"
           to="/lock-position"
           style="width: 160px;height:40px"
@@ -51,9 +55,12 @@
         <div
           v-if="!showBtn"
           class="gt-xs"
-          :style="{ color: nodeData.status === 1 ? '#999' : '#00E6FF' }"
+          :style="{ color: nodeData.status === 1 ? '#00E6FF' : '#999' }"
         >
-          {{ nodeData.status | transStatus }}
+          <!-- {{ nodeData.status | transStatus }} -->
+          <span v-if="nodeData.status === 0">{{ $t('com_over') }}</span>
+          <span v-if="nodeData.status === 1">{{ $t('com_Holding') }}</span>
+          <span v-if="nodeData.status === 2">{{ $t('com_Unlocked') }}</span>
         </div>
       </div>
     </div>
@@ -81,16 +88,19 @@ export default {
   filters: {
     formatDate(d) {
       return date.formatDate(d, 'YYYY-MM-DD HH:mm')
-    },
-    transStatus(status) {
-      if (status === 0) {
-        return '已结束'
-      } else if (status === 1) {
-        return '持有中'
-      } else if (status === 2) {
-        return '已解锁'
-      }
     }
+    // transStatus(status) {
+    //   if (status === 0) {
+    //     var text = this.lang === 'en-us' ? 'over' : '已结束'
+    //     return text
+    //   } else if (status === 1) {
+    //     var text1 = this.lang === 'en-us' ? 'Holding' : '持有中'
+    //     return text1
+    //   } else if (status === 2) {
+    //     var text2 = this.lang === 'en-us' ? 'Unlocked' : '已解锁'
+    //     return text2
+    //   }
+    // }
   },
   mounted() {
     this.lang = this.$i18n.locale

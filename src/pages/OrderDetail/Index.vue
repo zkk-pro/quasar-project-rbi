@@ -5,7 +5,7 @@
       <!-- <img src="~assets/pc_images/p_order_bg.png" class="header_bg absolute" /> -->
       <div class="container">
         <div class="earning-total">
-          <div class="q-mb-sm small-text">累积收益</div>
+          <div class="q-mb-sm small-text">{{$t('order_detail_income')}}</div>
           <Number class="lt-sm"
             :number="orderDetail.interestNumTodal || ''"
             big-size="36px"
@@ -19,7 +19,7 @@
         </div>
         <div class="row" style="margin-top: 35px">
           <div style="flex:1">
-            <div class="q-mb-sm small-text">今日收益</div>
+            <div class="q-mb-sm small-text">{{$t('order_detail_today_income')}}</div>
             <Number class="lt-sm"
               :number="orderDetail.interestNumToday || ''"
               big-size="30px"
@@ -32,7 +32,7 @@
             />
           </div>
           <div style="flex:1">
-            <div class="q-mb-sm small-text">锁仓RBI</div>
+            <div class="q-mb-sm small-text">{{$t('order_detail_locked')}}</div>
             <Number class="lt-sm"
               :number="orderDetail.num || ''"
               big-size="30px"
@@ -51,14 +51,14 @@
             class="btn unlock-btn row justify-center items-center cursor-pointer relative-position"
             @click="unlockHandle"
           >
-            解锁
+            {{$t('order_detail_unlocked')}}
           </div>
           <router-link
             v-ripple
             class="btn mining-btn row justify-center items-center relative-position"
             to="/mining"
           >
-            挖矿
+            {{$t('order_detail_mining')}}
           </router-link>
         </div>
       </div>
@@ -66,44 +66,44 @@
     <div class="list-container">
       <Breadcrumb class="col-xs-11 q-pl-lg gt-xs" />
       <q-list bordered class="list-box">
-        <q-item>
-          <q-item-section>锁仓节点</q-item-section>
+        <q-item clickable>
+          <q-item-section>{{$t('order_detail_node')}}</q-item-section>
           <q-item-section class="pc_color text-grey-7" style="text-align:right"
-            >V{{ orderDetail.name }}节点</q-item-section
+            >V{{ orderDetail.name }}&nbsp;{{$t('order_detail_node_text')}}</q-item-section
           >
         </q-item>
-        <q-item>
-          <q-item-section>锁仓日期</q-item-section>
+        <q-item clickable>
+          <q-item-section>{{$t('order_detail_date')}}</q-item-section>
           <q-item-section class="pc_color text-grey-7" style="text-align:right">
             {{ orderDetail.createTime | formatDate(true) }}
           </q-item-section>
         </q-item>
-        <q-item>
-          <q-item-section>锁仓收益率</q-item-section>
+        <q-item clickable>
+          <q-item-section>{{$t('order_detail_yield')}}</q-item-section>
           <q-item-section class="pc_color text-grey-7" style="text-align:right">
-            POS挖矿收益的{{ orderDetail.rate && (orderDetail.rate * 100).toFixed(2)  }}%
+            {{lang == 'en-us' ? `${orderDetail.rate && orderDetail.rate * 100}% of POS mining revenue` : `POS挖矿收益的${orderDetail.rate && orderDetail.rate * 100}%`}}
           </q-item-section>
         </q-item>
-        <q-item>
-          <q-item-section>起息日</q-item-section>
+        <q-item clickable>
+          <q-item-section>{{$t('order_detail_day')}}</q-item-section>
           <q-item-section class="pc_color text-grey-7" style="text-align:right">
             {{ orderDetail.interestBeginTime | formatDate }}
           </q-item-section>
         </q-item>
-        <q-item v-if="orderDetail.interestEndTime">
-          <q-item-section>解锁日期</q-item-section>
+        <q-item clickable v-if="orderDetail.interestEndTime">
+          <q-item-section>{{$t('order_detail_unlock_day')}}</q-item-section>
           <q-item-section class="pc_color text-grey-7" style="text-align:right">
             {{ orderDetail.interestEndTime | formatDate(true) }}
           </q-item-section>
         </q-item>
-        <q-item>
-          <q-item-section>持有天数</q-item-section>
+        <q-item clickable>
+          <q-item-section>{{$t('order_detail_hold_day')}}</q-item-section>
           <q-item-section class="pc_color text-grey-7" style="text-align:right">
-            {{ orderDetail.interestTimes }} 天
+            {{ orderDetail.interestTimes }} {{order_detail_day_text}}
           </q-item-section>
         </q-item>
-        <q-item>
-          <q-item-section>状态</q-item-section>
+        <q-item clickable>
+          <q-item-section>{{$t('order_detail_status')}}</q-item-section>
           <q-item-section class="pc_color text-grey-7" style="text-align:right">
             {{ orderDetail.status | transStatus }}
           </q-item-section>
@@ -131,7 +131,8 @@ export default {
     return {
       id: 0,
       safeShow: false, // 安全验证弹框
-      orderDetail: {} // 订单详情数据
+      orderDetail: {}, // 订单详情数据
+      lang: ''
     }
   },
   components: { Number, SafeValidate, Breadcrumb },
@@ -144,12 +145,22 @@ export default {
       }
     },
     transStatus(status) {
+      // if (status === 0) {
+      //   return '已结束'
+      // } else if (status === 1) {
+      //   return '持有中'
+      // } else if (status === 2) {
+      //   return '已解锁'
+      // }
       if (status === 0) {
-        return '已结束'
+        var text = this.lang === 'en-us' ? 'over' : '已结束'
+        return text
       } else if (status === 1) {
-        return '持有中'
+        var text1 = this.lang === 'en-us' ? 'Holding' : '持有中'
+        return text1
       } else if (status === 2) {
-        return '已解锁'
+        var text2 = this.lang === 'en-us' ? 'Unlocked' : '已解锁'
+        return text2
       }
     }
   },
@@ -182,6 +193,7 @@ export default {
     this.validType = this.$store.getters.userinfo.securityLevel
     this.id = this.$route.query.id
     this.getOrderDetail()
+    this.lang = this.$i18n.locale
   }
 }
 </script>

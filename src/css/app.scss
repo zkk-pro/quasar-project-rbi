@@ -81,7 +81,8 @@ a:focus {
 }
 // 无数据
 .no-data:empty::before {
-  content: '暂无数据';
+  // content: '暂无数据';
+  content: '';
   display: flex;
   align-items: flex-end;
   justify-content: center;
