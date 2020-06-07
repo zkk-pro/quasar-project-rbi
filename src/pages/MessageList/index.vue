@@ -26,14 +26,18 @@
       </div>
     </q-list>
     <div
-      class="q-pa-lg flex flex-center absolute-bottom justify-center paging-wrapper"
+      class="q-pa-lg flex flex-center justify-center paging-wrapper"
     >
       <q-pagination
-        v-model="current"
-        :max="10"
+        class="q-mt-md row justify-center"
+        v-model="paging"
+        v-if="messageList.length"
+        :max="pagination.pageMax || 1"
         :max-pages="6"
-        :direction-links="true"
         :boundary-numbers="true"
+        :direction-links="true"
+        @input="pageChange"
+        size="12px"
       >
       </q-pagination>
       <!-- <div class="paging-input q-ml-lg row items-center">
@@ -52,15 +56,20 @@ export default {
   data() {
     return {
       messageList: [],
-      paging: 0,
-      current: 1,
-      page: ''
+      paging: 1,
+      current: 0,
+      pagination: {}
     }
   },
   methods: {
+    pageChange(value) {
+      console.log(value)
+      this.getMessageList()
+    },
     async getMessageList() {
-      const { data } = await noticeList({ paging: this.paging, limit: 3 })
-      this.messageList = data
+      const { data } = await noticeList({ paging: this.paging, limit: 10 })
+      this.messageList = data.list
+      this.pagination = data.pagination
     }
   },
   mounted() {
@@ -96,11 +105,7 @@ export default {
   height: 20px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.6);
 }
-.screen--xs .paging-wrapper {
-  display: none;
-}
 .paging-wrapper {
-  bottom: 0;
   height: 154px;
 }
 

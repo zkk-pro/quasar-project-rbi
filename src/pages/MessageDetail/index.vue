@@ -1,6 +1,6 @@
 <template>
   <q-page class="message-detail q-pa-md column items-center">
-    <div class="back text-left" @click="toList">&lt;&lt;返回公告列表</div>
+    <div class="back text-left cursor-pointer" @click="toList">&lt;&lt;返回公告列表</div>
     <div class="message-box q-mt-lg">
       <div class="title">{{ notice.title }}</div>
       <div class="time q-mb-xs q-mt-sm">

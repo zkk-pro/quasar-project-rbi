@@ -5,28 +5,43 @@
       <!-- <img src="~assets/pc_images/p_order_bg.png" class="header_bg absolute" /> -->
       <div class="container">
         <div class="earning-total">
-          <div class="q-mb-sm" style="font-size: 12px;">累积收益</div>
-          <Number
+          <div class="q-mb-sm small-text">累积收益</div>
+          <Number class="lt-sm"
             :number="orderDetail.interestNumTodal || ''"
             big-size="36px"
             small-size="30px"
           />
+          <Number class="gt-xs"
+            :number="orderDetail.interestNumTodal || ''"
+            big-size="20px"
+            small-size="14px"
+          />
         </div>
         <div class="row" style="margin-top: 35px">
           <div style="flex:1">
-            <div class="q-mb-sm" style="font-size: 12px;">今日收益</div>
-            <Number
+            <div class="q-mb-sm small-text">今日收益</div>
+            <Number class="lt-sm"
               :number="orderDetail.interestNumToday || ''"
               big-size="30px"
               small-size="18px"
             />
+            <Number class="gt-xs"
+              :number="orderDetail.interestNumToday || ''"
+              big-size="20px"
+              small-size="14px"
+            />
           </div>
           <div style="flex:1">
-            <div class="q-mb-sm" style="font-size: 12px;">锁仓RBI</div>
-            <Number
+            <div class="q-mb-sm small-text">锁仓RBI</div>
+            <Number class="lt-sm"
               :number="orderDetail.num || ''"
               big-size="30px"
               small-size="18px"
+            />
+            <Number class="gt-xs"
+              :number="orderDetail.num || ''"
+              big-size="50px"
+              small-size="50px"
             />
           </div>
         </div>
@@ -189,7 +204,13 @@ export default {
     background-size: 100% 100%;
     align-items: initial;
   }
+  .small-text{
+    font-size: 12px
+  }
 }
+.small-text{
+    font-size: 16px
+  }
 .container{
   width: 800px;
 }

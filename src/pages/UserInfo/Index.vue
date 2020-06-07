@@ -1,5 +1,5 @@
 <template>
-  <q-page class="row justify-center" :style-fn="pageStyle">
+  <q-page class="row justify-center">
     <div class="list-wrapper">
       <q-list v-if="Object.keys(userinfo).length">
         <q-item style="background: rgba(255,255,255, 0.05)">
@@ -177,11 +177,6 @@ export default {
   },
   components: { Dialog, SetPIN },
   methods: {
-    pageStyle(offset, height) {
-      return {
-        'margin-bottom': '100px'
-      }
-    },
     // google验证身份验证事件
     googleModelHandle(val) {
       // 判断是否绑定

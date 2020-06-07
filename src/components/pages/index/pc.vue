@@ -81,7 +81,7 @@
         </div>
       </div>
     </div>
-    <div class="intro q-pt-xl column justify-center items-center  col-11">
+    <div class="intro q-pt-xl column justify-center items-center col-11">
       <img
         src="~assets/pc_images/p_index3.png"
          width="158"
