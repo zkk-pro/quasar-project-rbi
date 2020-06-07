@@ -109,8 +109,8 @@
           color="blue-6"
           lazy-rules
           :rules="[
-            val => !!val || $t('userinfo_enter_captcha'),
-            val => !(val.length < 6) || $t('userinfo_enter_captcha_six')
+            val => !!val || $t('com_enter_captcha'),
+            val => !(val.length < 6) || $t('com_enter_captcha_six')
           ]"
         >
           <template v-slot:append>
@@ -135,8 +135,8 @@
           no-error-icon
           lazy-rules
           :rules="[
-            val => !!val || $t('userinfo_enter_captcha'),
-            val => !(val.length < 6) || $t('userinfo_enter_captcha_six')
+            val => !!val || $t('com_enter_captcha'),
+            val => !(val.length < 6) || $t('com_enter_captcha_six')
           ]"
         />
       </q-form>

@@ -20,7 +20,7 @@
           >
             <q-icon :name="'img:statics/icons/' + item.icon + '.png'"></q-icon>
             <span class="q-ml-sm full-height text-dark">
-              {{ item.text }}
+              {{ $t(item.text) }}
             </span>
           </q-item>
           <q-separator />

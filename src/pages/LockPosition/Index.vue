@@ -16,6 +16,7 @@
             v-for="item in nodeList"
             :key="item.id"
             unelevated
+            no-caps
             :outline="item.id != currentNodeId"
             :label="`V${item.name} ${$t('lock_position_node1')}`"
             :color="item.id == currentNodeId ? 'primary' : ''"
@@ -77,6 +78,7 @@
           <q-btn
             :label="$t('lock_position_confirm')"
             color="primary"
+            no-caps
             text-color="dark"
             rounded
             @click="confirm"

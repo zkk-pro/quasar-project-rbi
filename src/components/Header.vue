@@ -20,7 +20,7 @@
             exact
           >
             <q-item-section>
-              {{ item.text }}
+              {{ $t(item.text) }}
             </q-item-section>
           </q-item>
         </q-list>
@@ -70,7 +70,7 @@
                   @click="logout"
                 >
                   <q-icon :name="'img:statics/icons/menu-exit.png'"></q-icon>
-                  <span class="q-ml-sm text-dark">退出</span>
+                  <span class="q-ml-sm text-dark">{{$t('header_exit')}}</span>
                 </q-item>
               </template>
             </Menu>
@@ -96,15 +96,15 @@
                   @click="logout"
                 >
                   <q-icon :name="'img:statics/icons/menu-exit.png'"></q-icon>
-                  <span class="q-ml-sm text-dark">退出</span>
+                  <span class="q-ml-sm text-dark">{{$t('header_exit')}}</span>
                 </q-item>
               </template>
             </Menu>
           </div>
           <div v-else>
-            <router-link to="/registry">注册</router-link>
+            <router-link to="/registry">{{$t('header_register')}}</router-link>
             <span class="q-px-md">|</span>
-            <router-link to="/login">登录</router-link>
+            <router-link to="/login">{{$t('header_login')}}</router-link>
           </div>
         </div>
       </div>
@@ -119,14 +119,14 @@ export default {
   data() {
     return {
       leftMenu: [
-        { text: '首页', icon: 'menu-home', path: '/' },
-        { text: 'POS挖矿', icon: 'menu-pos', path: '/mining' },
-        { text: '总资产', icon: 'menu-assets', path: '/assets' }
+        { text: 'header_leftmenu1', icon: 'menu-home', path: '/' },
+        { text: 'header_leftmenu2', icon: 'menu-pos', path: '/mining' },
+        { text: 'header_leftmenu3', icon: 'menu-assets', path: '/assets' }
       ],
       accountMenu: [
-        { text: '挖矿订单', icon: 'menu-order', path: '/mining-order' },
-        { text: '收益明细', icon: 'menu-earning', path: '/earning-detail' },
-        { text: '个人中心', icon: 'menu-user', path: '/user-info' }
+        { text: 'header_rightmenu1', icon: 'menu-order', path: '/mining-order' },
+        { text: 'header_rightmenu2', icon: 'menu-earning', path: '/earning-detail' },
+        { text: 'header_rightmenu3', icon: 'menu-user', path: '/user-info' }
       ]
     }
   },
@@ -144,7 +144,7 @@ export default {
     logout() {
       this.$store.dispatch('Logout')
       this.$q.notify({
-        message: '退出成功',
+        message: this.$t('exit_success'),
         icon: 'done',
         textColor: 'green'
       })

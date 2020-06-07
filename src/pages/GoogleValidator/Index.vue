@@ -3,10 +3,10 @@
     <div class="validator-wrapper row justify-center">
       <div class="validator-list">
         <p class="one-icon">
-          在应用商店中搜索“Google Authenticator”应用并下载
+          {{$t('googel_step1')}}
         </p>
         <p class="two-icon">
-          打开谷歌验证器，填入您的RBI账号，并扫描下方二维码或手动输入下方密钥。
+          {{$t('googel_step2')}}
         </p>
         <div class="column items-center">
           <img class="qr-code" :src="googleAuth.secretQrCode" alt="" />
@@ -15,37 +15,37 @@
           </div>
         </div>
         <p class="q-mt-md">
-          密钥用于手机更换或遗失找回谷歌验证器，绑定前请务必将密钥备份保存。
+          {{$t('googel_tips')}}
         </p>
-        <p class="q-mt-md three-icon">输入谷歌验证器中6位验证码</p>
+        <p class="q-mt-md three-icon">{{$t('googel_step3')}}</p>
         <div style="padding-left: 18px">
           <q-form @submit="onSubmit" ref="bindForm" class="column">
             <q-input
               v-model="form.googleCode"
               filled
               dense
-              :prefix="`${isBind ? '新' : ''}谷歌验证码`"
+              :prefix="`${isBind ? $t('googel_new') : ''}$t('com_google_code')`"
               maxlength="6"
               :input-style="{ color: 'white' }"
-              placeholder="请输入验证码"
+              :placeholder="$t('com_enter_captcha')"
               lazy-rules
               no-error-icon
               :rules="[
-                val => (!!val && !(val.length < 6)) || '请输入6位数验证码'
+                val => (!!val && !(val.length < 6)) || $t('com_enter_captcha_six')
               ]"
             />
             <q-input
               v-model="form.code"
               filled
               dense
-              :prefix="`${userTypeText}验证码`"
+              :prefix="`${userTypeText}$t('com_captcha')`"
               maxlength="6"
               :input-style="{ color: 'white' }"
-              placeholder="请输入验证码"
+              :placeholder="$t('com_enter_captcha')"
               lazy-rules
               no-error-icon
               :rules="[
-                val => (!!val && !(val.length < 6)) || '请输入6位数验证码'
+                val => (!!val && !(val.length < 6)) || $t('com_enter_captcha_six')
               ]"
             >
               <template v-solot:prepend>
@@ -66,9 +66,10 @@
               rounded
               type="submit"
               color="primary"
+              no-caps
               text-color="dark"
               class="confrim-btn"
-              :label="`确认${isBind ? '重置': '开启'}`"
+              :label="`$t('com_confirm')${isBind ? $t('com_reset'): $t('com_open')}`"
             />
           </q-form>
         </div>
@@ -99,9 +100,9 @@ export default {
   computed: {
     userTypeText() {
       if (this.userType === 'mobile') {
-        return '手机'
+        return this.$t('com_phone')
       } else {
-        return '邮箱'
+        return this.$t('com_mailbox')
       }
     }
   },
@@ -111,13 +112,13 @@ export default {
       try {
         await this.$copyText(this.googleAuth.secret)
         this.$q.notify({
-          message: '复制成功',
+          message: this.$t('googel_copy_success'),
           icon: 'done',
           textColor: 'green'
         })
       } catch (error) {
         this.$q.notify({
-          message: '复制失败，请刷新网页重试',
+          message: this.$t('googel_copy_fail'),
           icon: 'warning',
           textColor: 'red'
         })
@@ -136,7 +137,7 @@ export default {
           this.codeBtnLabel = time + 's'
           if (time < 0) {
             clearInterval(this.timer)
-            this.codeBtnLabel = '重新获取'
+            this.codeBtnLabel = this.$t('googel_resend')
             this.codeBtnDisabled = false
           }
         }, 1000)
@@ -155,7 +156,7 @@ export default {
           })
           this.$router.replace({
             name: 'success',
-            params: { text: '谷歌验证器开启成功' }
+            params: { text: this.$t('googel_googel_open_success') }
           })
         } catch (error) {}
       }

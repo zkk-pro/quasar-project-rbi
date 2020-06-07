@@ -60,7 +60,7 @@
     </div>
     <div class="intro intro-even q-pt-xl column justify-center items-center">
       <img src="~assets/pc_images/p_index2.png" width="117" />
-      <div class="intro2-content intro-content q-mt-lg q-px-lg">
+      <div class="intro2-content intro-content q-mt-lg q-px-lg text-center">
         {{ $t('index_release') }}
       </div>
       <div class="intro2-column q-mt-xl row justify-between q-px-lg">
@@ -138,7 +138,7 @@
     </div>
     <div class="intro intro-even q-pt-xl column justify-center items-center">
       <img src="~assets/pc_images/p_index4.png" width="107px" />
-      <div class="intro2-content intro-content q-mt-lg q-mb-xl q-px-lg">
+      <div class="intro2-content intro-content q-mt-lg q-mb-xl q-px-lg text-center">
         {{ $t('index_pos_mining') }}
       </div>
       <img
@@ -205,6 +205,10 @@ export default {
 <style lang="scss" scoped>
 .center-img {
   width: 100%;
+}
+.intro2-content {
+  max-width: 1200px;
+  box-sizing: border-box;
 }
 .screen--xs .center-img {
   margin-top: 20px;
