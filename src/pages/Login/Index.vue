@@ -7,6 +7,7 @@
           v-model="loginForm.account"
           class="full-width"
           type="text"
+          :maxlength="32"
           :label="$t('com_mobile')+'/'+$t('com_email')"
           :input-style="{ color: 'white' }"
           no-error-icon

@@ -21,14 +21,16 @@
         </div>
       </div>
 
-      <div class="node-info col-xs-12  col-sm-5 row items-center">
+      <div class="node-info col-xs-12  col-sm-6 row items-center">
         <Number
-          class="col-xs-12 col-sm-3"
+          class="col-xs-12 col-sm-4"
           :number="nodeData.num"
           big-size="30px"
           small-size="13px"
-        />
-        <div class="rbi-yield col-xs-12 col-sm-8">
+          ><span style="font-size: 13px; margin-left: 10px; font-weight: 400;">RBI</span></Number
+        >
+
+        <div class="rbi-yield col-xs-12 col-sm-7">
           {{
             lang == 'en-us'
               ? `Share ${(nodeData.rate * 100).toFixed(

@@ -21,7 +21,7 @@
           type="text"
           :label="registryType === 'email' ? $t('com_email') : $t('com_mobile')"
           :input-style="{ color: 'white' }"
-          :maxlength="registryType === 'email' ? '' : 11"
+          :maxlength="registryType === 'email' ? 32 : 11"
           filled
           dense
           no-error-icon

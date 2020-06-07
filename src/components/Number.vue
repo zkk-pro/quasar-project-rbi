@@ -4,6 +4,7 @@
     <span class="small" :style="{ fontSize: smallSize }" v-if="numberArr[1]"
       >.{{ numberArr[1] }}</span
     >
+    <slot/>
   </div>
 </template>
 
