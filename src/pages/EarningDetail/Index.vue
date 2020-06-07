@@ -3,12 +3,13 @@
     <div class="title row items-center q-px-sm">
       <q-icon name="play_arrow" size="15px" />收益明细
     </div>
-    <q-list
-      class="earning-list q-px-md"
-      style="background: rgba(255,255,255,0.05)"
-    >
-      <div v-for="item in earningList" :key="item.id">
-        <EarningItem :itemData="item" />
+    <q-list class="no-data">
+      <div
+        v-for="item in earningList"
+        :key="item.id"
+        style="background: rgba(255,255,255,0.05)"
+      >
+        <EarningItem class="q-px-md" hover :itemData="item" />
         <q-separator style="background: rgba(255,255,255,0.05)" />
       </div>
     </q-list>
@@ -17,6 +18,7 @@
       v-model="params.paging"
       v-if="earningList.length"
       :max="pageInfo.pageMax || 1"
+      :max-pages="6"
       direction-links
       @input="pageChange"
       size="12px"
@@ -68,12 +70,12 @@ export default {
   height: 40px;
   color: rgba($color: #fff, $alpha: 0.6);
 }
-.earning-list:empty::before {
-  content: '— 暂无收益 —';
-  display: block;
-  line-height: 30px;
-  font-size: 12px;
-  color: #ccc;
-  text-align: center;
-}
+// .no-data:empty::before {
+//   content: '— 暂无收益 —';
+//   display: block;
+//   line-height: 30px;
+//   font-size: 12px;
+//   color: #ccc;
+//   text-align: center;
+// }
 </style>

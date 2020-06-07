@@ -51,43 +51,43 @@
     <div class="list-container">
       <Breadcrumb class="col-xs-11 q-pl-lg gt-xs" />
       <q-list bordered class="list-box">
-        <q-item clickable>
+        <q-item>
           <q-item-section>锁仓节点</q-item-section>
           <q-item-section class="pc_color text-grey-7" style="text-align:right"
             >V{{ orderDetail.name }}节点</q-item-section
           >
         </q-item>
-        <q-item clickable>
+        <q-item>
           <q-item-section>锁仓日期</q-item-section>
           <q-item-section class="pc_color text-grey-7" style="text-align:right">
             {{ orderDetail.createTime | formatDate(true) }}
           </q-item-section>
         </q-item>
-        <q-item clickable>
+        <q-item>
           <q-item-section>锁仓收益率</q-item-section>
           <q-item-section class="pc_color text-grey-7" style="text-align:right">
-            POS挖矿收益的{{ orderDetail.rate && orderDetail.rate * 100 }}%
+            POS挖矿收益的{{ orderDetail.rate && (orderDetail.rate * 100).toFixed(2)  }}%
           </q-item-section>
         </q-item>
-        <q-item clickable>
+        <q-item>
           <q-item-section>起息日</q-item-section>
           <q-item-section class="pc_color text-grey-7" style="text-align:right">
             {{ orderDetail.interestBeginTime | formatDate }}
           </q-item-section>
         </q-item>
-        <q-item clickable v-if="orderDetail.interestEndTime">
+        <q-item v-if="orderDetail.interestEndTime">
           <q-item-section>解锁日期</q-item-section>
           <q-item-section class="pc_color text-grey-7" style="text-align:right">
             {{ orderDetail.interestEndTime | formatDate(true) }}
           </q-item-section>
         </q-item>
-        <q-item clickable>
+        <q-item>
           <q-item-section>持有天数</q-item-section>
           <q-item-section class="pc_color text-grey-7" style="text-align:right">
             {{ orderDetail.interestTimes }} 天
           </q-item-section>
         </q-item>
-        <q-item clickable>
+        <q-item>
           <q-item-section>状态</q-item-section>
           <q-item-section class="pc_color text-grey-7" style="text-align:right">
             {{ orderDetail.status | transStatus }}

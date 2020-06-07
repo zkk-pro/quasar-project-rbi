@@ -53,6 +53,11 @@
         />
       </div>
     </q-form>
+    <SafeValidate
+      :show.sync="safeShow"
+      :validType="validType"
+      @safeConfirm="onSafeConfirm"
+    />
   </q-page>
 </template>
 
@@ -62,6 +67,8 @@ export default {
   data() {
     return {
       showPwd: false,
+      safeShow: false, // 显示安全验证
+      validType: 1, // 验证类型
       form: {
         old: '',
         new: '',
@@ -90,8 +97,13 @@ export default {
       ) {
         return this.notify('登入密码6-20位，由字母和数字组成')
       }
+      this.safeShow = true
+    },
+    // 修改
+    async onSafeConfirm(code) {
       try {
         await userModify({
+          code,
           password: this.form.old,
           passwordUpdate: this.form.new
         })
@@ -100,6 +112,7 @@ export default {
           icon: 'done',
           textColor: 'green'
         })
+        this.safeShow = false
         setTimeout(() => {
           this.$router.go(-1)
         }, 1500)

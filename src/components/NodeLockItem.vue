@@ -1,6 +1,6 @@
 <template>
   <div
-    class="node row justify-center full-width"
+    class="node row justify-center full-width cursor-pointer"
     @click="$emit('nodeClick', nodeData)"
   >
     <div class="node-box row col-12">
@@ -26,7 +26,7 @@
           small-size="13px"
         />
         <div class="rbi-yield col-xs-12 col-sm-8">
-          瓜分POS挖矿收益的{{ nodeData.rate * 100 }}%
+          瓜分POS挖矿收益的{{ (nodeData.rate * 100).toFixed(2) }}%
         </div>
       </div>
 

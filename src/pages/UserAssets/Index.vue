@@ -44,6 +44,7 @@
         >
           交易记录
         </q-item-label>
+        <div class="no-data">
         <div v-for="item in logList" :key="item.id">
           <!-- 有扩展项 -->
           <q-expansion-item
@@ -69,8 +70,9 @@
             </q-card>
           </q-expansion-item>
           <!-- 没有扩展项 -->
-          <EarningItem v-else class="q-px-md" :itemData="item" />
+          <EarningItem v-else hover class="q-px-md" :itemData="item" />
           <q-separator style="background: rgba(255,255,255,0.05)" />
+        </div>
         </div>
       </q-list>
       <q-pagination

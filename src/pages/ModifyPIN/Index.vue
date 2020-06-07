@@ -53,6 +53,11 @@
         />
       </div>
     </q-form>
+    <SafeValidate
+      :show.sync="safeShow"
+      :validType="validType"
+      @safeConfirm="onSafeConfirm"
+    />
   </q-page>
 </template>
 
@@ -62,6 +67,8 @@ export default {
   data() {
     return {
       showPwd: false,
+      safeShow: false, // 显示安全验证
+      validType: 1, // 验证类型
       form: {
         old: '',
         new: '',
@@ -73,7 +80,7 @@ export default {
     notify(message) {
       this.$q.notify({ message, icon: 'warning', textColor: 'red' })
     },
-    async onSubmit() {
+    onSubmit() {
       if (!this.form.old) {
         return this.notify('请输入原PIN')
       } else if (!this.form.new) {
@@ -83,21 +90,29 @@ export default {
       } else if (this.form.new !== this.form.newAgen) {
         return this.notify('两次输入不一致，请重新输入')
       }
+      this.safeShow = true
+    },
+    async onSafeConfirm(code) {
       try {
         await userModify({
-          password: this.form.old,
-          passwordUpdate: this.form.new
+          code,
+          pinCode: this.form.old,
+          pinCodeUpdate: this.form.new
         })
         this.$q.notify({
           message: '修改成功',
           icon: 'done',
           textColor: 'green'
         })
+        this.safeShow = false
         setTimeout(() => {
           this.$router.go(-1)
         }, 1500)
       } catch (error) {}
     }
+  },
+  created() {
+    this.validType = this.$store.getters.userinfo.securityLevel
   }
 }
 </script>
@@ -110,7 +125,7 @@ export default {
 /deep/ .q-placeholder::placeholder {
   color: rgba(255, 255, 255, 0.2);
 }
-/deep/ .q-form{
+/deep/ .q-form {
   width: 100%;
 }
 .getcode-btn /deep/ .q-btn__wrapper {
@@ -153,14 +168,14 @@ export default {
   font-weight: bold;
 }
 @media screen and (min-width: 599px) {
-/deep/ .q-form{
-  width: 440px;
-  padding: 40px;
-  margin-top: 40px;
-  background: rgba(255, 255, 255, 0.05);
-}
-.input-style{
-  background: transparent;
-}
+  /deep/ .q-form {
+    width: 440px;
+    padding: 40px;
+    margin-top: 40px;
+    background: rgba(255, 255, 255, 0.05);
+  }
+  .input-style {
+    background: transparent;
+  }
 }
 </style>

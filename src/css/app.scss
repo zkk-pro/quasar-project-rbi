@@ -79,3 +79,21 @@ a:focus {
     height: 240px;
   }
 }
+// 无数据
+.no-data:empty::before {
+  content: '暂无数据';
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  min-height: 204px;
+  color: rgba(255, 255, 255, 0.4);
+  background: url('~assets/images/no-data.png') no-repeat;
+  background-size: 80px 80px;
+  background-position: 50% calc(100% - 24px);
+  background-color: #1B1F41;
+}
+
+.q-page {
+  padding-bottom: 20px;
+}
