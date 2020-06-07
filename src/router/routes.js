@@ -50,7 +50,8 @@ const routes = [
       },
       { path: 'g-validator', component: () => import('pages/GoogleValidator') },
       { path: 'modify-pwd', component: () => import('pages/ModifyPwd') },
-      { path: 'modify-pin', component: () => import('pages/ModifyPIN') }
+      { path: 'modify-pin', component: () => import('pages/ModifyPIN') },
+      { path: 'protocal', component: () => import('pages/Protocal') }
     ]
   }
 ]

@@ -88,3 +88,8 @@ export function getAccountSafeLevel(params) {
 export function resetPwd(params) {
   return http.get('user/resetV2', { params })
 }
+
+// 协议
+export function getArticle(params) {
+  return http.get('article/index', { params })
+}

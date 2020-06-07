@@ -14,7 +14,7 @@ Vue.use(VueRouter)
  * with the Router instance.
  */
 
-const whiteRoute = ['/login', '/registry']
+const whiteRoute = ['/login', '/registry', '/protocal']
 
 export default function({ store /* , ssrContext */ }) {
   const Router = new VueRouter({

@@ -1,17 +1,17 @@
 <template>
   <q-page class="q-px-lg row justify-center">
     <div class="form-box">
-      <div class="title">{{$t('register_title')}}</div>
+      <div class="title">{{ $t('register_title') }}</div>
       <div class="registry-type cursor-pointer">
         <span
           :class="{ active: registryType === 'mobile' }"
           @click="switchType('mobile')"
-          >{{$t('register_byphone')}}</span
+          >{{ $t('register_byphone') }}</span
         >
         <span
           :class="{ active: registryType === 'email' }"
           @click="switchType('email')"
-          >{{$t('register_byemail')}}</span
+          >{{ $t('register_byemail') }}</span
         >
       </div>
       <q-form @submit="onSubmit" class="q-mt-md" ref="registry">
@@ -28,8 +28,14 @@
           lazy-rules
           :rules="[
             val =>
-              !!val || `${$t('com_enter')}${registryType === 'email' ? $t('com_email') : $t('com_mobile')}`,
-              val => (val.includes('@') || registryType === 'mobile') || $t('register_email_no')
+              !!val ||
+              `${$t('com_enter')}${
+                registryType === 'email' ? $t('com_email') : $t('com_mobile')
+              }`,
+            val =>
+              val.includes('@') ||
+              registryType === 'mobile' ||
+              $t('register_email_no')
           ]"
         />
         <q-input
@@ -96,7 +102,9 @@
           dense
           lazy-rules
           no-error-icon
-          :rules="[val => val === registryForm.password || $t('com_enter_notsame')]"
+          :rules="[
+            val => val === registryForm.password || $t('com_enter_notsame')
+          ]"
         >
           <template v-slot:append>
             <span
@@ -106,7 +114,7 @@
           </template>
         </q-input>
         <router-link class="q-mt-sm text-primary inline-block" to="/login"
-          >{{$t('register_has_user')}}></router-link
+          >{{ $t('register_has_user') }}></router-link
         >
         <q-btn
           type="submit"
@@ -122,9 +130,10 @@
         <div class="q-mt-lg row justify-center items-center">
           <q-checkbox v-model="checked" dense keep-color color="primary">
             <div class="protocol">
-              {{$t('register_agree')}}<span class="text-primary" @click.stop="toProtocal"
-                >{{$t('register_agreement')}}</span
-              >
+              {{ $t('register_agree') }}
+              <router-link to="/protocal" class="text-primary" @click.stop="toProtocal">
+                {{ $t('register_agreement') }}
+              </router-link>
             </div>
           </q-checkbox>
         </div>
@@ -206,10 +215,6 @@ export default {
           }, 1500)
         } catch (error) {}
       }
-    },
-    // 用户协议
-    toProtocal() {
-      console.log('Protocal')
     }
   }
 }
