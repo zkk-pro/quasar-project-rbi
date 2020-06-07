@@ -1,13 +1,46 @@
 <template>
   <div class="footer-box row justify-center">
-    <div class="fit flex justify-center items-center lt-sm">
-      <img class="m-logo-img" src="~assets/images/footer-logo.png" alt="logo" />
-      <span class="sologan">{{$t('footer_sologan')}}</span>
+    <div class="fit row justify-center items-center lt-sm">
+      <div>
+        <q-btn dense flat color="primary" :label="$t('footer_kefu1')">
+          <q-popup-proxy>
+            <img
+              src="~assets/pc_images/service-1.jpeg"
+              alt=""
+              width="200px"
+              height="200px"
+            />
+          </q-popup-proxy>
+        </q-btn>
+        <q-btn dense flat color="primary" :label="$t('footer_kefu2')">
+          <q-popup-proxy>
+            <img
+              src="~assets/pc_images/service-2.jpeg"
+              alt=""
+              width="200px"
+              height="200px"
+            />
+          </q-popup-proxy>
+        </q-btn>
+        <q-btn
+          dense
+          flat
+          color="primary"
+          :label="$t('footer_group')"
+          @click="linkTo"
+        >
+        </q-btn>
+      </div>
+      <div class="row items-center">
+        <img
+          class="m-logo-img"
+          src="~assets/images/footer-logo.png"
+          alt="logo"
+        />
+        <span class="sologan">{{ $t('footer_sologan') }}</span>
+      </div>
     </div>
-    <div
-      class="p-footer gt-xs row justify-between"
-      style="width: 1200px"
-    >
+    <div class="p-footer gt-xs row justify-between" style="width: 1200px">
       <div>
         <img
           src="~assets/pc_images/footer-logo.png"
@@ -15,7 +48,7 @@
           height="66px"
           alt="footer-logo"
         />
-        <div class="sologan q-mt-lg">{{$t('footer_sologan')}}</div>
+        <div class="sologan q-mt-lg">{{ $t('footer_sologan') }}</div>
       </div>
       <div class="row">
         <q-list>
@@ -32,7 +65,7 @@
         </q-list>
         <q-list>
           <q-item>
-            <q-item-section>{{$t('footer_contact')}}</q-item-section>
+            <q-item-section>{{ $t('footer_contact') }}</q-item-section>
           </q-item>
           <q-item class="q-py-none">
             <q-item-section>
@@ -45,9 +78,9 @@
             </q-item-section>
           </q-item>
           <q-item>
-            <q-item-section style="color: rgba(255,255,255,0.4)"
-              >{{$t('footer_kefu1')}}</q-item-section
-            >
+            <q-item-section style="color: rgba(255,255,255,0.4)">{{
+              $t('footer_kefu1')
+            }}</q-item-section>
           </q-item>
         </q-list>
         <q-list>
@@ -56,18 +89,18 @@
           </q-item>
           <q-item class="q-py-none">
             <q-item-section>
-                <img
-                  src="~assets/pc_images/service-2.jpeg"
-                  alt=""
-                  width="100px"
-                  height="100px"
-                />
+              <img
+                src="~assets/pc_images/service-2.jpeg"
+                alt=""
+                width="100px"
+                height="100px"
+              />
             </q-item-section>
           </q-item>
           <q-item>
-            <q-item-section style="color: rgba(255,255,255,0.4)"
-              >{{$t('footer_kefu2')}}</q-item-section
-            >
+            <q-item-section style="color: rgba(255,255,255,0.4)">{{
+              $t('footer_kefu2')
+            }}</q-item-section>
           </q-item>
         </q-list>
         <q-list>
@@ -87,9 +120,9 @@
             </q-item-section>
           </q-item>
           <q-item>
-            <q-item-section style="color: rgba(255,255,255,0.4)"
-              >{{$t('footer_group')}}</q-item-section
-            >
+            <q-item-section style="color: rgba(255,255,255,0.4)">{{
+              $t('footer_group')
+            }}</q-item-section>
           </q-item>
         </q-list>
       </div>
@@ -108,6 +141,11 @@ export default {
         { text: 'footer_notice', path: '/message-list' }
       ]
     }
+  },
+  methods: {
+    linkTo() {
+      window.open('http://t.me/RiskfreeBasicIncome10', '_blank')
+    }
   }
 }
 </script>
@@ -119,7 +157,7 @@ export default {
 }
 .screen--xs {
   .footer-box {
-    height: 80px;
+    height: 100px;
     background: #161934;
   }
 }
