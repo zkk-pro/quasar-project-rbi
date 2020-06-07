@@ -7,7 +7,6 @@
       </div>
     </q-item-section>
     <q-item-section style="text-align: right">
-      <!-- + #14BE7D  - #FC4A1A -->
       <span
         :style="{ color: itemData.num > 0 ? '#14BE7D' : '#FC4A1A' }"
         style="font-size: 15px"
