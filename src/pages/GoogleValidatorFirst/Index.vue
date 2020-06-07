@@ -18,6 +18,7 @@
       text-color="dark"
       :label="$t('googel_open')"
       style="max-width: 315px; height:46px; margin-top:80px;font-weight: bold"
+      replace
       to="/g-validator"
     />
   </q-page>

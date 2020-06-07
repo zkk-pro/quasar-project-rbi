@@ -1,17 +1,17 @@
 <template>
   <q-page class="q-px-lg row justify-center">
     <div class="form-box">
-      <div class="title">注册RBI</div>
+      <div class="title">{{$t('register_title')}}</div>
       <div class="registry-type cursor-pointer">
         <span
           :class="{ active: registryType === 'mobile' }"
           @click="switchType('mobile')"
-          >手机注册</span
+          >{{$t('register_byphone')}}</span
         >
         <span
           :class="{ active: registryType === 'email' }"
           @click="switchType('email')"
-          >邮箱注册</span
+          >{{$t('register_byemail')}}</span
         >
       </div>
       <q-form @submit="onSubmit" class="q-mt-md" ref="registry">
@@ -19,7 +19,7 @@
           ref="account"
           v-model="registryForm.account"
           type="text"
-          :label="registryType === 'email' ? '邮箱' : '手机号'"
+          :label="registryType === 'email' ? $t('com_email') : $t('com_mobile')"
           :input-style="{ color: 'white' }"
           :maxlength="registryType === 'email' ? '' : 11"
           filled
@@ -28,13 +28,13 @@
           lazy-rules
           :rules="[
             val =>
-              !!val || `请输入${registryType === 'email' ? '邮箱' : '手机号'}`
+              !!val || `$t('com_enter')${registryType === 'email' ? $t('com_email') : $t('com_mobile')}`
           ]"
         />
         <q-input
           v-model="registryForm.code"
           type="text"
-          label="验证码"
+          :label="$t('com_captcha')"
           :input-style="{ color: 'white' }"
           maxlength="6"
           filled
@@ -42,11 +42,11 @@
           no-error-icon
           dense
           :rules="[
-            val => !!val || '请输入验证码',
-            val => !(val.length < 6) || '请输入6位数验证码'
+            val => !!val || $t('com_enter_captcha'),
+            val => !(val.length < 6) || $t('com_enter_captcha_six')
           ]"
         >
-          <template v-slot:after>
+          <template v-slot:append>
             <q-btn
               style="width: 80px"
               flat
@@ -62,15 +62,15 @@
           v-model="registryForm.password"
           :type="passwordVisible ? 'text' : 'password'"
           :input-style="{ color: 'white' }"
-          label="请设置登录密码"
+          :label="$t('com_set_password')"
           maxlength="20"
           filled
           lazy-rules
           no-error-icon
           dense
           :rules="[
-            val => !!val || '请输入密码',
-            val => !(val.length < 6) || '密码不能低于6位数',
+            val => !!val || $t('com_enter_password'),
+            val => !(val.length < 6) || $t('com_password_lessthan_six'),
             val =>
               /^(?=.*?[a-z)(?=.*>[A-Z])(?=.*?[0-9])[a-zA_Z0-9]{6,20}$/.test(
                 val

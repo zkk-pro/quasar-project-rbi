@@ -154,7 +154,7 @@ export default {
     async onSafeConfirm(code) {
       try {
         await nodeBuy({ id: this.currentNode.id, code })
-        this.$router.push({
+        this.$router.replace({
           name: 'success',
           params: { text: '锁仓成功', date: this.currentNode.interestTimeBegin }
         })

@@ -118,6 +118,9 @@ export default {
         }, 1500)
       } catch (error) {}
     }
+  },
+  created() {
+    this.validType = this.$store.getters.userinfo.securityLevel
   }
 }
 </script>

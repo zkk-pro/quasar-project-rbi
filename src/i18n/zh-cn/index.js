@@ -15,7 +15,11 @@ export default {
   com_enter_captcha_six: '请输入6数字位验证码',
   com_open: '开启',
   com_enter_phone_or_mail: '请输入手机号/邮箱',
+  com_set_password: '请设置登录密码',
   com_modify_success: '修改成功',
+  com_enter: '请输入',
+  com_enter_password: '请输入密码',
+  com_password_lessthan_six: '密码不能小于6位数',
 
   login_title: '登录RBI',
   login_password: '登录密码',
@@ -27,9 +31,11 @@ export default {
   login_reset_watch: '重置登录密码后，24小时内无法提币',
   login_reset_password: '设置新登录密码',
   login_reset: '重置密码',
-  login_set_password: '请设置登录密码',
-  login_password_lessthan_six: '密码不能小于6位数',
   login_enter_notsame: '两次输入不一致',
+
+  register_title: '注册RBI',
+  register_byphone: '手机注册',
+  register_byemail: '邮箱注册',
 
   index_more: '查看更多',
   index_description_0: 'Risk-free Basic Income（简称：RBI）',

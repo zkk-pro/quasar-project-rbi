@@ -31,6 +31,7 @@ export default {
   },
   created() {
     this.info = this.$route.params
+    this.$store.dispatch('UpdateUserInfo')
   }
 }
 </script>

@@ -83,6 +83,7 @@ module.exports = function(ctx) {
         ? { API: JSON.stringify('/api') }
         : {
           API: JSON.stringify('http://192.168.0.121:8315/api/h5/')
+          // API: JSON.stringify('/api/h5/')
         },
 
       // rtl: false, // https://quasar.dev/options/rtl-support

@@ -220,6 +220,14 @@ export default {
       } else if (Number(this.formData.amount) > Number(this.config.balance)) {
         return this.notify('提币数量不能大于可用数量')
       }
+      // 是否可提币
+      if (!this.config.withdrawStatus) {
+        return this.$q.notify({
+          message: this.config.withdrawStatusMessage,
+          icon: 'warning',
+          textColor: 'red'
+        })
+      }
       // 设置过PointerEvent
       if (this.$store.getters.userinfo.securityIsBind) {
         this.$refs.inputPINDialog.open()

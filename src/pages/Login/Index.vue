@@ -55,11 +55,11 @@
 
       <!-- 忘了密码一系列弹框 -->
       <!-- 确认框 -->
-      <Dialog :title="$t('login_reset')" ref="resetTip" @confirm="resetTipCofirm">
+      <!-- <Dialog :title="$t('login_reset')" ref="resetTip" @confirm="resetTipCofirm">
         <div class="q-pl-md" style="font-size:14px; color: #666">
           {{$t('login_reset_watch')}}
         </div>
-      </Dialog>
+      </Dialog> -->
       <!-- 账号输入 -->
       <Dialog
         :title="$t('login_reset')"
@@ -98,12 +98,12 @@
             v-model="newPwdForm.first"
             type="password"
             dense
-            :label="$t('login_set_password')"
+            :label="$t('com_set_password')"
             lazy-rules
             no-error-icon
             :rules="[
-              val => !!val || $t('login_set_password'),
-              val => !(val.length < 6) || $t('login_password_lessthan_six')
+              val => !!val || $t('com_set_password'),
+              val => !(val.length < 6) || $t('com_password_lessthan_six')
             ]"
           />
           <q-input
@@ -156,12 +156,13 @@ export default {
   methods: {
     // 忘记密码
     forgetPwd() {
-      this.$refs.resetTip.open()
-    },
-    // 忘记密码确认弹框 confirm
-    resetTipCofirm() {
+      // this.$refs.resetTip.open()
       this.$refs.resetInput.open()
     },
+    // 忘记密码确认弹框 confirm
+    // resetTipCofirm() {
+    //   this.$refs.resetInput.open()
+    // },
     // 输入手机号/邮箱
     async resetInputCofirm() {
       if (!this.forgetAccount) {

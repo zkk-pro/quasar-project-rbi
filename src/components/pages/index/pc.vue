@@ -14,10 +14,12 @@
       style="background: inherit"
     >
       <q-carousel-slide
+        class="cursor-pointer"
         v-for="(item, index) in banner"
         :key="index"
         :name="index"
         :img-src="item.img"
+        @click="linkTo(item.link)"
       />
     </q-carousel>
     <div class="notice-box flex items-center" v-if="noticeList.length > 0">
@@ -188,6 +190,10 @@ export default {
   methods: {
     getImg(src) {
       return require(`src/assets/pc_images/p_index_icon${src}.png`)
+    },
+    // 轮播图打开新页面
+    linkTo(link) {
+      window.open(link, '_blank')
     },
     async getIndexInfo() {
       const { data } = await getIndexInfo()

@@ -18,7 +18,9 @@
         :key="index"
         :name="index"
         :img-src="item.img"
-      />
+        @click="linkTo(item.link)"
+      >
+      </q-carousel-slide>
     </q-carousel>
 
     <div class="notice-box flex items-center" v-if="noticeList.length > 0">
@@ -38,7 +40,10 @@
           v-for="item in noticeList"
           :key="item.id"
         >
-          <router-link class="notice" :to="{ path: '/message-detail', query: { id: item.id }}">
+          <router-link
+            class="notice"
+            :to="{ path: '/message-detail', query: { id: item.id } }"
+          >
             <div class="notice-text">{{ item.title }}</div>
           </router-link>
         </q-carousel-slide>
@@ -125,8 +130,7 @@
         <img src="~assets/images/sheet1.png" alt="" width="100%" />
         <div class="intro-list q-ml-xs q-my-md two-icon">
           <!-- 邀请返佣 -->
-            {{ $t('index_invite') }}
-
+          {{ $t('index_invite') }}
         </div>
         <div class="intro-content q-my-md q-ml-lg">
           <p class="q-mb-sm">
@@ -152,7 +156,7 @@
         class="center-img"
       />
       <div class="intro-content q-py-md q-mt-md">
-            {{ $t('index_pos_mining') }}
+        {{ $t('index_pos_mining') }}
         <!-- POS挖矿是依据参与不同等级节点的人数按比例分配收益的。POS挖矿释放数量跟实际空投的数量有直接的关系，POS挖矿产币释放规则计算公式如下： -->
       </div>
       <img
@@ -163,12 +167,12 @@
         class="q-my-md"
       />
       <p class="text-center formula">
-            {{ $t('index_pos_trans') }}
+        {{ $t('index_pos_trans') }}
         <!-- Sn : 第n天的释放数量；N：第几天；X: 实际空投数量； P：POS年化利率 -->
       </p>
       <img src="~assets/images/sheet2.png" alt="" width="100%" />
       <p class="text-center formula q-mt-md" style="color:#fff;width:100%">
-            {{ $t('index_pos_node') }}
+        {{ $t('index_pos_node') }}
         <!-- 分阶段开放不同等级的POS节点，每个阶段的节点收益分配比例根据实际情况调整 -->
       </p>
       <q-markup-table
@@ -179,8 +183,8 @@
       >
         <thead>
           <tr>
-            <th>{{$t('index_node_level')}}</th>
-            <th>{{$t('index_node_quality')}}</th>
+            <th>{{ $t('index_node_level') }}</th>
+            <th>{{ $t('index_node_quality') }}</th>
           </tr>
         </thead>
         <tbody>
@@ -245,6 +249,10 @@ export default {
     }
   },
   methods: {
+    // 轮播图打开新页面
+    linkTo(link) {
+      window.open(link, '_blank')
+    },
     async getIndexInfo() {
       const { data } = await getIndexInfo()
       this.banner = data.banner
