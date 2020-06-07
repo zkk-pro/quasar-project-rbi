@@ -164,7 +164,9 @@ export default {
     async getNodeList() {
       const { data } = await getNodeList()
       this.nodeList = data.list.filter(item => {
-        return !item.lockStatus
+        // lockStatus 是否买过
+        // statusSale 是否可购买
+        return !item.lockStatus && item.statusSale
       })
     },
     async getUserInfo() {

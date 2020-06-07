@@ -50,11 +50,17 @@
           :label="$t('mining_lock') + '>'"
           color="dark"
           no-caps
-          :text-color="nodeData.lockStatus ? 'cyan-3' : 'primary'"
+          :disable="!nodeData.statusSale"
+          :text-color="
+            nodeData.lockStatus || nodeData.statusSale === 0
+              ? 'cyan-1'
+              : 'primary'
+          "
           style="width: 160px;height:40px"
-          :outline="!nodeData.lockStatus"
+          :outline="!nodeData.lockStatus && nodeData.statusSale === 1"
           @click="linkTo"
         />
+        <!-- lockStatus 是否买过 statusSale 是否可购买 -->
         <div
           v-if="!showBtn"
           class="gt-xs"
