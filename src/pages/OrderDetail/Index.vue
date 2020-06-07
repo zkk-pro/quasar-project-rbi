@@ -5,13 +5,15 @@
       <!-- <img src="~assets/pc_images/p_order_bg.png" class="header_bg absolute" /> -->
       <div class="container">
         <div class="earning-total">
-          <div class="q-mb-sm small-text">{{$t('order_detail_income')}}</div>
-          <Number class="lt-sm"
+          <div class="q-mb-sm small-text">{{ $t('order_detail_income') }}</div>
+          <Number
+            class="lt-sm"
             :number="orderDetail.interestNumTodal || ''"
             big-size="36px"
             small-size="30px"
           />
-          <Number class="gt-xs"
+          <Number
+            class="gt-xs"
             :number="orderDetail.interestNumTodal || ''"
             big-size="20px"
             small-size="14px"
@@ -19,26 +21,34 @@
         </div>
         <div class="row" style="margin-top: 35px">
           <div style="flex:1">
-            <div class="q-mb-sm small-text">{{$t('order_detail_today_income')}}</div>
-            <Number class="lt-sm"
+            <div class="q-mb-sm small-text">
+              {{ $t('order_detail_today_income') }}
+            </div>
+            <Number
+              class="lt-sm"
               :number="orderDetail.interestNumToday || ''"
               big-size="30px"
               small-size="18px"
             />
-            <Number class="gt-xs"
+            <Number
+              class="gt-xs"
               :number="orderDetail.interestNumToday || ''"
               big-size="20px"
               small-size="14px"
             />
           </div>
           <div style="flex:1">
-            <div class="q-mb-sm small-text">{{$t('order_detail_locked')}}</div>
-            <Number class="lt-sm"
+            <div class="q-mb-sm small-text">
+              {{ $t('order_detail_locked') }}
+            </div>
+            <Number
+              class="lt-sm"
               :number="orderDetail.num || ''"
               big-size="30px"
               small-size="18px"
             />
-            <Number class="gt-xs"
+            <Number
+              class="gt-xs"
               :number="orderDetail.num || ''"
               big-size="50px"
               small-size="50px"
@@ -51,14 +61,14 @@
             class="btn unlock-btn row justify-center items-center cursor-pointer relative-position"
             @click="unlockHandle"
           >
-            {{$t('order_detail_unlocked')}}
+            {{ $t('order_detail_unlocked') }}
           </div>
           <router-link
             v-ripple
             class="btn mining-btn row justify-center items-center relative-position"
             to="/mining"
           >
-            {{$t('order_detail_mining')}}
+            {{ $t('order_detail_mining') }}
           </router-link>
         </div>
       </div>
@@ -67,47 +77,57 @@
       <Breadcrumb class="col-xs-11 q-pl-lg gt-xs" />
       <q-list bordered class="list-box">
         <q-item clickable>
-          <q-item-section>{{$t('order_detail_node')}}</q-item-section>
+          <q-item-section>{{ $t('order_detail_node') }}</q-item-section>
           <q-item-section class="pc_color text-grey-7" style="text-align:right"
-            >V{{ orderDetail.name }}&nbsp;{{$t('order_detail_node_text')}}</q-item-section
+            >V{{ orderDetail.name }}&nbsp;{{
+              $t('order_detail_node_text')
+            }}</q-item-section
           >
         </q-item>
         <q-item clickable>
-          <q-item-section>{{$t('order_detail_date')}}</q-item-section>
+          <q-item-section>{{ $t('order_detail_date') }}</q-item-section>
           <q-item-section class="pc_color text-grey-7" style="text-align:right">
             {{ orderDetail.createTime | formatDate(true) }}
           </q-item-section>
         </q-item>
         <q-item clickable>
-          <q-item-section>{{$t('order_detail_yield')}}</q-item-section>
+          <q-item-section>{{ $t('order_detail_yield') }}</q-item-section>
           <q-item-section class="pc_color text-grey-7" style="text-align:right">
-            {{$i18n.locale == 'en-us' ? `${orderDetail.rate && (orderDetail.rate * 100).toFixed(2)}% of POS mining revenue` : `POS挖矿收益的${orderDetail.rate && (orderDetail.rate * 100).toFixed(2)}%`}}
+            {{
+              $i18n.locale == 'en-us'
+                ? `${orderDetail.rate &&
+                    (orderDetail.rate * 100).toFixed(2)}% of POS mining revenue`
+                : `POS挖矿收益的${orderDetail.rate &&
+                    (orderDetail.rate * 100).toFixed(2)}%`
+            }}
           </q-item-section>
         </q-item>
         <q-item clickable>
-          <q-item-section>{{$t('order_detail_day')}}</q-item-section>
+          <q-item-section>{{ $t('order_detail_day') }}</q-item-section>
           <q-item-section class="pc_color text-grey-7" style="text-align:right">
             {{ orderDetail.interestBeginTime | formatDate }}
           </q-item-section>
         </q-item>
         <q-item clickable v-if="orderDetail.interestEndTime">
-          <q-item-section>{{$t('order_detail_unlock_day')}}</q-item-section>
+          <q-item-section>{{ $t('order_detail_unlock_day') }}</q-item-section>
           <q-item-section class="pc_color text-grey-7" style="text-align:right">
             {{ orderDetail.interestEndTime | formatDate(true) }}
           </q-item-section>
         </q-item>
         <q-item clickable>
-          <q-item-section>{{$t('order_detail_hold_day')}}</q-item-section>
+          <q-item-section>{{ $t('order_detail_hold_day') }}</q-item-section>
           <q-item-section class="pc_color text-grey-7" style="text-align:right">
-            {{ orderDetail.interestTimes }} {{$t('order_detail_day_text')}}
+            {{ orderDetail.interestTimes }} {{ $t('order_detail_day_text') }}
           </q-item-section>
         </q-item>
         <q-item clickable>
-          <q-item-section>{{$t('order_detail_status')}}</q-item-section>
+          <q-item-section>{{ $t('order_detail_status') }}</q-item-section>
           <q-item-section class="pc_color text-grey-7" style="text-align:right">
             <span v-if="orderDetail.status === 0">{{ $t('com_over') }}</span>
-          <span v-if="orderDetail.status === 1">{{ $t('com_Holding') }}</span>
-          <span v-if="orderDetail.status === 2">{{ $t('com_Unlocked') }}</span>
+            <span v-if="orderDetail.status === 1">{{ $t('com_Holding') }}</span>
+            <span v-if="orderDetail.status === 2">{{
+              $t('com_Unlocked')
+            }}</span>
           </q-item-section>
         </q-item>
       </q-list>
@@ -153,7 +173,7 @@ export default {
         if (data.unlockEnable === 0) {
           return this.$q.notify({ message: this.$t('notify_lock') })
         } else if (data.unlockEnable === 2) {
-          return this.$q.notify({ message: this.$t('notify_unlocke') })
+          return this.$q.notify({ message: this.$t('notify_unlock') })
         }
         // 可以解锁
         this.safeShow = true
@@ -162,7 +182,13 @@ export default {
     async onSafeConfirm(code) {
       try {
         await unlock({ id: this.id, code })
-        this.$router.push({ name: 'success', params: { text: this.$t('Unlocked successfully') } })
+        this.$router.push({
+          name: 'success',
+          params: {
+            text: this.$t('notify_lock_success'),
+            path: '/mining-order'
+          }
+        })
       } catch (error) {}
     },
     async getOrderDetail() {
@@ -197,14 +223,14 @@ export default {
     background-size: 100% 100%;
     align-items: initial;
   }
-  .small-text{
-    font-size: 12px
+  .small-text {
+    font-size: 12px;
   }
 }
-.small-text{
-    font-size: 16px
-  }
-.container{
+.small-text {
+  font-size: 16px;
+}
+.container {
   width: 800px;
 }
 .list-container {
