@@ -5,7 +5,7 @@ export default {
   com_phone: '手机',
   com_captcha: '验证码',
   com_over: '已结束',
-  com_Holding: '已持有',
+  com_Holding: '持有中',
   com_Unlocked: '已解锁',
   com_google_code: '谷歌验证码',
   com_get_code: '获取验证码',

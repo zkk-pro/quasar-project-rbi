@@ -1,14 +1,14 @@
 <template>
   <q-page class="q-px-lg row justify-center">
     <div class="form-box">
-      <div class="title">{{$t('login_title')}}</div>
+      <div class="title">{{ $t('login_title') }}</div>
       <q-form @submit="onSubmit" style="margin-top: 35px" ref="login">
         <q-input
           v-model="loginForm.account"
           class="full-width"
           type="text"
           :maxlength="32"
-          :label="$t('com_mobile')+'/'+$t('com_email')"
+          :label="$t('com_mobile') + '/' + $t('com_email')"
           :input-style="{ color: 'white' }"
           no-error-icon
           :rules="[val => !!val || $t('com_enter_phone_or_mail')]"
@@ -45,11 +45,13 @@
       <q-list>
         <q-item class="q-mt-md">
           <q-item-section class="text-right text-primary q-mr-lg">
-            <span class="cursor-pointer" @click="forgetPwd">{{$t('login_forget_password')}}</span>
+            <span class="cursor-pointer" @click="forgetPwd">{{
+              $t('login_forget_password')
+            }}</span>
           </q-item-section>
           <q-separator inset vertical class="bg-primary" />
           <q-item-section class="text-primary q-ml-lg">
-            <router-link to="/registry">{{$t('login_register')}}</router-link>
+            <router-link to="/registry">{{ $t('login_register') }}</router-link>
           </q-item-section>
         </q-item>
       </q-list>
@@ -114,7 +116,9 @@
             :label="$t('com_enter_password_again')"
             lazy-rules
             no-error-icon
-            :rules="[val => val === newPwdForm.first || $t('com_enter_notsame')]"
+            :rules="[
+              val => val === newPwdForm.first || $t('com_enter_notsame')
+            ]"
           />
         </q-form>
       </Dialog>
@@ -145,7 +149,8 @@ export default {
       newPwdForm: {
         first: '',
         second: ''
-      }
+      },
+      isLogin: false
     }
   },
   components: { Dialog },
@@ -158,6 +163,7 @@ export default {
     // 忘记密码
     forgetPwd() {
       // this.$refs.resetTip.open()
+      this.isLogin = false
       this.$refs.resetInput.open()
     },
     // 忘记密码确认弹框 confirm
@@ -181,10 +187,20 @@ export default {
       } catch (error) {}
     },
     // 安全验证
-    onSafeConfirm(code) {
-      this.resetPwdParams.validCode = code
-      this.safeShow = false
-      this.$refs.resetSetPwd.open()
+    async onSafeConfirm(code) {
+      if (this.isLogin) {
+        const res = await this.$refs.login.validate()
+        if (res) {
+          this.loginForm.code = code
+          await this.$store.dispatch('Login', this.loginForm)
+          await this.$store.dispatch('UpdateUserInfo')
+          this.$router.push({ path: this.fromPath })
+        }
+      } else {
+        this.resetPwdParams.validCode = code
+        this.safeShow = false
+        this.$refs.resetSetPwd.open()
+      }
     },
     // 设置新密码
     async resetSetPwdCofirm() {
@@ -206,12 +222,13 @@ export default {
       }
     },
     async onSubmit() {
-      const res = await this.$refs.login.validate()
-      if (res) {
-        await this.$store.dispatch('Login', this.loginForm)
-        await this.$store.dispatch('UpdateUserInfo')
-        this.$router.push({ path: this.fromPath })
-      }
+      const { data } = await getAccountSafeLevel({
+        account: this.loginForm.account
+      })
+      this.securityLevel = data.securityLevel
+      this.$store.dispatch('SetUserInfo', data)
+      this.isLogin = true
+      this.safeShow = true
     }
   }
 }
