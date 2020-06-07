@@ -35,12 +35,12 @@
             <q-item-section>{{$t('footer_contact')}}</q-item-section>
           </q-item>
           <q-item class="q-py-none">
-            <q-item-section style="width: 100px; height: 100px">
+            <q-item-section>
               <img
                 src="~assets/pc_images/service-1.jpeg"
                 alt=""
-                width="100%"
-                height="100%"
+                width="100px"
+                height="100px"
               />
             </q-item-section>
           </q-item>
@@ -55,12 +55,12 @@
             <q-item-section></q-item-section>
           </q-item>
           <q-item class="q-py-none">
-            <q-item-section style="width: 100px; height: 100px">
+            <q-item-section>
                 <img
                   src="~assets/pc_images/service-2.jpeg"
                   alt=""
-                  width="100%"
-                  height="100%"
+                  width="100px"
+                  height="100px"
                 />
             </q-item-section>
           </q-item>
@@ -103,9 +103,9 @@ export default {
     return {
       menu: [
         { text: 'footer_home', path: '/' },
-        { text: 'footer_miningPOS挖矿', path: '/mining' },
-        { text: 'footer_assets总资产', path: '/assets' },
-        { text: 'footer_notice公告', path: '/message-list' }
+        { text: 'footer_mining', path: '/mining' },
+        { text: 'footer_assets', path: '/assets' },
+        { text: 'footer_notice', path: '/message-list' }
       ]
     }
   }

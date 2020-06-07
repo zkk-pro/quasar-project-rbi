@@ -8,16 +8,15 @@
       />
     </div>
     <p class="text">
-      谷歌验证器是一款动态口令工具，工作原理类
-      似短信动态验证。当您开启谷歌验证之后，将
-      优先使用谷歌验证代替短信/邮箱验证。
+      {{$t('googel_validator')}}
     </p>
     <q-btn
       class="full-width"
       rounded
+      no-caps
       color="primary"
       text-color="dark"
-      label="立即开启"
+      :label="$t('googel_open')"
       style="max-width: 315px; height:46px; margin-top:80px;font-weight: bold"
       replace
       to="/g-validator"

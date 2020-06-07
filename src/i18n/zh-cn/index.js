@@ -1,12 +1,19 @@
 export default {
   com_email: '邮箱号',
   com_mobile: '手机号',
+  com_mailbox: '邮箱',
+  com_phone: '手机',
   com_captcha: '验证码',
   com_over: '已结束',
   com_Holding: '已持有',
   com_Unlocked: '已解锁',
   com_google_code: '谷歌验证码',
   com_get_code: '获取验证码',
+  com_cancel: '取消',
+  com_confirm: '确定',
+  com_enter_captcha: '请输入验证码',
+  com_enter_captcha_six: '请输入6数字位验证码',
+  com_open: '开启',
 
   index_more: '查看更多',
   index_description_0: 'Risk-free Basic Income（简称：RBI）',
@@ -132,8 +139,6 @@ export default {
   userinfo_close: '关闭',
   userinfo_google_verify: '谷歌验证',
   userinfo_safe: '安全验证',
-  userinfo_enter_captcha: '请输入验证码',
-  userinfo_enter_captcha_six: '请输入6数位验证码',
 
   modify_pin_origin: '原PIN码',
   modify_pin_new: '新PIN码',
@@ -152,5 +157,33 @@ export default {
   footer_contact: '联系我们',
   footer_kefu1: '微信官方客服 1',
   footer_kefu2: '微信官方客服 2',
-  footer_group: '海外电报群'
+  footer_group: '海外电报群',
+  footer_home: '首页',
+  footer_mining: 'POS挖矿',
+  footer_assets: '总资产',
+  footer_notice: '公告',
+
+  header_exit: '退出',
+  header_register: '注册',
+  header_login: '登录',
+  header_leftmenu1: '首页',
+  header_leftmenu2: 'POS挖矿',
+  header_leftmenu3: '总资产',
+  header_rightmenu1: '挖矿订单',
+  header_rightmenu2: '收益明细',
+  header_rightmenu3: '个人中心',
+
+  exit_success: '退出成功',
+
+  googel_validator: '谷歌验证器是一款动态口令工具，工作原理类似短信动态验证。当您开启谷歌验证之后，将优先使用谷歌验证代替短信/邮箱验证。',
+  googel_open: '立即开启',
+  googel_step1: '在应用商店中搜索“Google Authenticator”应用并下载。',
+  googel_step2: '打开谷歌验证器，填入您的RBI账号，并扫描下方二维码或手动输入下方密钥。',
+  googel_step3: '输入谷歌验证器中6位验证码。',
+  googel_tips: '密钥用于手机更换或遗失找回谷歌验证器，绑定前请务必将密钥备份保存。',
+  googel_new: '新',
+  googel_copy_success: '复制成功',
+  googel_copy_fail: '复制失败，请刷新网页重试',
+  googel_resend: '重新获取',
+  googel_googel_open_success: '谷歌验证器开启成功'
 }

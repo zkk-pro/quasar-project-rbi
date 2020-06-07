@@ -54,7 +54,7 @@
           unelevated
           no-caps
           color="primary"
-          :label="$t('assets_calcel')"
+          :label="$t('com_cancel')"
           class="q-mr-lg"
           style="width: 120px; height:36px"
           @click="$emit('cancel')"
@@ -65,7 +65,7 @@
           no-caps
           color="primary"
           text-color="dark"
-          :label="$t('assets_confirm')"
+          :label="$t('com_confirm')"
           style="width: 120px; height:36px"
         />
       </div>
