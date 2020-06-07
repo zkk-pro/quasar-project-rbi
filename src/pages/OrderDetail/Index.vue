@@ -105,7 +105,9 @@
         <q-item clickable>
           <q-item-section>{{$t('order_detail_status')}}</q-item-section>
           <q-item-section class="pc_color text-grey-7" style="text-align:right">
-            {{ orderDetail.status | transStatus }}
+            <span v-if="orderDetail.status === 0">{{ $t('com_over') }}</span>
+          <span v-if="orderDetail.status === 1">{{ $t('com_Holding') }}</span>
+          <span v-if="orderDetail.status === 2">{{ $t('com_Unlocked') }}</span>
           </q-item-section>
         </q-item>
       </q-list>
@@ -131,8 +133,7 @@ export default {
     return {
       id: 0,
       safeShow: false, // 安全验证弹框
-      orderDetail: {}, // 订单详情数据
-      lang: ''
+      orderDetail: {} // 订单详情数据
     }
   },
   components: { Number, SafeValidate, Breadcrumb },
@@ -152,16 +153,6 @@ export default {
       // } else if (status === 2) {
       //   return '已解锁'
       // }
-      if (status === 0) {
-        var text = this.lang === 'en-us' ? 'over' : '已结束'
-        return text
-      } else if (status === 1) {
-        var text1 = this.lang === 'en-us' ? 'Holding' : '持有中'
-        return text1
-      } else if (status === 2) {
-        var text2 = this.lang === 'en-us' ? 'Unlocked' : '已解锁'
-        return text2
-      }
     }
   },
   methods: {
@@ -193,7 +184,6 @@ export default {
     this.validType = this.$store.getters.userinfo.securityLevel
     this.id = this.$route.query.id
     this.getOrderDetail()
-    this.lang = this.$i18n.locale
   }
 }
 </script>

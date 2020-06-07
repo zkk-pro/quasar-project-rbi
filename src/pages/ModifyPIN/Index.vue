@@ -102,7 +102,7 @@ export default {
           pinCodeUpdate: this.form.new
         })
         this.$q.notify({
-          message: this.$t('modify_success'),
+          message: this.$t('com_modify_success'),
           icon: 'done',
           textColor: 'green'
         })

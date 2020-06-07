@@ -24,7 +24,7 @@
               v-model="form.googleCode"
               filled
               dense
-              :prefix="`${isBind ? $t('googel_new') : ''}$t('com_google_code')`"
+              :prefix="`${isBind ? $t('googel_new') : ''}${$t('com_google_code')}`"
               maxlength="6"
               :input-style="{ color: 'white' }"
               :placeholder="$t('com_enter_captcha')"
@@ -38,7 +38,7 @@
               v-model="form.code"
               filled
               dense
-              :prefix="`${userTypeText}$t('com_captcha')`"
+              :prefix="`${userTypeText}${$t('com_captcha')}`"
               maxlength="6"
               :input-style="{ color: 'white' }"
               :placeholder="$t('com_enter_captcha')"
@@ -69,7 +69,7 @@
               no-caps
               text-color="dark"
               class="confrim-btn"
-              :label="`$t('com_confirm')${isBind ? $t('com_reset'): $t('com_open')}`"
+              :label="`${$t('com_confirm')}${isBind ? $t('com_reset'): $t('com_open')}`"
             />
           </q-form>
         </div>
@@ -89,7 +89,7 @@ export default {
       userType: '', // 用户注册类型
       isBind: false, // 是否绑定
       codeBtnDisabled: false, // 发送验证按钮禁用
-      codeBtnLabel: '获取验证码', // 获取验证码按钮文字
+      codeBtnLabel: '', // 获取验证码按钮文字
       timer: null,
       form: {
         googleCode: '',
@@ -174,6 +174,7 @@ export default {
     this.getGoogleAuth()
     this.userType = this.$store.getters.userinfo.type
     this.isBind = this.$store.getters.userinfo.securityGoogleIsBind
+    this.codeBtnLabel = this.$t('com_get_code')
   }
 }
 </script>
@@ -186,7 +187,9 @@ export default {
 /deep/ .q-placeholder::placeholder {
   color: rgba(255, 255, 255, 0.2);
 }
-
+/deep/ .q-field__native{
+  flex: 1;
+}
 .getcode-btn /deep/ .q-btn__wrapper {
   padding: 0;
 }

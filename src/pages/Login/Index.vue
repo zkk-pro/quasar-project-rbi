@@ -1,25 +1,25 @@
 <template>
   <q-page class="q-px-lg row justify-center">
     <div class="form-box">
-      <div class="title">登录RBI</div>
+      <div class="title">{{$t('login_title')}}</div>
       <q-form @submit="onSubmit" style="margin-top: 35px" ref="login">
         <q-input
           v-model="loginForm.account"
           class="full-width"
           type="text"
-          label="手机号/邮箱"
+          :label="$t('com_mobile')+'/'+$t('com_email')"
           :input-style="{ color: 'white' }"
           no-error-icon
-          :rules="[val => !!val || '请输入手机号/邮箱']"
+          :rules="[val => !!val || $t('com_enter_phone_or_mail')]"
         />
         <q-input
           v-model="loginForm.password"
           class="full-width "
           :type="pwdVisible ? 'text' : 'password'"
-          label="登录密码"
+          :label="$t('login_password')"
           :input-style="{ color: 'white' }"
           no-error-icon
-          :rules="[val => !!val || '请输入登录密码']"
+          :rules="[val => !!val || $t('login_enter_password')]"
         >
           <template v-slot:append>
             <div
@@ -35,7 +35,8 @@
           text-color="dark"
           rounded
           unelevated
-          label="登录"
+          no-caps
+          :label="$t('login_login')"
           class="btn-style full-width"
           style="margin-top:60px"
         />
@@ -43,25 +44,25 @@
       <q-list>
         <q-item class="q-mt-md">
           <q-item-section class="text-right text-primary q-mr-lg">
-            <span class="cursor-pointer" @click="forgetPwd">忘记密码</span>
+            <span class="cursor-pointer" @click="forgetPwd">{{$t('login_forget_password')}}</span>
           </q-item-section>
           <q-separator inset vertical class="bg-primary" />
           <q-item-section class="text-primary q-ml-lg">
-            <router-link to="/registry">用户注册</router-link>
+            <router-link to="/registry">{{$t('login_register')}}</router-link>
           </q-item-section>
         </q-item>
       </q-list>
 
       <!-- 忘了密码一系列弹框 -->
       <!-- 确认框 -->
-      <Dialog title="重置登录密码" ref="resetTip" @confirm="resetTipCofirm">
+      <Dialog :title="$t('login_reset')" ref="resetTip" @confirm="resetTipCofirm">
         <div class="q-pl-md" style="font-size:14px; color: #666">
-          重置登录密码后，24小时内无法提币
+          {{$t('login_reset_watch')}}
         </div>
       </Dialog>
       <!-- 账号输入 -->
       <Dialog
-        title="重置登录密码"
+        :title="$t('login_reset')"
         ref="resetInput"
         confirmHold
         @confirm="resetInputCofirm"
@@ -71,11 +72,11 @@
           class="q-px-md"
           v-model="forgetAccount"
           autofocus
-          label="请输入邮箱或手机号"
+          :label="$t('com_enter_phone_or_mail')"
           lazy-rules
           no-error-icon
           :error="resetInputErr && !forgetAccount.length"
-          error-message="请输入邮箱或手机号"
+          :error-message="$t('com_enter_phone_or_mail')"
         />
       </Dialog>
       <!-- 安全验证 -->
@@ -86,7 +87,7 @@
       />
       <!-- 设置新的密码 -->
       <Dialog
-        title="设置新登录密码"
+        :title="$t('login_reset_password')"
         ref="resetSetPwd"
         confirmHold
         @confirm="resetSetPwdCofirm"
@@ -97,22 +98,22 @@
             v-model="newPwdForm.first"
             type="password"
             dense
-            label="请设置登录密码"
+            :label="$t('login_set_password')"
             lazy-rules
             no-error-icon
             :rules="[
-              val => !!val || '请设置登录密码',
-              val => !(val.length < 6) || '密码不能小于6位数'
+              val => !!val || $t('login_set_password'),
+              val => !(val.length < 6) || $t('login_password_lessthan_six')
             ]"
           />
           <q-input
             v-model="newPwdForm.second"
             type="password"
             dense
-            label="请再次输入登录密码"
+            :label="$t('login_enter_password_again')"
             lazy-rules
             no-error-icon
-            :rules="[val => val === newPwdForm.first || '两次输入不一致']"
+            :rules="[val => val === newPwdForm.first || $t('login_enter_notsame')]"
           />
         </q-form>
       </Dialog>
@@ -194,7 +195,7 @@ export default {
             code: this.resetPwdParams.validCode
           })
           this.$q.notify({
-            message: '修改成功',
+            message: this.$t('com_modify_success'),
             icon: 'done',
             textColor: 'green'
           })
