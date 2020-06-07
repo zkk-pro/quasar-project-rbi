@@ -10,5 +10,9 @@ export default {
   // 更新用户信息
   updateUserInfo(state, userinfo) {
     state.userinfo = userinfo
+  },
+  // 改变语言
+  changeLanguage(state, language) {
+    state.language = language
   }
 }

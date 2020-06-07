@@ -35,5 +35,10 @@ export default {
           reject(err)
         })
     })
+  },
+  // 改变语言
+  ChangeLanguage({ commit }, language) {
+    Cookies.set('language', language)
+    commit('changeLanguage', language)
   }
 }
