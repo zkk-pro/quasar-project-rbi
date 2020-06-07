@@ -16,6 +16,7 @@ export default {
   com_enter_captcha: '请输入验证码',
   com_enter_captcha_six: '请输入6数字位验证码',
   com_open: '开启',
+  com_reset: '重置',
   com_enter_phone_or_mail: '请输入手机号/邮箱',
   com_set_password: '请设置登录密码',
   com_modify_success: '修改成功',

@@ -162,11 +162,11 @@ export default {
             code: this.form.googleCode,
             captcha: this.form.code
           })
-          this.$router.push({
+          this.$router.replace({
             name: 'success',
             params: {
               text: this.$t('googel_googel_open_success'),
-              back: this.isBind ? -2 : -2
+              path: '/user-info'
             }
           })
         } catch (error) {}

@@ -5,7 +5,7 @@
     </div>
     <div class="q-mt-md q-mb-sm" style="font-size:17px; font-weight:bold;">{{info.text}}</div>
     <div class="text-primary" style="height:14px">
-      <span v-if="info.date&&lang == 'en-us'">Expected to start calculating revenue in {{currentNode.interestTimeBegin | formatDate}}</span>
+      <span v-if="info.date && $i18n.locale == 'en-us'">Expected to start calculating revenue in {{currentNode.interestTimeBegin | formatDate}}</span>
       <span v-if="info.date">预计{{info.date | formatDate}}开始计算收益</span>
       </div>
     <q-btn
@@ -14,7 +14,7 @@
       color="primary"
       text-color="dark"
       style="width:315px; height:46px; font-size:16px; margin-top:80px"
-      @click="$router.go(info.back ? info.back: -1)"
+      @click="$router.replace(info.path)"
     />
   </q-page>
 </template>

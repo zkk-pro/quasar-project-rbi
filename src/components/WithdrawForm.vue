@@ -199,7 +199,7 @@ export default {
           pinCode: this.PIN,
           code
         })
-        this.$router.push({ name: 'success', params: { text: this.$t('com_submit_success') } })
+        this.$router.push({ name: 'success', params: { text: this.$t('com_submit_success'), path: '/assets' } })
       } catch (error) {}
     },
     inputPINFocus() {

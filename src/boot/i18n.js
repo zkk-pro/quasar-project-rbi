@@ -5,8 +5,6 @@ import store from 'src/store'
 
 Vue.use(VueI18n)
 
-console.log('store: ', store().getters.language)
-
 const i18n = new VueI18n({
   locale: store().getters.language,
   fallbackLocale: store().getters.language,

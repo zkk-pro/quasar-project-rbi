@@ -19,6 +19,7 @@ export default {
   com_enter_captcha: 'Please enter verification code',
   com_enter_captcha_six: 'Please Enter 6-digit code',
   com_open: 'Open',
+  com_reset: 'Reset',
   com_enter_phone_or_mail: 'Please enter your mobile phone number/email',
   com_modify_success: 'Successfully modified',
   com_enter: 'Please enter',

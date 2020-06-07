@@ -156,7 +156,7 @@ export default {
         await nodeBuy({ id: this.currentNode.id, code })
         this.$router.replace({
           name: 'success',
-          params: { text: this.$t('com_lock_success'), date: this.currentNode.interestTimeBegin }
+          params: { text: this.$t('com_lock_success'), date: this.currentNode.interestTimeBegin, path: '/mining' }
         })
       } catch (error) {}
     },
@@ -174,7 +174,7 @@ export default {
     }
   },
   created() {
-    this.currentNodeId = this.$route.query.id
+    this.currentNodeId = Number(this.$route.query.id)
     this.getUserInfo()
     this.getNodeList()
     this.lang = this.$i18n.locale
