@@ -16,6 +16,7 @@ export default {
   com_enter_captcha: '请输入验证码',
   com_enter_captcha_six: '请输入6数字位验证码',
   com_open: '开启',
+  com_reset: '重置',
   com_enter_phone_or_mail: '请输入手机号/邮箱',
   com_set_password: '请设置登录密码',
   com_modify_success: '修改成功',
@@ -138,6 +139,7 @@ export default {
   mining_total_output: '总产出量',
   mining_lock: '去锁仓',
   mining_node: '节点',
+  mining_tips_once: '每个节点只能购买一次',
 
   lock_position_node: '锁仓节点',
   lock_position_num: '锁仓数量',
@@ -146,6 +148,7 @@ export default {
   lock_position_available: '可用',
   lock_position_revenue: '瓜分POS挖矿收益',
   lock_position_confirm: '确定',
+  lock_confirm: '确定锁仓',
   lock_position_confirm_mining: '确定挖矿',
 
   assets_record: '交易记录',
@@ -155,7 +158,7 @@ export default {
   assets_address: '对方地址',
   assets_id: '交易ID',
   assets_recharge_address: 'RBI充币',
-  assets_my_address: '我的RBI充币',
+  assets_my_address: '我的RBI地址',
   assets_copy: '复制地址',
   assets_qrcode: '二维码',
   assets_withdrawRBI: 'RBI提币',
@@ -188,6 +191,7 @@ export default {
   order_detail_hold_day: '持有天数',
   order_detail_day_text: '天',
   order_detail_status: '状态',
+  order_detail_lock: '确定解锁',
 
   earning_detail: '收益明细',
 

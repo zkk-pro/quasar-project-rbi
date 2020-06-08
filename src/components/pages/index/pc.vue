@@ -5,8 +5,8 @@
       v-model="currentImg"
       infinite
       keep-alive
-      autoplay
       swipeable
+      autoplay
       animated
       navigation
       transition-prev="slide-right"
@@ -20,6 +20,7 @@
         :name="index"
         :img-src="item.img"
         @click="linkTo(item.link)"
+        style="background-size:100% 100%"
       />
     </q-carousel>
     <div class="notice-box flex items-center" v-if="noticeList.length > 0">
@@ -244,7 +245,7 @@ export default {
   margin: 0;
 }
 .color1 {
-  color: #00e6ff;
+  color: #00e6ff !important;
 }
 .q-page {
   background: rgba(24, 24, 55, 1);

@@ -16,16 +16,15 @@
     <div style="max-width: 1200px; margin: 0 auto">
       <div
         class="row justify-between items-center full-width"
-        style="height: 100px"
       >
-        <div class="row justify-center items-center " style="flex: 1">
+        <div class="row justify-center items-center box-item">
           <div class="row items-cneter justify-center col-sm-6 col-xs-12">
             <q-icon name="img:statics/icons/output-icon.png"></q-icon>
             <span class="output-text">{{$t('mining_output')}}</span>
           </div>
           <Number class="col-sm-6 text-center" :number="todayTotal" />
         </div>
-        <div class="row justify-center items-center " style="flex: 1">
+        <div class="row justify-center items-center box-item">
           <div class="row items-cneter justify-center col-sm-6 col-xs-12">
             <q-icon name="img:statics/icons/output-icon.png"></q-icon>
             <span class="output-text">{{$t('mining_total_output')}}</span>
@@ -61,7 +60,6 @@ export default {
   methods: {
     getBannerImg() {
       var en = this.$i18n.locale === 'en-us' ? 'en' : 'zh'
-      console.log(en)
       return require(`src/assets/pc_images/p-mining-banner_${en}.png`)
     },
     async getNodeList() {
@@ -78,6 +76,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.screen--xs .box-item{
+  height: 100px;
+  flex: 1;
+  margin: 0;
+}
+.box-item{
+  width: 49%;
+  height: 120px;
+  margin: 60px 0 30px;
+  background:rgba(26,26,60,1);
+}
 .output-text {
   color: #50baf6;
   font-size: 13px;

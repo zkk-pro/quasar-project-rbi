@@ -3,10 +3,10 @@
     <div class="validator-wrapper row justify-center">
       <div class="validator-list">
         <p class="one-icon">
-          {{$t('googel_step1')}}
+          {{ $t('googel_step1') }}
         </p>
         <p class="two-icon">
-          {{$t('googel_step2')}}
+          {{ $t('googel_step2') }}
         </p>
         <div class="column items-center">
           <img class="qr-code" :src="googleAuth.secretQrCode" alt="" />
@@ -15,23 +15,26 @@
           </div>
         </div>
         <p class="q-mt-md">
-          {{$t('googel_tips')}}
+          {{ $t('googel_tips') }}
         </p>
-        <p class="q-mt-md three-icon">{{$t('googel_step3')}}</p>
+        <p class="q-mt-md three-icon">{{ $t('googel_step3') }}</p>
         <div style="padding-left: 18px">
           <q-form @submit="onSubmit" ref="bindForm" class="column">
             <q-input
               v-model="form.googleCode"
               filled
               dense
-              :prefix="`${isBind ? $t('googel_new') : ''}${$t('com_google_code')}`"
+              :prefix="
+                `${isBind ? $t('googel_new') : ''}${$t('com_google_code')}`
+              "
               maxlength="6"
               :input-style="{ color: 'white' }"
               :placeholder="$t('com_enter_captcha')"
               lazy-rules
               no-error-icon
               :rules="[
-                val => (!!val && !(val.length < 6)) || $t('com_enter_captcha_six')
+                val =>
+                  (!!val && !(val.length < 6)) || $t('com_enter_captcha_six')
               ]"
             />
             <q-input
@@ -45,7 +48,8 @@
               lazy-rules
               no-error-icon
               :rules="[
-                val => (!!val && !(val.length < 6)) || $t('com_enter_captcha_six')
+                val =>
+                  (!!val && !(val.length < 6)) || $t('com_enter_captcha_six')
               ]"
             >
               <template v-solot:prepend>
@@ -53,6 +57,7 @@
                   <q-btn
                     flat
                     stack
+                    no-caps
                     :disable="codeBtnDisabled"
                     color="primary"
                     :label="codeBtnLabel"
@@ -69,7 +74,11 @@
               no-caps
               text-color="dark"
               class="confrim-btn"
-              :label="`${$t('com_confirm')}${isBind ? $t('com_reset'): $t('com_open')}`"
+              :label="
+                `${$t('com_confirm')}${
+                  isBind ? $t('com_reset') : $t('com_open')
+                }`
+              "
             />
           </q-form>
         </div>
@@ -186,7 +195,7 @@ export default {
 /deep/ .q-placeholder::placeholder {
   color: rgba(255, 255, 255, 0.2);
 }
-/deep/ .q-field__native{
+/deep/ .q-field__native {
   flex: 1;
 }
 .getcode-btn /deep/ .q-btn__wrapper {

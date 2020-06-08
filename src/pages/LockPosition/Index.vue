@@ -88,7 +88,7 @@
       </q-card>
     </div>
 
-    <Dialog ref="confirmDialog" :title="$t('lock_position_confirm_mining')" @confirm="onConfirm">
+    <Dialog ref="confirmDialog" :title="$t('lock_confirm')" @confirm="onConfirm">
       <div class="lock-num row justify-center items-end">
         <strong>{{ currentNode.num }}</strong
         >RBI
@@ -115,7 +115,7 @@ export default {
     return {
       showConfirm: false, // 显示确认弹框
       showSafeDialog: false, // 显示安全验证弹框
-      currentNodeId: 2, // 当前选择的节点
+      currentNodeId: 0, // 当前选择的节点
       nodeList: [], // 节点列
       canUseRBI: 0, // 可用RBI
       validType: 2, // 验证类型，1:google; 2:phone; 3:email
@@ -156,15 +156,18 @@ export default {
         await nodeBuy({ id: this.currentNode.id, code })
         this.$router.replace({
           name: 'success',
-          params: { text: this.$t('com_lock_success'), date: this.currentNode.interestTimeBegin }
+          params: { text: this.$t('com_lock_success'), date: this.currentNode.interestTimeBegin, path: '/mining' }
         })
       } catch (error) {}
     },
     // 获取节点列表
     async getNodeList() {
       const { data } = await getNodeList()
-      this.nodeList = data.list
-      this.currentNodeId = data.list[0].id
+      this.nodeList = data.list.filter(item => {
+        // lockStatus 是否买过
+        // statusSale 是否可购买
+        return !item.lockStatus && item.statusSale
+      })
     },
     async getUserInfo() {
       const { data } = await this.$store.dispatch('UpdateUserInfo')
@@ -173,6 +176,7 @@ export default {
     }
   },
   created() {
+    this.currentNodeId = Number(this.$route.query.id)
     this.getUserInfo()
     this.getNodeList()
     this.lang = this.$i18n.locale

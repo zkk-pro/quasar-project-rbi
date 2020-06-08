@@ -64,7 +64,6 @@ export default {
     },
     // 确认按钮
     confirm() {
-      console.log(this.confirmHold)
       if (this.confirmHold) {
         this.$emit('confirm')
       } else {

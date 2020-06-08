@@ -19,6 +19,7 @@ export default {
   com_enter_captcha: 'Please enter verification code',
   com_enter_captcha_six: 'Please Enter 6-digit code',
   com_open: 'Open',
+  com_reset: 'Reset',
   com_enter_phone_or_mail: 'Please enter your mobile phone number/email',
   com_modify_success: 'Successfully modified',
   com_enter: 'Please enter',
@@ -84,7 +85,7 @@ export default {
   p_node_line: 'p_node_line_en',
   p_sheet1: 'p_sheet1_en',
   p_sheet2: 'p_sheet2_en',
-  index_more: 'see more',
+  index_more: 'See more',
   index_description_0: 'Risk-free Basic Income (abbreviation: RBI) ',
   index_description_1:
     'aims to create an inclusive financial system in which everyone is equal, mutually beneficial, and everyone has basic income security. In the decentralized blockchain world, the relationship between people is trustworthy, free and transparent. We are convinced that information based on the decentralized trust link on the chain can generate value, which is also Core value in the era of big data. In the world of blockchain, the relationship between people is equal and free, and they can participate in any exchange of information. Therefore, we establish a new financial system and gather data to generate value. We rely on the blockchain to re-enable the value of data brought by information exchange, and with the help of its decentralized token economic model, we create a inclusive financial system that has a risk-free basic income for everyone. You can get a basic risk-free basic income guarantee RBI.',
@@ -118,13 +119,13 @@ export default {
     {
       img: 1,
       title: 'Total RBI issuance',
-      bill: 'issued 300 million coins',
+      bill: 'Issued 300 million coins',
       detail: 'Constant'
     },
     {
       img: 2,
-      title: 'airdrop',
-      bill: 'issued 150 million coins',
+      title: 'Airdrop',
+      bill: 'Issued 150 million coins',
       detail:
         'One million of them are used for the Spark Fire market activities'
     },
@@ -148,6 +149,7 @@ export default {
   mining_total_output: 'Total output',
   mining_lock: 'Lock out',
   mining_node: 'node',
+  mining_tips_once: 'Each node can only be purchased once',
 
   lock_position_node: 'Hedging node',
   lock_position_num: 'Number of locks',
@@ -156,6 +158,7 @@ export default {
   lock_position_available: 'Available',
   lock_position_revenue: 'Divide POS mining revenue',
   lock_position_confirm: 'Determine',
+  lock_confirm: 'Confirm lock',
   lock_position_confirm_mining: 'Determine mining',
 
   assets_record: 'Transaction Record',
@@ -196,6 +199,7 @@ export default {
   order_detail_hold_day: 'Holding days',
   order_detail_day_text: 'day',
   order_detail_status: 'status',
+  order_detail_lock: 'Sure unlock',
 
   earning_detail: 'Revenue breakdown',
 
@@ -209,7 +213,7 @@ export default {
   userinfo_set: 'To set',
   userinfo_close: 'close',
   userinfo_google_verify: 'Google Authenticator',
-  userinfo_safe: 'safety verification',
+  userinfo_safe: 'Safety verification',
 
   modify_pin_origin: 'original PIN code',
   modify_pin_new: 'new PIN code',

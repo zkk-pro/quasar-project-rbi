@@ -19,6 +19,7 @@
         :name="index"
         :img-src="item.img"
         @click="linkTo(item.link)"
+        style="background-size:100% 100%"
       >
       </q-carousel-slide>
     </q-carousel>
@@ -241,7 +242,7 @@ export default {
   methods: {
     // 轮播图打开新页面
     linkTo(link) {
-      window.open(link, '_blank')
+      if (link !== '#') window.open(link, '_blank')
     },
     async getIndexInfo() {
       const { data } = await getIndexInfo()

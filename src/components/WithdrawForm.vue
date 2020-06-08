@@ -1,8 +1,8 @@
 <template>
   <div class="q-px-md recharge-box">
-    <div class="q-mb-sm pc_title">{{$t('assets_withdrawRBI')}}</div>
+    <div class="q-mb-sm pc_title">{{ $t('assets_withdrawRBI') }}</div>
     <q-form @submit="onSubmit" class="q-py-lg q-px-md draw-form">
-      <div class="q-mb-sm">{{$t('assets_withdraw_type')}}</div>
+      <div class="q-mb-sm">{{ $t('assets_withdraw_type') }}</div>
       <q-input
         filled
         dense
@@ -11,7 +11,7 @@
         :input-style="{ color: '#fff' }"
         value="RBI"
       />
-      <div class="q-mb-sm q-mt-md">{{$t('assets_withdraw_address')}}</div>
+      <div class="q-mb-sm q-mt-md">{{ $t('assets_withdraw_address') }}</div>
       <q-input
         v-model="formData.address"
         filled
@@ -20,15 +20,19 @@
         :input-style="{ color: '#fff' }"
         :placeholder="$t('assets_placeholder')"
       />
-      <div class="q-mb-sm q-mt-md">{{$t('assets_withdraw_num')}}</div>
+      <div class="q-mb-sm q-mt-md">{{ $t('assets_withdraw_num') }}</div>
       <q-input
         v-model="formData.amount"
-        type="number"
+        @input="amountInput"
         filled
         dense
         :style="nodeInputStyle"
         :input-style="{ color: '#fff' }"
-        :placeholder="lang == 'en-us' ? `Minimum withdrawal amount ${config.withdrawMinNum}` : `最小提币数量${config.withdrawMinNum}`"
+        :placeholder="
+          lang == 'en-us'
+            ? `Minimum withdrawal amount ${config.withdrawMinNum}`
+            : `最小提币数量${config.withdrawMinNum}`
+        "
       >
         <template v-slot:append>
           <span class="text-white" style="font-size: 14px">RBI</span>
@@ -38,15 +42,15 @@
             class="all-btn row justify-center items-center"
             @click="allHandle"
           >
-            {{$t("assets_all")}}
+            {{ $t('assets_all') }}
           </span>
         </template>
       </q-input>
       <div class="q-mt-sm text-grey-5" style="font-size:12px">
-        {{$t('assets_available')}}：{{ config.balance }} RBI
+        {{ $t('assets_available') }}：{{ config.balance }} RBI
       </div>
       <div class="q-mt-lg text-grey-4" style="font-size:14px">
-        {{$t('assets_fee')}}：{{ config.withdrawFeeRate }} RBI
+        {{ $t('assets_fee') }}：{{ config.withdrawFeeRate }} RBI
       </div>
       <div class="row justify-center" style="margin-top: 44px">
         <q-btn
@@ -77,7 +81,7 @@
       :title="$t('assets_setpin')"
       @confirm="unsetPINDialogHandle"
     >
-      <div class="text-grey-8 q-px-lg">{{$t('assets_setpin_first')}}</div>
+      <div class="text-grey-8 q-px-lg">{{ $t('assets_setpin_first') }}</div>
     </Dialog>
     <!-- 设置PIN弹框 -->
     <SetPIN
@@ -102,7 +106,9 @@
           :input-style="{ textAlign: 'center' }"
           no-error-icon
           lazy-rules
-          :rules="[val => (!!val && !(val.length < 6)) || $t('assets_enterpin')]"
+          :rules="[
+            val => (!!val && !(val.length < 6)) || $t('assets_enterpin')
+          ]"
         />
       </q-form>
       <template v-slot:leftBottom>
@@ -111,7 +117,7 @@
           style="color:#666; font-size:13px"
           @click="forgetPIN"
         >
-          {{$t('assets_forgetpin')}}
+          {{ $t('assets_forgetpin') }}
         </span>
       </template>
     </Dialog>
@@ -151,6 +157,14 @@ export default {
     this.lang = this.$i18n.locale
   },
   methods: {
+    amountInput(ev) {
+      if (Number.isNaN(Number(ev))) {
+        this.formData.amount = ''
+      } else if (ev.split('.').length > 1 && ev.split('.')[1].length > 4) {
+        const decimal = ev.split('.')[1].substr(0, 4)
+        this.formData.amount = [ev.split('.')[0], decimal].join('.')
+      }
+    },
     notify(message) {
       this.$q.notify({
         message,
@@ -182,6 +196,11 @@ export default {
     },
     // 输入PIN confirm 事件
     inputPINDialogHandle() {
+      if (this.inputPINValue.length < 6) {
+        return this.notify(
+          this.$t('assets_enterpin')
+        )
+      }
       const res = this.$refs.inputPINVForm.validate()
       if (res) {
         this.PIN = this.inputPINValue
@@ -199,7 +218,10 @@ export default {
           pinCode: this.PIN,
           code
         })
-        this.$router.push({ name: 'success', params: { text: this.$t('com_submit_success') } })
+        this.$router.push({
+          name: 'success',
+          params: { text: this.$t('com_submit_success'), path: '/assets' }
+        })
       } catch (error) {}
     },
     inputPINFocus() {
@@ -210,13 +232,19 @@ export default {
 
     onSubmit() {
       if (!this.formData.address) {
-        return this.notify(`${this.$t('com_enter')}${this.$t('assets_withdraw_address')}`)
+        return this.notify(
+          `${this.$t('com_enter')}${this.$t('assets_withdraw_address')}`
+        )
       } else if (!this.formData.amount) {
-        return this.notify(`${this.$t('com_enter')}${this.$t('assets_withdraw_num')}`)
+        return this.notify(
+          `${this.$t('com_enter')}${this.$t('assets_withdraw_num')}`
+        )
       } else if (
         Number(this.formData.amount) < Number(this.config.withdrawMinNum)
       ) {
-        return this.notify(`${this.$t('notify_withdraw_num')}${this.config.withdrawMinNum}`)
+        return this.notify(
+          `${this.$t('notify_withdraw_num')}${this.config.withdrawMinNum}`
+        )
       } else if (Number(this.formData.amount) > Number(this.config.balance)) {
         return this.notify(this.$t('notify_withdraw_num_lt'))
       }

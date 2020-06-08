@@ -36,6 +36,7 @@
           text-color="dark"
           rounded
           unelevated
+          :disable="loginForm.password.length < 6"
           no-caps
           :label="$t('login_login')"
           class="btn-style full-width"
@@ -202,10 +203,20 @@ export default {
         this.$refs.resetSetPwd.open()
       }
     },
+    notify(message) {
+      this.$q.notify({ message, icon: 'warning', textColor: 'red' })
+    },
     // 设置新密码
     async resetSetPwdCofirm() {
       const res = await this.$refs.newPwdForm.validate()
       if (res) {
+        if (
+          !/^(?=.*?[a-z)(?=.*>[A-Z])(?=.*?[0-9])[a-zA_Z0-9]{6,20}$/.test(
+            this.newPwdForm.first
+          )
+        ) {
+          return this.notify(this.$t('register_password'))
+        }
         try {
           await resetPwd({
             account: this.resetPwdParams.account,
@@ -222,13 +233,15 @@ export default {
       }
     },
     async onSubmit() {
-      const { data } = await getAccountSafeLevel({
-        account: this.loginForm.account
-      })
-      this.securityLevel = data.securityLevel
-      this.$store.dispatch('SetUserInfo', data)
-      this.isLogin = true
-      this.safeShow = true
+      try {
+        const { data } = await getAccountSafeLevel({
+          account: this.loginForm.account
+        })
+        this.securityLevel = data.securityLevel
+        this.$store.dispatch('SetUserInfo', data)
+        this.isLogin = true
+        this.safeShow = true
+      } catch (err) {}
     }
   }
 }
