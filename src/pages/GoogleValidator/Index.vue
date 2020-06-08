@@ -155,7 +155,7 @@ export default {
           })
           this.$router.replace({
             name: 'success',
-            params: { text: this.$t('googel_googel_open_success') }
+            params: { text: this.isBind ? this.$t('googel_googel_reset_success') : this.$t('googel_googel_open_success') }
           })
         } catch (error) {}
       }

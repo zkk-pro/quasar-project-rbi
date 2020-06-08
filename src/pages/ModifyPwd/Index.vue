@@ -175,8 +175,10 @@ export default {
 }
 @media screen and (min-width: 599px) {
   /deep/ .q-form {
-    width: 440px;
-    padding: 40px;
+    // width: 440px;
+    // padding: 40px ;
+    width: 1200px;
+    padding: 80px 400px;
     margin-top: 40px;
     background: rgba(255, 255, 255, 0.05);
   }

@@ -263,5 +263,6 @@ export default {
   googel_copy_success: 'Copy successful',
   googel_copy_fail: 'Copy failed, please refresh the page and try again',
   googel_resend: 'Reacquire',
-  googel_googel_open_success: 'Google validator opened successfully'
+  googel_googel_open_success: 'Google validator opened successfully',
+  googel_googel_reset_success: 'Google validator reseted successfully'
 }

@@ -251,5 +251,6 @@ export default {
   googel_copy_success: '复制成功',
   googel_copy_fail: '复制失败，请刷新网页重试',
   googel_resend: '重新获取',
-  googel_googel_open_success: '谷歌验证器开启成功'
+  googel_googel_open_success: '谷歌验证器开启成功',
+  googel_googel_reset_success: '谷歌验证器重置成功'
 }

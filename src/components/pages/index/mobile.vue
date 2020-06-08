@@ -173,7 +173,7 @@
       >
         <thead>
           <tr>
-            <th>{{ $t('index_node_level') }}</th>
+            <th style="width:50%">{{ $t('index_node_level') }}</th>
             <th>{{ $t('index_node_quality') }}</th>
           </tr>
         </thead>
