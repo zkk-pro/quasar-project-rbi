@@ -180,7 +180,11 @@ export default {
     async unlockHandle() {
       try {
         const { data } = await unlockAsk({ id: this.id })
-        if (data.unlockEnable === 0 || data.unlockEnable === 2) return
+        if (data.unlockEnable === 0) {
+          return this.$q.notify({ message: this.$t('notify_lock') })
+        } else if (data.unlockEnable === 2) {
+          return
+        }
         // 可以解锁
         this.$refs.confirmDialog.open()
         // this.safeShow = true

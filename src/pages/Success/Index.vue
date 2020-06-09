@@ -33,6 +33,7 @@ export default {
     }
   },
   created() {
+    console.log(this.$route.params)
     this.info = this.$route.params
     this.$store.dispatch('UpdateUserInfo')
   }

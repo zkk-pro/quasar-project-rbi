@@ -29,8 +29,8 @@
         height="100%"
         v-model="currentText"
         infinite
-        autoplay
         animated
+        autoplay
         transition-prev="slide-down"
         transition-next="slide-up"
         style="background: inherit; flex: 1"
@@ -44,7 +44,7 @@
             class="notice"
             :to="{ path: '/message-detail', query: { id: item.id } }"
           >
-            <div class="notice-text">{{ item.title }}</div>
+            <div class="notice-text ellipsis">{{ item.title }}</div>
           </router-link>
         </q-carousel-slide>
       </q-carousel>
@@ -55,8 +55,7 @@
 
     <div class="intro q-mt-lg column justify-center items-center q-px-md">
       <img
-        src="~assets/images/index1.png"
-        width="120"
+        :src="getPImg('h5_index1')"
         height="27"
         class="center-img"
       />
@@ -66,7 +65,7 @@
     </div>
     <div class="intro q-mt-xl column justify-center items-center q-px-md">
       <img
-        src="~assets/images/index2.png"
+        :src="getPImg('h5_index2')"
         width="120"
         height="27"
         class="center-img"
@@ -103,8 +102,7 @@
     </div>
     <div class="intro q-mt-xl column justify-center items-center q-px-md">
       <img
-        src="~assets/images/index3.png"
-        width="120"
+        :src="getPImg('h5_index3')"
         height="27"
         class="center-img"
       />
@@ -124,7 +122,7 @@
             {{ $t('index_register_rules3') }}
           </p>
         </div>
-        <img src="~assets/images/sheet1.png" alt="" width="100%" />
+        <img :src="getPImg('h5_sheet1')" alt="" width="100%" />
         <div class="intro-list q-ml-xs q-my-md two-icon">
           {{ $t('index_invite') }}
         </div>
@@ -143,8 +141,7 @@
     </div>
     <div class="intro q-mt-lg column justify-center items-center q-px-md">
       <img
-        src="~assets/images/index4.png"
-        width="120"
+        :src="getPImg('h5_index4')"
         height="27"
         class="center-img"
       />
@@ -161,7 +158,7 @@
       <p class="text-center formula">
         {{ $t('index_pos_trans') }}
       </p>
-      <img src="~assets/images/sheet2.png" alt="" width="100%" />
+      <img :src="getPImg('h5_sheet1')" alt="" width="100%" />
       <p class="text-center formula q-mt-md" style="color:#fff;width:100%">
         {{ $t('index_pos_node') }}
       </p>
@@ -239,6 +236,9 @@ export default {
     }
   },
   methods: {
+    getPImg(src) {
+      return require(`src/assets/images/${this.$t(src)}.png`)
+    },
     // 轮播图打开新页面
     linkTo(link) {
       if (link === '#' || !link) return
@@ -298,6 +298,7 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
+  width: 100%;
 }
 .notice-text {
   color: #fff;

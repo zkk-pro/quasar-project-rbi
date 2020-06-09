@@ -28,7 +28,6 @@
         height="100%"
         v-model="currentText"
         infinite
-        autoplay
         animated
         transition-prev="slide-down"
         transition-next="slide-up"
@@ -43,7 +42,7 @@
             class="notice"
             :to="{ path: '/message-detail', query: { id: item.id } }"
           >
-            <div class="notice-text">{{ item.title }}</div>
+            <div class="notice-text ellipsis">{{ item.title }}</div>
           </router-link>
         </q-carousel-slide>
       </q-carousel>
@@ -61,7 +60,7 @@
       </div>
     </div>
     <div class="intro intro-even q-pt-xl column justify-center items-center">
-      <img :src="getPImg('p_index2')" width="117" />
+      <img :src="getPImg('p_index2')" height="40" />
       <div class="intro2-content intro-content q-mt-lg q-px-lg text-center">
         {{ $t('index_release') }}
       </div>
@@ -79,7 +78,7 @@
       </div>
     </div>
     <div class="intro q-pt-xl column justify-center items-center col-11">
-      <img :src="getPImg('p_index3')" width="158" />
+      <img :src="getPImg('p_index3')" height="40" />
       <div class="intro3 color1 q-mb-md text-left q-px-lg">
         {{ $t('index_register_0') }}
       </div>
@@ -135,7 +134,7 @@
       </div>
     </div>
     <div class="intro intro-even q-pt-xl column justify-center items-center">
-      <img :src="getPImg('p_index4')" width="107px" />
+      <img :src="getPImg('p_index4')" height="40" />
       <div
         class="intro2-content intro-content q-mt-lg q-mb-xl q-px-lg text-center"
       >
@@ -296,12 +295,14 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
+  width: 100%;
 }
 .notice-text {
   color: #3971cd;
   font-size: 14px;
   margin-left: 10px;
   line-height: 40px;
+  width: 92%;
 }
 .notice-more {
   color: #3971cd;

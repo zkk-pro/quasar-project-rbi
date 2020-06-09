@@ -78,6 +78,12 @@ export default {
   p_node_line: 'p_node_line_zh',
   p_sheet1: 'p_sheet1_zh',
   p_sheet2: 'p_sheet2_zh',
+  h5_index1: 'index1_zh',
+  h5_index2: 'index2_zh',
+  h5_index3: 'index3_zh',
+  h5_index4: 'index4_zh',
+  h5_sheet1: 'sheet1_zh',
+  h5_sheet2: 'sheet2_zh',
   index_more: '查看更多',
   index_description_0: 'Risk-free Basic Income（简称：RBI）',
   index_description_1:
@@ -140,6 +146,7 @@ export default {
   mining_lock: '去锁仓',
   mining_node: '节点',
   mining_tips_once: '每个节点只能购买一次',
+  mining_banner: 'mining-banner_zh',
 
   lock_position_node: '锁仓节点',
   lock_position_num: '锁仓数量',

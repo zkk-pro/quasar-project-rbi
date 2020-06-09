@@ -85,6 +85,12 @@ export default {
   p_node_line: 'p_node_line_en',
   p_sheet1: 'p_sheet1_en',
   p_sheet2: 'p_sheet2_en',
+  h5_index1: 'index1_en',
+  h5_index2: 'index2_en',
+  h5_index3: 'index3_en',
+  h5_index4: 'index4_en',
+  h5_sheet1: 'sheet1_en',
+  h5_sheet2: 'sheet2_en',
   index_more: 'See more',
   index_description_0: 'Risk-free Basic Income (abbreviation: RBI) ',
   index_description_1:
@@ -150,6 +156,7 @@ export default {
   mining_lock: 'Lock out',
   mining_node: 'node',
   mining_tips_once: 'Each node can only be purchased once',
+  mining_banner: 'mining-banner_en',
 
   lock_position_node: 'Hedging node',
   lock_position_num: 'Number of locks',

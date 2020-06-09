@@ -9,7 +9,7 @@
     />
     <img
       class="lt-sm"
-      src="~assets/images/mining-banner.png"
+      :src="getPimg('mining_banner')"
       alt="mining-banner"
       width="100%"
     />
@@ -58,6 +58,9 @@ export default {
   },
   components: { Number, NodeLockItem },
   methods: {
+    getPimg(src) {
+      return require(`src/assets/images/${this.$t(src)}.png`)
+    },
     getBannerImg() {
       var en = this.$i18n.locale === 'en-us' ? 'en' : 'zh'
       return require(`src/assets/pc_images/p-mining-banner_${en}.png`)

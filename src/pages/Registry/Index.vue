@@ -209,9 +209,8 @@ export default {
         this.registryForm.type = this.registryType
         try {
           var form = Object.assign({}, this.registryForm)
-          form.password = this.$MD5(
-            form.password
-          ).toString()
+          form.password = this.$MD5(form.password).toString()
+          form.passwordAgen = this.$MD5(form.passwordAgen).toString()
           await registry(form)
           this.$q.notify({
             message: this.$t('com_register_success'),

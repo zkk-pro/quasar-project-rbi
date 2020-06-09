@@ -80,6 +80,8 @@
         v-model="params.paging"
         v-if="logList.length"
         :max="pageInfo.pageMax || 1"
+        :max-pages="6"
+        :boundary-numbers="true"
         direction-links
         @input="pageChange"
         size="12px"
