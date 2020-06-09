@@ -20,7 +20,6 @@
         :name="index"
         :img-src="item.img"
         @click="linkTo(item.link)"
-        style="background-size:100% 100%"
       />
     </q-carousel>
     <div class="notice-box flex items-center" v-if="noticeList.length > 0">

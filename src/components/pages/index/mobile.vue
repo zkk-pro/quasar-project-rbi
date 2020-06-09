@@ -19,7 +19,6 @@
         :name="index"
         :img-src="item.img"
         @click="linkTo(item.link)"
-        style="background-size:100% 100%"
       >
       </q-carousel-slide>
     </q-carousel>
