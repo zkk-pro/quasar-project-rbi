@@ -82,7 +82,7 @@ export default {
     // 安全验证 confirm 事件
     async onSafeConfirm(code) {
       try {
-        await setPIN({ pinCode: this.PINPwd, code })
+        await setPIN({ pinCode: this.$MD5(this.PINPwd).toString(), code })
         await this.$store.dispatch('UpdateUserInfo')
         this.$emit('success')
         this.safeShow = false

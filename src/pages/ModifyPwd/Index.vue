@@ -102,8 +102,10 @@ export default {
       try {
         await userModify({
           code,
-          password: this.form.old,
-          passwordUpdate: this.form.new
+          password: this.$MD5(this.form.old).toString(),
+          passwordUpdate: this.$MD5(this.form.new).toString()
+          // password: this.form.old,
+          // passwordUpdate: this.form.new
         })
         this.$q.notify({
           message: this.$t('com_modify_success'),

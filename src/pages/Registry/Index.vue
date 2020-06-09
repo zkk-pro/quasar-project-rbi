@@ -131,7 +131,11 @@
           <q-checkbox v-model="checked" dense keep-color color="primary">
             <div class="protocol">
               {{ $t('register_agree') }}
-              <router-link to="/protocal" class="text-primary" @click.stop="toProtocal">
+              <router-link
+                to="/protocal"
+                class="text-primary"
+                @click.stop="toProtocal"
+              >
                 {{ $t('register_agreement') }}
               </router-link>
             </div>
@@ -204,7 +208,11 @@ export default {
         }
         this.registryForm.type = this.registryType
         try {
-          await registry(this.registryForm)
+          var form = Object.assign({}, this.registryForm)
+          form.password = this.$MD5(
+            form.password
+          ).toString()
+          await registry(form)
           this.$q.notify({
             message: this.$t('com_register_success'),
             textColor: 'green',

@@ -190,13 +190,19 @@ export default {
     // 安全验证
     async onSafeConfirm(code) {
       if (this.isLogin) {
-        const res = await this.$refs.login.validate()
-        if (res) {
-          this.loginForm.code = code
-          await this.$store.dispatch('Login', this.loginForm)
-          await this.$store.dispatch('UpdateUserInfo')
-          this.$router.push({ path: this.fromPath })
-        }
+        try {
+          const res = await this.$refs.login.validate()
+          if (res) {
+            this.loginForm.code = code
+            this.loginForm.password = this.$MD5(
+              this.loginForm.password
+            ).toString()
+
+            await this.$store.dispatch('Login', this.loginForm)
+            await this.$store.dispatch('UpdateUserInfo')
+            this.$router.push({ path: this.fromPath })
+          }
+        } catch (err) {}
       } else {
         this.resetPwdParams.validCode = code
         this.safeShow = false
@@ -220,7 +226,8 @@ export default {
         try {
           await resetPwd({
             account: this.resetPwdParams.account,
-            password: this.newPwdForm.first,
+            password: this.$MD5(this.newPwdForm.first).toString(),
+            // password: this.newPwdForm.first,
             code: this.resetPwdParams.validCode
           })
           this.$q.notify({

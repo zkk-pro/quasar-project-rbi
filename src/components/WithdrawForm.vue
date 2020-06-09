@@ -113,7 +113,7 @@
       </q-form>
       <template v-slot:leftBottom>
         <span
-          class="row items-center full-height q-ml-sm"
+          class="row items-center full-height q-ml-sm cursor-pointer"
           style="color:#666; font-size:13px"
           @click="forgetPIN"
         >
@@ -215,7 +215,7 @@ export default {
         await withdraw({
           num: this.formData.amount,
           walletAddress: this.formData.address,
-          pinCode: this.PIN,
+          pinCode: this.$MD5(this.PIN).toString(),
           code
         })
         this.$router.push({

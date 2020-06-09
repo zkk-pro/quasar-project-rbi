@@ -98,8 +98,10 @@ export default {
       try {
         await userModify({
           code,
-          pinCode: this.form.old,
-          pinCodeUpdate: this.form.new
+          pinCode: this.$MD5(this.form.old).toString(),
+          pinCodeUpdate: this.$MD5(this.form.new).toString()
+          // pinCode: this.form.old,
+          // pinCodeUpdate: this.form.new
         })
         this.$q.notify({
           message: this.$t('com_modify_success'),
