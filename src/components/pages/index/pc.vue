@@ -130,17 +130,15 @@
           class="intro-right col-sm-12 col-md-6 q-px-xl q-mt-lg"
           style="max-width: 550px"
         >
-          <img
-            :src="getPImg('p_sheet1')"
-            alt=""
-            class="q-mt-lg center-img"
-          />
+          <img :src="getPImg('p_sheet1')" alt="" class="q-mt-lg center-img" />
         </div>
       </div>
     </div>
     <div class="intro intro-even q-pt-xl column justify-center items-center">
       <img :src="getPImg('p_index4')" width="107px" />
-      <div class="intro2-content intro-content q-mt-lg q-mb-xl q-px-lg text-center">
+      <div
+        class="intro2-content intro-content q-mt-lg q-mb-xl q-px-lg text-center"
+      >
         {{ $t('index_pos_mining') }}
       </div>
       <img
@@ -154,21 +152,13 @@
         {{ $t('index_pos_trans') }}
       </p>
       <div style="max-width: 974px">
-        <img
-          :src="getPImg('p_sheet2')"
-          alt=""
-          class="q-my-xl center-img"
-        />
+        <img :src="getPImg('p_sheet2')" alt="" class="q-my-xl center-img" />
       </div>
       <p class="q-my-xl q-px-lg">
         {{ $t('index_pos_node') }}
       </p>
       <div style="max-width: 1150px">
-        <img
-          :src="getPImg('p_node_line')"
-          alt=""
-          class="q-my-xl center-img"
-        />
+        <img :src="getPImg('p_node_line')" alt="" class="q-my-xl center-img" />
       </div>
     </div>
   </q-page>
@@ -196,6 +186,7 @@ export default {
     },
     // 轮播图打开新页面
     linkTo(link) {
+      if (link === '#' || !link) return
       window.open(link, '_blank')
     },
     async getIndexInfo() {

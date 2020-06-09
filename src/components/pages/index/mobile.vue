@@ -241,7 +241,8 @@ export default {
   methods: {
     // 轮播图打开新页面
     linkTo(link) {
-      if (link !== '#') window.open(link, '_blank')
+      if (link === '#' || !link) return
+      window.open(link, '_blank')
     },
     async getIndexInfo() {
       const { data } = await getIndexInfo()
