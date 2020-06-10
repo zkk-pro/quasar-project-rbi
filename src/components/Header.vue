@@ -70,7 +70,7 @@
                   @click="logout"
                 >
                   <q-icon :name="'img:statics/icons/menu-exit.png'"></q-icon>
-                  <span class="q-ml-sm text-dark">{{$t('header_exit')}}</span>
+                  <span class="q-ml-sm text-dark">{{ $t('header_exit') }}</span>
                 </q-item>
               </template>
             </Menu>
@@ -96,15 +96,17 @@
                   @click="logout"
                 >
                   <q-icon :name="'img:statics/icons/menu-exit.png'"></q-icon>
-                  <span class="q-ml-sm text-dark">{{$t('header_exit')}}</span>
+                  <span class="q-ml-sm text-dark">{{ $t('header_exit') }}</span>
                 </q-item>
               </template>
             </Menu>
           </div>
           <div v-else>
-            <router-link to="/registry">{{$t('header_register')}}</router-link>
+            <router-link to="/registry">{{
+              $t('header_register')
+            }}</router-link>
             <span class="q-px-md">|</span>
-            <router-link to="/login">{{$t('header_login')}}</router-link>
+            <router-link to="/login">{{ $t('header_login') }}</router-link>
           </div>
         </div>
       </div>
@@ -124,8 +126,16 @@ export default {
         { text: 'header_leftmenu3', icon: 'menu-assets', path: '/assets' }
       ],
       accountMenu: [
-        { text: 'header_rightmenu1', icon: 'menu-order', path: '/mining-order' },
-        { text: 'header_rightmenu2', icon: 'menu-earning', path: '/earning-detail' },
+        {
+          text: 'header_rightmenu1',
+          icon: 'menu-order',
+          path: '/mining-order'
+        },
+        {
+          text: 'header_rightmenu2',
+          icon: 'menu-earning',
+          path: '/earning-detail'
+        },
         { text: 'header_rightmenu3', icon: 'menu-user', path: '/user-info' }
       ]
     }
@@ -134,11 +144,9 @@ export default {
   methods: {
     changeLanguage() {
       location.reload()
-      setTimeout(() => {
-        const language = this.$store.getters.language === 'zh-cn' ? 'en-us' : 'zh-cn'
-        this.$store.dispatch('ChangeLanguage', language)
-        this.$i18n.locale = language
-      })
+      const language =
+        this.$store.getters.language === 'zh-cn' ? 'en-us' : 'zh-cn'
+      this.$store.dispatch('ChangeLanguage', language)
     },
     // 退出
     logout() {
