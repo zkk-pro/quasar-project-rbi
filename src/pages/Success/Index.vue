@@ -3,11 +3,18 @@
     <div class="success-icon">
       <img src="~assets/images/lock-success.png" alt="" />
     </div>
-    <div class="q-mt-md q-mb-sm" style="font-size:17px; font-weight:bold;">{{info.text}}</div>
+    <div class="q-mt-md q-mb-sm" style="font-size:17px; font-weight:bold;">
+      {{ info.text }}
+    </div>
     <div class="text-primary" style="height:14px">
-      <span v-if="info.date && $i18n.locale == 'en-us'">Expected to start calculating revenue in {{currentNode.interestTimeBegin | formatDate}}</span>
-      <span v-if="info.date">预计{{info.date | formatDate}}开始计算收益</span>
-      </div>
+      <span v-if="info.date && $i18n.locale == 'en-us'"
+        >Expected to start calculating revenue in
+        {{ info.date | formatDate }}</span
+      >
+      <span v-if="info.date && $i18n.locale == 'zh-cn'"
+        >预计{{ info.date | formatDate }}开始计算收益</span
+      >
+    </div>
     <q-btn
       rounded
       :label="$t('com_finish')"
@@ -33,7 +40,9 @@ export default {
     }
   },
   created() {
-    console.log(this.$route.params)
+    if (!Object.keys(this.$route.params).length) {
+      return this.$router.replace({ path: '/' })
+    }
     this.info = this.$route.params
     this.$store.dispatch('UpdateUserInfo')
   }
